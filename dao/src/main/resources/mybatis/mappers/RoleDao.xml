@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.RoleDao">
+
+	<!-- 根据 id 获取 role -->
+	<select id="getRole" parameterType="string" resultType="com.sunshine.model.Role">
+		SELECT
+		id, rolename, pid FROM t_role WHERE id = #{id}
+	</select>
+
+	<!-- 获取所有role -->
+	<select id="listAllRoles" resultType="com.sunshine.model.Role">
+		SELECT id, rolename, pid
+		FROM t_role
+	</select>
+
+	<!-- 向角色表插入一条记录 -->
+	<insert id="saveRole" parameterType="com.sunshine.model.Role"
+		useGeneratedKeys="true">
+		INSERT INTO t_role(id, rolename, pid) VALUES(#{id},
+		#{roleName}, #{pid})
+	</insert>
+
+	<!-- 查询角色名字是否重复 -->
+	<select id="countByName" parameterType="string" resultType="int">
+		SELECT COUNT(1) FROM t_role WHERE rolename = #{roleName}
+	</select>
+
+	<!-- 跟新角色信息 -->
+	<update id="updateRole" parameterType="com.sunshine.model.Role">
+		UPDATE t_role SET rolename
+		= #{roleName}, pid = #{pid} WHERE id = #{id}
+	</update>
+
+	<!-- 删除指定的 role -->
+	<delete id="removeRole" parameterType="string">
+		DELETE FROM t_role WHERE
+		id = #{id}
+	</delete>
+</mapper>

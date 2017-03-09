@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                        http://www.springframework.org/schema/tx 
+                        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                        http://www.springframework.org/schema/util 
+                        http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+    <!-- 引入spring-mybatis.xml 配置文件 -->
+    <import resource="spring-mybatis.xml" />
+    
+    <!-- 自动扫描(自动注入)，扫描cn.yunhe.spring这个包以及它的子包的所有使用@注解标注的类 -->
+    <context:component-scan base-package="com.sunshine.service" />
+    
+    <!--配置事务管理器  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+       <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- 为添加 @AspectJ 注解的类自动织入切面 -->
+    <aop:aspectj-autoproxy />
+    
+    <!-- 开启事务的注解驱动 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

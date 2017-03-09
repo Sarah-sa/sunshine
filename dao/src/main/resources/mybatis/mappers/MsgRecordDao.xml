@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.MsgRecordDao">
+	<select id="getMsgRecord" parameterType="string" resultType="map">
+		select 
+		u.username username, mr.send_time sendTime, mr.content content, s.username staffName 
+		from t_msg_record mr inner join t_user u on mr.user_id=u.id inner join t_user s on 
+		mr.staff_id=s.id where mr.id=#{id}
+	</select>
+	<select id="listAllMsgRecord" resultType="map">
+	select 
+		u.username username, mr.send_time sendTime, mr.content content, s.username staffName 
+		from t_msg_record mr inner join t_user u on mr.user_id=u.id inner join t_user s on 
+		mr.staff_id=s.id 
+	</select>
+</mapper>

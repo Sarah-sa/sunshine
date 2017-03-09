@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.RoleAuthDao">
+	<sql id="fields">
+		id, role_id, module_id
+	</sql>
+	
+	<!-- 根据 id 获取 角色-目录记录 -->
+	<select id="getRoleModule" parameterType="string">
+		SELECT <include refid="fields" /> FROM t_role_module WHERE id = #{id}
+	</select>
+	
+	<!-- 向数据库添加一条 角色-目录映射 -->
+	<insert id="saveRoleModule" useGeneratedKeys="true">
+		INSERT INTO t_role_module(<include refid="fields" />) VALUES(#{id}, #{roldId}, #{moduleId})
+	</insert>
+	
+	<!-- 根据 id 删除一条 角色-目录 记录 -->
+	<delete id="removeRoleModule" parameterType="string">
+		DELETE FROM t_role_module WHERE id = #{id}
+	</delete>
+	
+	<!-- 批量添加角色-目录映射 -->
+	<insert id="batchSaveRoleModule">
+		INSERT INTO t_role_module(<include refid="fields" />) VALUES
+		<foreach collection="list" item="roleModule" separator=",">
+			
+		</foreach>
+	</insert>
+</mapper>

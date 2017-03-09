@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.VisitRecordDao">
+	<!--按照id获得单个走访记录对象 -->
+	<select id="getVisitRecord" parameterType="string"
+		resultType="com.sunshine.model.VisitRecord">
+		select * from t_visit_record where id = #{id}
+	</select>
+
+	<!--获得所有的走访记录 -->
+	<select id="listVisitRecord" resultType="com.sunshine.model.VisitRecord">
+		select * from t_visit_record
+	</select>
+
+	<!--插入 走访记录 信息 注意！：对可能是空值的字段要标明jdbcType -->
+	<insert id="saveVisitRecord" parameterType="com.sunshine.model.VisitRecord">
+		insert into t_visit_record
+		(id,elder_id,content,staff_id,create_time,plan_time,exec_time,status)
+		values
+		(#{id},#{elderId},#{content,jdbcType=VARCHAR},#{staffId},#{createTime},#{planTime},#{execTime,jdbcType=DATE},#{status})
+	</insert>
+
+	<!--更新 走访记录 信息 注意！：对可能是空值的字段要标明jdbcType -->
+	<update id="updateVisitRecord" parameterType="com.sunshine.model.VisitRecord">
+		update t_visit_record set
+		elder_id = #{elderId},
+		content = #{content,jdbcType=VARCHAR},
+		staff_id = #{staffId},
+		create_time = #{createTime},
+		plan_time = #{planTime},
+		exec_time = #{execTime,jdbcType=DATE},
+		status = #{status}
+		where id = #{id}
+	</update>
+
+	<!--根据id删除 走访记录 -->
+	<delete id="removeVisitRecord" parameterType="string">
+		delete from t_visit_record where id = #{id}
+	</delete>
+
+
+</mapper>

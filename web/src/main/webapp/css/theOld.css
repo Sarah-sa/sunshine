@@ -1,0 +1,183 @@
+*{
+	margin:0;
+	padding:0;
+	font-size: "微软雅黑";
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color:black;
+}
+img{
+	display: block;
+	border:none;
+}
+.head{
+	background: url(../images/p6_background.jpg) center center;
+	background-size: 100% 100%;
+	overflow: hidden;
+	position: relative;
+}
+.nav{
+	height: 150px;
+	background-color:gray;
+	overflow: hidden;
+	/*position: relative;*/
+}
+.nav_box{
+	width:100%;
+	height: 80px;
+	/*background: green;*/
+	float: left;
+}
+.nav_div{
+	height:80px;
+	float: left;
+	overflow: hidden;
+	margin-left: 10px;
+}
+.nav_div li{
+	float: left;
+	height: 80px;
+	color:white;
+}
+.nav_logo{
+	background:white;
+	width: 80px;
+	height: 80px;
+}
+.nav_li{
+	line-height: 80px;
+	font-size: 28px;
+	text-align: center;
+}
+.nav_ll{
+	font-size: 16px;
+}
+.nav_big{
+	width: 100%;
+	height: 70px;
+	overflow: hidden;
+}
+.nav_ul{
+	height: 30px;
+}
+.nav_ul li{
+	float: left;
+	height: 30px;
+	margin-left: 10px;
+	margin-top: 20px;
+	font-size: 14px;
+	line-height: 30px;
+}
+.nav_kj{
+	width: 200px;
+	color:white;
+	background: green;
+	text-indent: 15px;
+	border-radius: 5px;
+}
+.nav_sec{
+	background: white;
+	width: 80px;
+	color:black;
+}
+.nav_phone{
+	width: 100px;
+	color:black;
+	text-align: center;
+}
+.nav_size{
+	background: white;
+	width: 50px;
+	color:black;
+	text-align: center;
+	border-radius: 5px;
+}
+.nav_pho{
+	background: white;
+	width: 200px;
+}
+.nav_sj{
+	width: 50px;
+	background-color:green;
+	border-radius: 5px;
+}
+.nav_mSize{
+	width: 80px;
+	background: white;
+	text-align: center;
+}
+.nav_date{
+	width: 250px;
+	float: right;
+	background: gray;
+}
+.content{
+	width: 100%;
+}
+.sidebar{
+	width: 100%;
+	overflow: hidden;
+	margin-top:50px;
+	margin-left: 10px;
+	position: relative;
+}
+.side_ul{
+	float: left;
+	background: green;
+	width: 200px;
+}
+.side_ul li{
+	height: 63px;
+	line-height: 63px;
+	text-align: center;
+	border-bottom: 1px solid gray;
+	cursor: pointer;
+}
+.side_cen{
+	background: gray;
+	margin-left: 115px;
+	float: left;
+}
+.sm{
+	width:100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background:black;
+	overflow: hidden;
+}
+.sm1{
+	width: 660px;
+	margin:0 auto;
+	margin-top: 40px;
+}
+.sm li{
+	
+	float: left;
+	width: 100px;
+	margin-left: 10px;
+	background-color: white;
+	text-align:center;
+}
+.side_pre{
+	width: 300px;
+	height: 640px;
+	position: absolute;
+	left: 200px;
+	top:0;
+	background: red;
+	display: none;
+}
+.side_box{
+	width:300px;
+	height: 640px; 
+	/*background-color:green;*/
+	/*display: none;*/
+	position: absolute;
+	top:0;
+	left: 0;
+}

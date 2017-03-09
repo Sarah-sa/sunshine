@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.RoleAuthDao">
+
+	<sql id="fields">
+		id, role_id, auth_id
+	</sql>
+	
+	<!-- t_role_auth 与 类 RoleAuth 的映射 -->
+	<resultMap type="com.sunshine.model.RoleAuth" id="roleAuth">
+		<id property="id" column="id"/>
+		<result property="roleId" column="role_id" />
+		<result property="authId" column="auth_id"/>
+	</resultMap>
+	
+	<!-- 根据id 获取一条 RoleAuth 映射记录 -->
+	<select id="getRoleAuth" parameterType="string" resultMap="roleAuth">
+		SELECT <include refid="fields" /> FROM t_role_auth WHERE id = #{id}
+	</select>
+	
+	<!-- 保存一条 RoleAuth 记录 -->
+	<insert id="saveRoleAuth" parameterType="com.sunshine.model.RoleAuth">
+		INSERT INTO t_role_auth(<include refid="fields" />) VALUES(#{id}, #{roleId}, #{authId})
+	</insert>
+	
+	<!-- 删除指定id 的 RoleAuth 记录 -->
+	<delete id="removeRoleAuth" parameterType="string">
+		DELETE FROM t_role_auth WHERE id = #{id}
+	</delete>
+	
+	<!-- 批量添加 RoleAuth 记录 -->
+	<insert id="batchSaveRoleAuth">
+		INSERT INTO t_role_auth(<include refid="fields" />) VALUES
+		<foreach collection="list" item="roleAuth" separator=",">
+			(#{roleAuth.id}, #{roleAuth.roleId}, #{roleAuth.authId})
+		</foreach>
+	</insert>
+	
+	<!-- 批量删除 RoleAuth 记录 -->
+	<delete id="batchRemoveRoleAuth">
+		DELETE FROM t_role_auth WHERE id in 
+		<foreach collection="list" item="raid" separator="," open="(" close=")">
+			#{raid}
+		</foreach>
+	</delete>
+	
+	<!-- 根据角色id获取该角色所拥有的所有权限 -->
+	<select id="listAuthoritiesByRoleId" resultType="com.sunshine.model.Authority">
+		SELECT id, name, url FROM t_authority WHERE id in
+		(
+			SELECT auth_id FROM t_role_auth WHERE role_id = #{id}
+		)
+	</select>
+</mapper>

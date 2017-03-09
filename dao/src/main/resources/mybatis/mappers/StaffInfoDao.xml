@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.StaffInfoDao">
+     <!--获取所有的座席人员信息列表 -->
+    <select id="getListStaff" resultType="com.sunshine.model.StaffInfo">
+     select * from t_staff_info
+    </select>
+    <!--插入座席人员-->
+    <insert id="saveStaff"  parameterType="com.sunshine.model.StaffInfo">
+     insert into t_staff_info(u_id,nickname,birthday,gender,address,tel,photo,status)
+     values (#{uid},#{nickName},#{birthday},#{gender},#{address},#{photo},#{tel},
+      #{status})
+    </insert>
+     <!--修改座席人员信息-->
+    <update id="updateStaff" parameterType="com.sunshine.model.StaffInfo"  >
+      update t_staff_info set nickname=#{nickName},birthday=#{birthday},gender=#{gender},
+     address=#{address},tel=#{tel}, photo=#{photo}, status=#{status} where u_id=#{uid}
+    </update>
+     <!--删除座席人员信息-->
+    <delete id="delStaff" parameterType="String">
+     delete from t_staff_info where u_id=#{uid}
+    </delete>
+    
+
+</mapper>

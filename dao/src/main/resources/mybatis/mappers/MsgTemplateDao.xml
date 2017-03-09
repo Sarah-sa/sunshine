@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 短信模板表数据操作Mapper 云和数据-李牧 -->
+<mapper namespace="com.sunshine.dao.MsgTemplateDao">
+	<!-- 短信模板表根据id查询数据操作Mapper 云和数据-李牧 -->
+	<select id="getMsgTemplate" parameterType="string"
+		resultType="com.sunshine.model.MsgTemplate">
+		select * from t_msg_template where id=#{id}
+	</select>
+	<!-- 短信模板表查询所有数据操作Mapper 云和数据-李牧 -->
+	<select id="listAllMsgTemplate" resultType="com.sunshine.model.MsgTemplate">
+		select * from t_msg_template
+	</select>
+	<!-- 短信模板表更改数据操作Mapper 云和数据-李牧 -->
+	<update id="updateMsgTemplate" parameterType="com.sunshine.model.MsgTemplate">
+		update t_msg_template set title=#{title},content=#{content} where id=#{id}
+	</update>
+	<!-- 短信模板表插入数据操作Mapper 云和数据-李牧 -->
+	<insert id="saveMsgTemplate" parameterType="com.sunshine.model.MsgTemplate">
+		insert into t_msg_template (id,title,content)
+		value(#{id},#{title},#{content})
+	</insert>
+	<!-- 短信模板表删除数据操作Mapper 云和数据-李牧 -->
+	<delete id="removeMsgTemplate" parameterType="string">
+		delete from t_msg_template where id=#{id}
+	</delete>
+</mapper>

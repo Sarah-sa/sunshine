@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper  namespace="com.sunshine.dao.UserDao">
+	<!-- 用户注册 -->
+	<insert id="saveUser" parameterType="com.sunshine.model.User">
+		insert into t_user(id,userName,roleId,phone,email,pwd,realName,idCard,communityId)
+		value(#{id},#{userName},#{roleId},#{phone},#{email},#{pwd},#{realName},#{idCard},#{communityId})
+	</insert>
+
+	<!-- 删除用户 -->
+	<delete id="removeUser" parameterType="int">
+		delete from t_user where id = #{id}
+	</delete>
+	<!-- 用户修改个人信息 -->
+	<update id="updateUser" parameterType="com.sunshine.model.User">
+		update t_user set userName =#{userName},phone= #{phone},email= #{email} where id = #{id}
+	</update>
+	<!-- 用户的登录 -->
+	<select id="login" parameterType="com.sunshine.model.User" resultType="string">
+		select id from t_user  where userName=#{name} and pwd=#{pwd}
+	</select>
+	<!-- 查询用户 -->
+	<select id="getuser" parameterType="string" resultType="com.sunshine.model.User">
+	select * from t_user where id=#{id}
+	</select>
+</mapper>
