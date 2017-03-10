@@ -96,4 +96,10 @@ public class Steps {
 		this.elder_id = elder_id;
 	}
 
+	@Override
+	public String toString() {
+		return "Steps [id=" + id + ", distance=" + distance + ", steps=" + steps + ", calorie=" + calorie
+				+ ", upload_date=" + upload_date + ", elder_id=" + elder_id + "]";
+	}
+
 }

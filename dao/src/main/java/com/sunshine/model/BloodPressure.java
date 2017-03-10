@@ -110,4 +110,10 @@ public class BloodPressure {
 		this.elder_id = elder_id;
 	}
 
+	@Override
+	public String toString() {
+		return "BloodPressure [id=" + id + ", highpressure=" + highpressure + ", lowpressure=" + lowpressure
+				+ ", status=" + status + ", pr=" + pr + ", exam_time=" + exam_time + ", elder_id=" + elder_id + "]";
+	}
+
 }
