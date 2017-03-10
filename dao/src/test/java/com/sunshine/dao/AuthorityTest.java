@@ -55,6 +55,7 @@ public class AuthorityTest extends InitTestCase {
 		rms.add(rm);
 		rmDao.batchSaveRoleModule(rms);
 	}
+	
 	@Test
 	public void testBuildModuleTree() {
 		List<Module> ms = rmDao.listModulesByRoleId("1da6ec63-c610-4cd0-94c3-c6b068ca1411");
