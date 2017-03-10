@@ -1,11 +1,8 @@
 package com.sunshine.controller;
-/**
- * 用户表的业务控制层，主要功能为用户登陆注册 增删改查
- * 
- * @author 云和数据-李颜
- *
- */
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +19,7 @@ public class UserController {
 	private UserService UserService;
 
 	/**
-	 * 用户修改信息
+	 * 用户修改
 	 * @param user
 	 * @return
 	 */
@@ -81,7 +78,6 @@ public class UserController {
 		UserService.getuser(id);
 		return "success";
 	}
-	
 	
 	@RequestMapping("/get5")
 	@ResponseBody

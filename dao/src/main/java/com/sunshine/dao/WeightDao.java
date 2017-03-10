@@ -15,8 +15,7 @@ public interface WeightDao {
 	/**
 	 * 根据时间查体重
 	 * 
-	 * @param sdate
-	 * @param edate
+	 * @param exam_time
 	 * @return
 	 */
 	List<Weight> getWeight(Date sdate, Date edate);

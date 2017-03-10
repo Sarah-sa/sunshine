@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 文化生活参赛表t_apply数据操作Mapper 云和数据-任继鹏 -->
+<mapper namespace="com.sunshine.dao.ApplyDao">
+<!-- 文化生活参赛表插入数据操作Mapper 云和数据-任继鹏 -->
+<insert id="saveApply" parameterType="com.sunshine.model.Apply">
+insert into t_apply(name,age,sex,phone,address) values(#{name},#{age},#{sex},#{phone},#{address}) 
+</insert>
+<delete id="removeApply" parameterType="String">
+delete form t_apply where id=#{id}
+</delete>
+</mapper>

@@ -13,11 +13,6 @@ public class Weight {
 	 * 体重编号
 	 */
 	private String id;
-	@Override
-	public String toString() {
-		return "Weight [id=" + id + ", weight=" + weight + ", exam_time=" + exam_time + ", elder_id=" + elder_id + "]";
-	}
-
 	/**
 	 * 体重
 	 */

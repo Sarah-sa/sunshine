@@ -15,8 +15,7 @@ public interface UricAcaidDao {
 	/**
 	 * 根据时间查尿酸
 	 * 
-	 * @param sdate
-	 * @param edate
+	 * @param exam_time
 	 * @return
 	 */
 	List<UricAcaid> getUricAcaid(Date sdate, Date edate);

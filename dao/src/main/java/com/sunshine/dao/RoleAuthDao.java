@@ -3,6 +3,7 @@ package com.sunshine.dao;
 import java.util.List;
 
 import com.sunshine.model.Authority;
+import com.sunshine.model.Role;
 import com.sunshine.model.RoleAuth;
 
 /**
@@ -56,6 +57,13 @@ public interface RoleAuthDao {
 	 * @return 数据库中受影响的记录数
 	 */
 	int batchRemoveRoleAuth(List<String> ids);
+	
+	/**
+	 * 移除指定角色的所有权限
+	 * @param roleId 角色id
+	 * @return 数据库中受影响的记录数
+	 */
+	int removeAllAuthByRole(String roleId);
 
 	/**
 	 * 获取某角色的权限集合
@@ -65,4 +73,5 @@ public interface RoleAuthDao {
 	 * @return 指定角色权限的集合
 	 */
 	List<Authority> listAuthoritiesByRoleId(String rid);
+
 }
