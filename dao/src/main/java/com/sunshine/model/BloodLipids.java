@@ -9,6 +9,12 @@ import java.util.Date;
  *
  */
 public class BloodLipids {
+	@Override
+	public String toString() {
+		return "BloodLipids [id=" + id + ", serumlipid=" + serumlipid + ", exam_time=" + exam_time + ", status="
+				+ status + ", elder_id=" + elder_id + "]";
+	}
+
 	/**
 	 * 血脂表的编号
 	 */
