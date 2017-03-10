@@ -1,10 +1,8 @@
 package com.sunshine.controller;
 
 import java.util.Date;
-
+import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.sun.tools.javac.util.List;
 import com.sunshine.model.UricAcaid;
 import com.sunshine.service.UricAcaidService;
 
