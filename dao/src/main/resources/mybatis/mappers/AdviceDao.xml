@@ -2,21 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 文化生活通告表t_advice数据操作Mapper 云和数据-任继鹏 -->
 <mapper namespace="com.sunshine.dao.AdviceDao">  
-
+<!-- 文化生活通告表插入数据操作Mapper 云和数据-任继鹏 -->
 <insert id="saveAdvice" parameterType="com.sunshine.model.Advice">
   insert into t_advice(id,title,description,start_time,end_time,location,publish_time,advice_ctgy_id) values(#{id},#{title},#{description},#{startTime},#{endTime},#{location},#{publishTime},#{adviceCtgyId})
   </insert>
+  <!-- 文化生活通告表根据id查询数据操作Mapper 云和数据-任继鹏  -->
    <select id="getAdvice" resultType="com.sunshine.model.Advice" parameterType="String">
 		select * from t_advice where id = #{id}
 	</select>
+	<!-- 文化生活通告表查询所有数据操作Mapper 云和数据-任继鹏  -->
 	<select id="ListAllAdvice" resultType="com.sunshine.model.Advice">
-		select id,location,publish_time,title from t_advice
+		select * from t_advice
 	</select>
-	
+	<!-- 文化生活通告表删除数据操作Mapper 云和数据-任继鹏  -->
 	<delete id="removeAdvice" parameterType="String">
 		delete from t_advice where id=#{id}
 	</delete>
+	<!-- 文化生活通告表修改数据操作Mapper 云和数据-任继鹏  -->
 	<update id="updateAdvice" parameterType="com.sunshine.model.Advice">
 		update t_advice set
 		publisher=#{publisher},

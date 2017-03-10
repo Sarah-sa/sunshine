@@ -7,10 +7,10 @@ import com.sunshine.model.Advice;
 import com.sunshine.model.Page;
 
 /**
- * 业务层
- * @author Administrator
- *
- */
+* 通告的业务接口
+*@author 任继鹏
+* 2017年3月8日  
+*/
 public interface AdviceService {
 	/**
 	 * 添加公告
@@ -23,7 +23,7 @@ public interface AdviceService {
 	 * @param advice
 	 * @return
 	 */
-	public int removeAdvice(String Id);
+	public int removeAdvice(String id);
 	/**
 	 * 模糊查询通告列表
 	 * @param advice
@@ -34,7 +34,7 @@ public interface AdviceService {
 	 * 查看公告详情
 	 * @return
 	 */
-	public Advice getAdvice(String Id);
+	public Advice getAdvice(String id);
 	/**
 	 * 修改公告
 	 * @param advice
