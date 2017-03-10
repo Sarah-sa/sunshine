@@ -38,6 +38,11 @@
 		</foreach>
 	</insert>
 	
+	<!-- 删除指定角色的所有权限 -->
+	<delete id="removeAllAuthByRole" parameterType="string">
+		DELETE FROM t_role_auth WHERE role_id = #{id}
+	</delete>
+	
 	<!-- 批量删除 RoleAuth 记录 -->
 	<delete id="batchRemoveRoleAuth">
 		DELETE FROM t_role_auth WHERE id in 
@@ -48,7 +53,7 @@
 	
 	<!-- 根据角色id获取该角色所拥有的所有权限 -->
 	<select id="listAuthoritiesByRoleId" resultType="com.sunshine.model.Authority">
-		SELECT id, name, url FROM t_authority WHERE id in
+		SELECT id, name, url FROM t_authority WHERE id IN
 		(
 			SELECT auth_id FROM t_role_auth WHERE role_id = #{id}
 		)

@@ -2,10 +2,12 @@ package com.sunshine.model;
 
 /**
  *  菜单表 t_module
+ *  添加Comparable<Module>接口 By 王辉
  * @author 云和数据-边晓鹏
+ * @author 云和数据-王辉
  *
  */
-public class Module {
+public class Module implements Comparable<Module> {
 
 	//权限id
 	private String id;
@@ -42,6 +44,13 @@ public class Module {
 	@Override
 	public String toString() {
 		return "Module [id=" + id + ", name=" + name + ", pid=" + pid + ", icon=" + icon + "]";
+	}
+	
+	@Override
+	public int compareTo(Module module) {
+		if (module == null)
+			return 1;
+		return id.compareTo(module.getId());
 	}
 	
 }
