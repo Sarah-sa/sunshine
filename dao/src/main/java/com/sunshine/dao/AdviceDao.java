@@ -5,11 +5,9 @@ import java.util.Map;
 
 import com.sunshine.model.Advice;
 
-
-
 /**
  * 文化生活-通知表 t_advice数据接口
- * @author 云和数据-边晓鹏
+ * @author 云和数据-任继鹏
  *
  * Administrator
  */
@@ -30,7 +28,7 @@ public interface AdviceDao {
 	 * 查看公告详情
 	 * @return
 	 */
-	public Advice getAdvice(String Id);
+	public Advice getAdvice(String id);
 	/**
 	 * 修改公告
 	 * @param advice
@@ -42,5 +40,5 @@ public interface AdviceDao {
 	 * @param advice
 	 * @return
 	 */
-	public  int removeAdvice(String Id);
+	public  int removeAdvice(String id);
 }
