@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.LoginRecordDao">
+   <!--获取所有的座席登录记录-->
+	<select id="getLoginRecord"  resultType="map">
+    select l.staff_id,l.ipaddress,l.login_time,l.logout_time, si.nickname from t_login_record l inner join
+    t_staff_info si on l.staff_id=si.u_id 
+	</select> 
+</mapper>
