@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 文化生活通告表t_activity数据操作Mapper 云和数据-任继鹏 -->
+<mapper namespace="com.sunshine.dao.ActivityDao"> 
+ <!-- 文化生活活动表根据当前时间查询历史数据操作Mapper 云和数据-任继鹏  -->
+<select id="ListAllActivity" resultType="com.sunshine.model.Activity" parameterType="Date">
+<!--select * from t_activity where date_end<'#{time}'  -->
+</select>
+<!-- 文化生活活动表根据时间查询历史数据操作Mapper 云和数据-任继鹏  -->
+<!--<select id="ListAllAti" parameterType="Timestamp">
+select * from t_activity where date_end>'date'
+</select> -->
+</mapper> 
