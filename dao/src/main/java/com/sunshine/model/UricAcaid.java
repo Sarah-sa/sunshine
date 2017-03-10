@@ -13,6 +13,12 @@ public class UricAcaid {
 	 * 尿酸编号
 	 */
 	private String id;
+	@Override
+	public String toString() {
+		return "UricAcaid [id=" + id + ", priceuric=" + priceuric + ", exam_time=" + exam_time + ", status=" + status
+				+ ", elder_id=" + elder_id + "]";
+	}
+
 	/**
 	 * 尿酸值
 	 */
