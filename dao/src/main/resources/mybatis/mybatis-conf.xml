@@ -63,7 +63,12 @@
 		<mapper resource="mybatis/mappers/ElderDao.xml" />
 		<mapper resource="mybatis/mappers/ElderUserDao.xml" />
 		<mapper resource="mybatis/mappers/WeightDao.xml" />
-		<mapper resource="mybatis/mappers/BloodLipidsDao.xml" />
+		  <mapper resource="mybatis/mappers/BloodLipidsDao.xml" />
+		
+		<mapper resource="mybatis/mappers/BloodPressure.xml" />
+		<mapper resource="mybatis/mappers/BloodSugarDao.xml" />
+		<mapper resource="mybatis/mappers/StepsDao.xml" />
+        
 		
 	</mappers>
 </configuration>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.BloodSugarDao">  
+<select id="getBloodSugar" parameterType="com.sunshine.model.BloodSugar"
+		 resultType="com.sunshine.model.BloodSugar">
+		select exam_time,bloodglucose,status from t_blood_sugar where exam_time between #{0} and#{1}
+	</select>
+	
+	<insert id="saveBloodSugar" parameterType="com.sunshine.model.BloodSugar">
+  insert into t_blood_sugar(id,elder_id,bloodglucose,status,exam_time) values(#{id},#{elder_id},#{bloodglucose},#{status},#{exam_time})
+  </insert>
+  <select id="listAllBloodSugar" resultType="com.sunshine.model.BloodSugar">
+		select id,elder_id,bloodglucose,status,exam_time from t_blood_sugar
+	</select>
+  <delete id="removeBloodSugar" parameterType="String">
+		delete from t_blood_sugar where id=#{id}
+	</delete>
+	<update id="updateBloodSugar" parameterType="com.sunshine.model.BloodSugar">
+		update t_blood_sugar set
+		elder_id=#{elder_id},
+		bloodglucose=#{bloodglucose},
+		status=#{status},
+		exam_time=#{exam_time}
+		where id=#{id}
+	</update>
+</mapper>

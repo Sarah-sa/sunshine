@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.StepsDao">  
+<select id="getSteps" parameterType="com.sunshine.model.Steps"
+		 resultType="com.sunshine.model.Steps">
+		select id,elder_id,upload_date,distance,steps,calorie from t_steps where upload_date between #{0} and #{1}
+	</select>
+	
+	<insert id="saveSteps" parameterType="com.sunshine.model.Steps">
+  insert into t_steps(id,elder_id,distance,steps,calorie,upload_date) values(#{id},#{elder_id},#{distance},#{steps},#{calorie},#{upload_date})
+  </insert>
+  <select id="listAllSteps" resultType="com.sunshine.model.Steps">
+		select id,elder_id,distance,steps,calorie,upload_date from t_steps
+	</select>
+  <delete id="removeSteps" parameterType="String">
+		delete from t_steps where id=#{id}
+	</delete>
+	<update id="updateSteps" parameterType="com.sunshine.model.Steps">
+		update t_steps set
+		distance=#{distance},
+		steps=#{steps},
+		calorie=#{calorie}
+		where id=#{id}
+	</update>
+</mapper>
