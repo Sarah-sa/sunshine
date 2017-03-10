@@ -62,5 +62,6 @@
 		<mapper resource="mybatis/mappers/WeightDao.xml" />
 		<mapper resource="mybatis/mappers/BloodLipidsDao.xml" />
 		<mapper resource="mybatis/mappers/UricAcaidDao.xml" />
+		<mapper resource="mybatis/mappers/PositionDao.xml" />
 	</mappers>
 </configuration>
