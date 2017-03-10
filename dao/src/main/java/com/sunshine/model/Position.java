@@ -9,6 +9,8 @@ import java.util.Date;
  *
  */
 public class Position {
+	
+
 	/**
 	 * 地图编号
 	 */
@@ -83,5 +85,9 @@ public class Position {
 	public void setUpload_time(Date upload_time) {
 		this.upload_time = upload_time;
 	}
-
+	@Override
+	public String toString() {
+		return "Position [id=" + id + ", x=" + x + ", y=" + y + ", elder_id=" + elder_id + ", upload_time="
+				+ upload_time + "]";
+	}
 }
