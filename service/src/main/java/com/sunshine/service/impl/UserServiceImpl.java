@@ -1,5 +1,10 @@
 package com.sunshine.service.impl;
-
+/**
+ * 用户表服务层的接口实现类，主要功能为用户登陆注册 增删改查
+ * 
+ * @author 云和数据-李颜
+ *
+ */
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

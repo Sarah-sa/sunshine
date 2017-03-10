@@ -1,8 +1,8 @@
 package com.sunshine.service;
-
-
 /**
- @author 云和数据-李颜
+ * 用户表的服务层接口，主要功能为用户登陆注册 增删改查
+ * 
+ * @author 云和数据-李颜
  *
  */
 import com.sunshine.model.User;
@@ -42,5 +42,5 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public User getuser(String id);
+	User getuser(String id);
 }

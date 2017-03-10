@@ -3,7 +3,9 @@ package com.sunshine.model;
 import java.util.Date;
 
 /**
- * 说明：此类为 投诉模型，对应t_complain表 创建者：云和数据-陈晓峰 注释及修改： 王一贺 2017-03-08
+ * 说明：此类为 投诉模型，对应t_complain表 
+ * 创建者：云和数据-陈晓峰 
+ * 注释及修改： 王一贺 2017-03-08
  */
 public class Complain {
 
@@ -47,7 +49,7 @@ public class Complain {
 	 */
 	private Boolean status;
 
-	// getter、setter方法
+	/* getter、setter方法*/
 	public String getId() {
 		return id;
 	}
@@ -112,7 +114,7 @@ public class Complain {
 		this.status = status;
 	}
 
-	// 重写toString方法
+	/*重写toString方法*/
 	@Override
 	public String toString() {
 		return "Complain [id=" + id + ", orderId=" + orderId + ", content=" + content + ", createTime=" + createTime
