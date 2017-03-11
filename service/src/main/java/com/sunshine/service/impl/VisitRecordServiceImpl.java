@@ -1,6 +1,8 @@
 package com.sunshine.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sunshine.dao.VisitRecordDao;
@@ -50,6 +52,12 @@ public class VisitRecordServiceImpl implements VisitRecordService {
 	@Override
 	public int removeVisitRecord(String id) {		
 		return vtrd.removeVisitRecord(id);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> listVisitElderStaff(Map map) {		
+		return vtrd.listVisitElderStaff(map);
 	}
 
 }

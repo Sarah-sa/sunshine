@@ -56,14 +56,23 @@
 		<mapper resource="mybatis/mappers/AdviceDao.xml" />
 		<mapper resource="mybatis/mappers/RoleDao.xml" />
 		<mapper resource="mybatis/mappers/VisitRecordDao.xml" />
-
 		<mapper resource="mybatis/mappers/ComplainDao.xml" />
-
-
 		<mapper resource="mybatis/mappers/ElderDao.xml" />
 		<mapper resource="mybatis/mappers/ElderUserDao.xml" />
 		<mapper resource="mybatis/mappers/WeightDao.xml" />
-		<mapper resource="mybatis/mappers/BloodLipidsDao.xml" />
+
+		  <mapper resource="mybatis/mappers/BloodLipidsDao.xml" />
 		
+		<mapper resource="mybatis/mappers/BloodPressure.xml" />
+		<mapper resource="mybatis/mappers/BloodSugarDao.xml" />
+		<mapper resource="mybatis/mappers/StepsDao.xml" />
+        
+
+
+		<mapper resource="mybatis/mappers/StaffInfoDao.xml"/> 
+		<mapper resource="mybatis/mappers/LoginRecordDao.xml"/>
+		
+
+		<mapper resource="mybatis/mappers/UricAcaidDao.xml" />
 	</mappers>
 </configuration>

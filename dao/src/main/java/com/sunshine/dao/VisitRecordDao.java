@@ -1,6 +1,8 @@
 package com.sunshine.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.sunshine.model.VisitRecord;
 
 /**
@@ -42,4 +44,13 @@ public interface VisitRecordDao {
 	 * @return 数据库中受影响的行数
 	 */
 	int removeVisitRecord(String id);
+	
+	/**
+	 *描述：从视图v_visit_elder_staff中查询走访记录
+	 *@author 王一贺 2017-03-10
+	 *@param map 封装查询条件<br/>可用的key有：<b>id：</b>走访记录的编号；<b>name：</b>老人的姓名；
+	 *<b>status：</b>走访计划实施没？1:0；<b>startTime</b>、<b>endTime：</b>在一定时间段内的走访执行记录
+	 *@return 走访记录表、老人表、坐席表中相关联的字段
+	 */
+	List<Map<String,Object>> listVisitElderStaff(Map map);
 }
