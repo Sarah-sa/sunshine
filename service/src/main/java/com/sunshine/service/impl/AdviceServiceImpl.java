@@ -10,9 +10,16 @@ import com.sunshine.dao.AdviceDao;
 import com.sunshine.model.Advice;
 import com.sunshine.model.Page;
 import com.sunshine.service.AdviceService;
-
+/**
+* 通告业务接口的实现类
+*@author 任继鹏
+* 2017年3月8日  
+*/
 @Service
 public class AdviceServiceImpl implements AdviceService {
+	/**
+	 * 自动注入AdviceDao接口 
+	 */
 	@Autowired
 	private AdviceDao adviceDao;
 
@@ -35,9 +42,9 @@ public class AdviceServiceImpl implements AdviceService {
 		}
 	}
 	@Override
-	public int removeAdvice(String Id) {
+	public int removeAdvice(String id) {
 		// TODO Auto-generated method stub
-		int i= adviceDao.removeAdvice(Id);
+		int i= adviceDao.removeAdvice(id);
 		if(i>0){
 			System.out.println("删除成功");
 		}
@@ -52,9 +59,9 @@ public class AdviceServiceImpl implements AdviceService {
 	}
 
 	@Override
-	public Advice getAdvice(String Id) {
+	public Advice getAdvice(String id) {
 		// TODO Auto-generated method stub
-		Advice advice = adviceDao.getAdvice(Id);
+		Advice advice = adviceDao.getAdvice(id);
 		return advice;
 	}
 

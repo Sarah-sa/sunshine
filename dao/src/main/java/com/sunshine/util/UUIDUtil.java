@@ -12,11 +12,12 @@ import java.util.UUID;
 public final class UUIDUtil {
 
 	/**
-	 * 静态方法，生成一个 UUID
+	 * 静态方法，生成一个 UUID,可用作主键
 	 * 
 	 * @return
 	 */
 	public static String genericUUID() {
 		return UUID.randomUUID().toString();
 	}
+	
 }

@@ -1,10 +1,10 @@
 package com.sunshine.service;
 
-import java.util.List;
+import java.util.Set;
 
 import com.sunshine.model.Authority;
-import com.sunshine.model.Module;
 import com.sunshine.model.Role;
+import com.sunshine.util.ModuleTree;
 
 /**
  * 解析用户权限的业务接口
@@ -30,7 +30,7 @@ public interface AuthorityService {
 	 *            查询权限的用户
 	 * @return 该用户所具有的权限
 	 */
-	List<Authority> parseAuthorities(String uid);
+	Set<Authority> parseAuthorities(String uid);
 
 	/**
 	 * 解析指定用户所具有的目录权限
@@ -39,7 +39,7 @@ public interface AuthorityService {
 	 *            要查询目录权限的用户
 	 * @return 该用户所具有的目录权限
 	 */
-	List<Module> parseModules(String uid);
+	Set<ModuleTree> parseModules(String uid);
 
 	/**
 	 * 为用户赋予角色
@@ -48,9 +48,8 @@ public interface AuthorityService {
 	 *            用户主键
 	 * @param roleId
 	 *            角色主键
-	 * @return 是否操作成功
 	 */
-	boolean grantRoleToUser(String userId, String roleId);
+	void grantRoleToUser(String userId, String roleId);
 
 	/**
 	 * 解除指定用户的角色
@@ -59,9 +58,8 @@ public interface AuthorityService {
 	 *            用户 id
 	 * @param roleId
 	 *            角色 id
-	 * @return 操作是否成功
 	 */
-	boolean revokeRoleFromUser(String userId, String roleId);
+	void revokeRoleFromUser(String userId, String roleId);
 
 	/**
 	 * 为角色批量授予权限
