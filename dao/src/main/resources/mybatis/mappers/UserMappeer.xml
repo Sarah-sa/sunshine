@@ -26,4 +26,12 @@
 	<select id="getuser" parameterType="string" resultType="com.sunshine.model.User">
 	select * from t_user where id=#{id}
 	</select>
+	
+	<!-- 根据用户名查询用户
+			@author 云和数据-王辉
+	 -->
+	 <select id="getByUserName" parameterType="string" resultType="com.sunshine.model.User">
+	 	SELECT id, username, pwd, realname, idcard, phone, community_id, email, role_id FROM t_user
+	 	WHERE username = #{userName}
+	 </select>
 </mapper>

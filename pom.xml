@@ -39,6 +39,10 @@
 		<freemarker.version>2.3.23</freemarker.version>
 		<!-- fileupload组件版本号 -->
 		<commons-fileupload.version>1.3.2</commons-fileupload.version>
+		<!-- shiro 版本号 -->
+		<shiro.version>1.3.2</shiro.version>
+		<!-- ehcache 版本号 -->
+		<ehcache.version>2.4.3</ehcache.version>
 	</properties>
 
 	<dependencyManagement>
