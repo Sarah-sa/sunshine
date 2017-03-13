@@ -17,7 +17,7 @@ public interface ElderService {
 	 * @param elder
 	 * @throws Exception
 	 */
-	int saveElder(Elder elder) throws Exception;
+	int saveElder(Elder elder);
 	
 	/**
 	 * 修改老人信息
@@ -25,7 +25,7 @@ public interface ElderService {
 	 * @return
 	 * @throws Exception
 	 */
-	int updateElder(Elder elder)throws Exception;
+	int updateElder(Elder elder);
     
     /**
      * 删除老人信息
@@ -33,7 +33,7 @@ public interface ElderService {
      * @return
      * @throws Exception
      */
-    int removeElder(String id)throws Exception;
+    int removeElder(String id);
     
     /**
      * 查询单个老人信息明细
@@ -41,7 +41,7 @@ public interface ElderService {
      * @return
      * @throws Exception
      */
-    Elder getElder(String id)throws Exception;
+    Elder getElder(String id);
     
     
     /**
@@ -50,7 +50,7 @@ public interface ElderService {
      * @return
      * @throws Exception
      */
-    List<Elder> listAllElders()throws Exception;
+    List<Elder> listAllElders();
     
     
 }
