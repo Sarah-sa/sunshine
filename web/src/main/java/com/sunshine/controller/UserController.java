@@ -1,6 +1,11 @@
 package com.sunshine.controller;
 
-
+/**
+ * 用户表的业务控制层，主要功能为用户登陆注册 增删改查
+ * 
+ * @author 云和数据-李颜
+ *
+ */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
