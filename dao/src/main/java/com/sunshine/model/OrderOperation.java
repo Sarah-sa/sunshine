@@ -54,6 +54,11 @@ public class OrderOperation {
 				+ neworderid + ", operatetime=" + operatetime + ", operatetype=" + operatetype + "]";
 	}
 	
+	/**
+	 * 订单操作类型的枚举
+	 * @author 云和数据-王辉
+	 *
+	 */
 	public enum OperaType {
 		PLACEORDER("下单"),
 		CHANGE("改派");
