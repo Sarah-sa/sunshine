@@ -23,7 +23,7 @@ public class ElderServiceImpl implements ElderService{
 	private ElderDao elderDao;
 	
 	@Override
-	public int saveElder(Elder elder) throws Exception {
+	public int saveElder(Elder elder)  {
 		logger.error("添加老人:"+elder);
 		return elderDao.saveElder(elder);
 		
@@ -31,25 +31,25 @@ public class ElderServiceImpl implements ElderService{
 	}
 
 	@Override
-	public int updateElder(Elder elder) throws Exception {
+	public int updateElder(Elder elder)  {
 		// TODO Auto-generated method stub
 		return elderDao.updateElder(elder);
 	}
 
 	@Override
-	public int removeElder(String id) throws Exception {
+	public int removeElder(String id) {
 		
 		return elderDao.removeElder(id);
 	}
 
 	@Override
-	public Elder getElder(String id) throws Exception {
+	public Elder getElder(String id)  {
 		
 		return elderDao.getElder(id);
 	}
 
 	@Override
-	public List<Elder> listAllElders() throws Exception {
+	public List<Elder> listAllElders()  {
 		// TODO Auto-generated method stub
 		return elderDao.listAllElders();
 	}

@@ -1,7 +1,12 @@
 package com.sunshine.dao;
 
 import com.sunshine.model.User;
-
+/**
+ * 用户表的 mapper接口，主要功能为用户登陆注册 增删改查
+ * 
+ * @author 云和数据-李颜
+ *
+ */
 public interface UserDao {
 
 	/**
@@ -36,7 +41,7 @@ public interface UserDao {
 	 * 
 	 * 用户查询
 	 */
-	public User getuser(String id);
+	User getuser(String id);
 
 	/**
 	 * 根据用户名获取用户
