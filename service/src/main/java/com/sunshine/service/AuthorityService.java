@@ -24,6 +24,15 @@ public interface AuthorityService {
 	Role parseRole(String uid);
 
 	/**
+	 * 获取用户所拥有的所有角色，包括直接继承和间接继承
+	 * 
+	 * @param uid
+	 *            用户主键
+	 * @return 用户所拥有的角色集合
+	 */
+	Set<Role> listRoles(String uid);
+
+	/**
 	 * 解析指定用户所具有的所有权限
 	 * 
 	 * @param user
@@ -73,17 +82,6 @@ public interface AuthorityService {
 	boolean grantPriviledgesToRole(String roleId, String... privIds);
 
 	/**
-	 * 批量解除角色权限
-	 * 
-	 * @param roleId
-	 *            要操作的角色
-	 * @param privIds
-	 *            要接触的权限
-	 * @return
-	 */
-	boolean revokePriviledgesFromRole(String roleId, String... privIds);
-
-	/**
 	 * 为角色授予目录权限
 	 * 
 	 * @param roleId
@@ -93,16 +91,5 @@ public interface AuthorityService {
 	 * @return
 	 */
 	boolean grantModulesToRole(String roleId, String... mdIds);
-
-	/**
-	 * 从角色解除目录权限
-	 * 
-	 * @param roleId
-	 *            要解除权限的角色
-	 * @param mdIds
-	 *            要解除的权限
-	 * @return
-	 */
-	boolean revokeModulesFromRole(String roleId, String... mdIds);
 
 }

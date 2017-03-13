@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 订单模糊查询类
+ * 订单模糊查询类<br>
+ * 若查询字段为空
  * 
  * @author 云和数据-王辉
  *

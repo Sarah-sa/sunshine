@@ -9,7 +9,6 @@ import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sunshine.dao.AuthorityDao;
 import com.sunshine.dao.RoleAuthDao;
 import com.sunshine.dao.RoleDao;
 import com.sunshine.dao.RoleModuleDao;
@@ -18,6 +17,7 @@ import com.sunshine.model.Authority;
 import com.sunshine.model.Module;
 import com.sunshine.model.Role;
 import com.sunshine.model.RoleAuth;
+import com.sunshine.model.RoleModule;
 import com.sunshine.model.User;
 import com.sunshine.service.AuthorityService;
 import com.sunshine.util.ModuleTree;
@@ -34,9 +34,6 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	@Autowired
 	private RoleDao roleDao;
-
-	@Autowired
-	private AuthorityDao authorityDao;
 
 	@Autowired
 	private RoleModuleDao roleModuleDao;
@@ -116,7 +113,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 				// 3.2.2 若不存在，将role设为null，使循环能够跳出
 				role = null;
 		}
-		
+
 		return ModuleTreeUtil.buildModuleForest(modules);
 	}
 
@@ -141,20 +138,20 @@ public class AuthorityServiceImpl implements AuthorityService {
 	@Override
 	public void revokeRoleFromUser(String userId, String roleId) {
 		User u = userDao.getuser(userId);
-		if(u.getRoleId().equals(roleId))
+		if (u.getRoleId().equals(roleId))
 			u.setRoleId(null);
 		userDao.updateUser(u);
 	}
 
 	@Override
 	public boolean grantPriviledgesToRole(String roleId, String... privIds) {
-		
-		//1. 解除角色现有的权限
+
+		// 1. 解除角色现有的权限
 		roleAuthDao.removeAllAuthByRole(roleId);
 		List<RoleAuth> ras = new ArrayList<>();
-		
-		//2. 为角色重新授权
-		for(String privId : privIds) {
+
+		// 2. 为角色重新授权
+		for (String privId : privIds) {
 			RoleAuth roleAuth = new RoleAuth();
 			roleAuth.setRoleId(roleId);
 			roleAuth.setAuthId(privId);
@@ -164,21 +161,47 @@ public class AuthorityServiceImpl implements AuthorityService {
 	}
 
 	@Override
-	public boolean revokePriviledgesFromRole(String roleId, String... privIds) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean grantModulesToRole(String roleId, String... mdIds) {
-		// TODO Auto-generated method stub
-		return false;
+		// 1. 解除角色现有的所有目录权限
+		roleModuleDao.removeAllModulesByRole(roleId);
+
+		// 2. 创建 RoleModule 的集合
+		List<RoleModule> rms = new ArrayList<>();
+
+		for (String moduleId : mdIds) {
+			RoleModule rm = new RoleModule();
+			rm.setRoleId(roleId);
+			rm.setModuleId(moduleId);
+			rms.add(rm);
+		}
+
+		// 3. 批量授予目录权限
+		return roleModuleDao.batchSaveRoleModule(rms) > 0;
 	}
 
 	@Override
-	public boolean revokeModulesFromRole(String roleId, String... mdIds) {
-		// TODO Auto-generated method stub
-		return false;
+	public Set<Role> listRoles(String uid) {
+		// 1. 创建角色集合
+		Set<Role> roles = new HashSet<>();
+
+		// 2. 获取直接集成的角色
+		Role role = parseRole(uid);
+
+		// 3. 执行循环，自下而上的获取用户所拥有的所有角色，包括直接继承和间接继承，并逐个加入到角色的集合中，直到根角色为止
+		while (role != null) {
+
+			// 3.1 将角色加入到角色的集合中
+			roles.add(role);
+
+			// 3.2 判断当前角色是不是跟角色，若不是，获取父角色，若是，结束循环
+			if (role.getPid() != null && role.getPid().equals(role.getId()))
+				role = roleDao.getRole(role.getPid());
+			else
+				role = null;
+		}
+
+		// 4. 获取角色集合
+		return roles;
 	}
 
 }
