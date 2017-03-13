@@ -5,7 +5,7 @@
   
   <mapper namespace="com.sunshine.dao.ElderDao">
   
-  <!-- 向角色表插入一条记录 -->
+  <!-- 向老人表插入一条记录 -->
   <insert id="saveElder" parameterType="com.sunshine.model.Elder">
   insert into t_elder(id,name,gender,idcard,phone,nation_id,birthday,address,need_id)
   values(#{id},#{name},#{gender},#{idcard},#{phone},#{nation_id},#{birthday},#{address},#{need_id})
