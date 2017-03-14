@@ -60,18 +60,39 @@ public class OrderOperation {
 		return operatetime;
 	}
 	public void setOperatetime(Date operatetime) {
+		
 		this.operatetime = operatetime;
 	}
 	public String getOperatetype() {
 		return operatetype;
 	}
-	public void setOperatetype(String operatetype) {
-		this.operatetype = operatetype;
+	public void setOperatetype(OperaType operatetype) {
+		this.operatetype = operatetype.toString();
 	}
+	
 	@Override
 	public String toString() {
 		return "OrderOperation [id=" + id + ", staffid=" + staffid + ", oldorderid=" + oldorderid + ", neworderid="
 				+ neworderid + ", operatetime=" + operatetime + ", operatetype=" + operatetype + "]";
+	}
+	
+	/**
+	 * 订单操作类型的枚举
+	 * @author 云和数据-王辉
+	 *
+	 */
+	public enum OperaType {
+		PLACEORDER("下单"),
+		CHANGE("改派");
+		
+		private String name;
+		OperaType(String name) {
+			this.name = name;
+		}
+		@Override
+		public String toString() {
+			return name;
+		}
 	}
 	
 }

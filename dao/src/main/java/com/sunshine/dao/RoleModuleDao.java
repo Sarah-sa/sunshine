@@ -40,6 +40,13 @@ public interface RoleModuleDao {
 	int removeRoleModule(String id);
 
 	/**
+	 * 删除指定角色的所有目录权限
+	 * @param roleId 指定的角色 id
+	 * @return 数据库中受影响的记录数
+	 */
+	int removeAllModulesByRole(String roleId);
+	
+	/**
 	 * 批量添加角色-目录记录(即批量授权)
 	 * 
 	 * @param roleModules

@@ -14,7 +14,7 @@
 	
 	<!-- 向数据库添加一条 角色-目录映射 -->
 	<insert id="saveRoleModule" useGeneratedKeys="true">
-		INSERT INTO t_role_module(<include refid="fields" />) VALUES(#{id}, #{roldId}, #{moduleId})
+		INSERT INTO t_role_module(<include refid="fields" />) VALUES(#{id}, #{roleId}, #{moduleId})
 	</insert>
 	
 	<!-- 根据 id 删除一条 角色-目录 记录 -->
@@ -22,11 +22,29 @@
 		DELETE FROM t_role_module WHERE id = #{id}
 	</delete>
 	
+	<delete id="removeAllModulesByRole" parameterType="string">
+		DELETE FROM t_role_module WHERE role_id = #{id}
+	</delete>
+	
 	<!-- 批量添加角色-目录映射 -->
 	<insert id="batchSaveRoleModule">
 		INSERT INTO t_role_module(<include refid="fields" />) VALUES
 		<foreach collection="list" item="roleModule" separator=",">
-			
+			(#{roleModule.id}, #{roleModule.roleId}, #{roleModule.moduleId})
 		</foreach>
 	</insert>
+	
+	<!-- 批量删除角色权限记录 -->
+	<delete id="batchRemoveRoleModule">
+		DELETE FROM t_role_module WHERE id IN
+		<foreach collection="list" open="(" close=")" item="thisid" separator=",">
+			#{thisid}
+		</foreach>
+	</delete>
+	
+	<!-- 根据角色获取目录权限 -->
+	<select id="listModulesByRoleId" parameterType="string" resultType="com.sunshine.model.Module">
+		SELECT id, name, icon, pid FROM t_module WHERE id IN
+		(SELECT module_id FROM t_role_module WHERE role_id = #{id})	
+	</select>
 </mapper>

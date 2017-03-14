@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.BloodPressureDao">  
+<!-- 根据时间范围查找血压信息 -->
+<select id="getBloodPressure" parameterType="com.sunshine.model.BloodPressure"
+		 resultType="com.sunshine.model.BloodPressure">
+		select exam_time,highpressure,lowpressuer from t_blood_pressure where exam_time between #{0} and #{1}
+	</select>
+	<!-- 添加血压信息 -->
+	<insert id="saveBloodPressure" parameterType="com.sunshine.model.BloodPressure">
+	insert into t_blood_pressure(id,elder_id,highpressure,lowpressuer,status,pr,exam_time) values(#{id},#{elder_id},#{highpressure},#{lowpressure},#{status},#{pr},#{exam_time})
+  </insert>
+  <!-- 查找血压信息 -->
+  <select id="listAllBloodPressure"  resultType="com.sunshine.model.BloodPressure">
+		select id,elder_id,highpressure,lowpressuer,status,pr,exam_time  from t_blood_pressure
+	</select>
+	<!-- 删除血压信息 -->
+  <delete id="removeBloodPressure" parameterType="String">
+		delete from t_blood_pressure where id=#{id}
+	</delete>
+	<!-- 修改血压信息 -->
+	<update id="updateBloodPressure" parameterType="com.sunshine.model.BloodPressure">
+		update t_blood_pressure set
+		 elder_id=#{elder_id},
+		 highpressure=#{highpressure},
+		lowpressuer=#{lowpressure}, 
+		 status=#{status},
+		 pr=#{pr},
+		 exam_time=#{exam_time}
+		where id=#{id}
+		
+		
+		
+		
+		
+		
+	</update>
+</mapper>
