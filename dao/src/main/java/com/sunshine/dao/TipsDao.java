@@ -7,7 +7,7 @@ import com.sunshine.model.Tips;
 /**
  * 知识库模型的数据访问接口
  * @author 云和数据-陈剑洲
- *
+ * @author Qitiecheng
  */
 public interface TipsDao {
               
@@ -18,6 +18,14 @@ public interface TipsDao {
 	     */
 	    Tips getTips(String id);
 	    	 
+	    /**
+	     * 根据分类的id获取所有的知识jilu
+	     */
+	    List<Tips> getTipsList(String tips_ctgy_id);
+	    /**
+	     *根据标题的关键字模糊查询知识
+	     */
+	    List<Tips> getLikeTips(String Titlename);
 	    /**
 	     * 获得所有的知识记录
 	     * @return 知识记录的list集合
