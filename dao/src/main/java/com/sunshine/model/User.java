@@ -1,6 +1,6 @@
 package com.sunshine.model;
 
-
+import com.sunshine.util.UUIDUtil;
 
 /**
  * 
@@ -26,6 +26,9 @@ public class User {
 	private String idCard;
 	//社区id
 	private String communityId;
+	
+
+
 	public String getId() {
 		return id;
 	}

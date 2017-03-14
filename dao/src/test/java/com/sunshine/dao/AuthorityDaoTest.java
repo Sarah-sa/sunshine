@@ -15,8 +15,8 @@ public class AuthorityDaoTest extends InitTestCase {
 	public void testSave() {
 		Authority auth = new Authority();
 		auth.setId(UUIDUtil.genericUUID());
-		auth.setName("审核老人");
-		auth.setUrl("/elder/check");
+		auth.setName("审核老人啦啦啦");
+		auth.setUrl("/elder/checklalala");
 		getMapper().saveAuthority(auth);
 	}
 	
