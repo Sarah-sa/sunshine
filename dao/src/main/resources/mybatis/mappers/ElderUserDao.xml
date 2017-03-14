@@ -2,23 +2,41 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.sunshine.dao.ElderUserDao">
-  <!-- 向老人用户表插入一条记录 -->
-  <insert id="saveElderUser" parameterType="com.sunshine.model.ElderUser">
-  insert into t_elder_user (id,elder_id,user_id,relation) values(#{id},#{elder_id},#{user_id},#{relation})
-  </insert>
-  
-  
-    <!--删除指定的ElderUser -->
-  <delete id="removeElderUser" parameterType="string">
-  delete from t_elder_user where elder_id=#{id}
-  </delete>
-  
-  <select id="listAllRelatedElder" parameterType="string" resultType="map">
-  	SELECT e.id AS id, e.name AS name, r.relation AS relation, YEAR(NOW())-YEAR(birthday) AS age
-  	FROM t_elder_user AS r INNER JOIN t_elder AS e ON e.id = r.elder_id
-  	WHERE e.id in 
-  	(SELECT teu.elder_id from t_elder_user as teu where user_id = '2')
-  </select>
-  </mapper>
+
+<mapper namespace="com.sunshine.dao.ElderUserDao">
+	<!-- 向老人用户表插入一条记录 -->
+	<insert id="saveElderUser" parameterType="com.sunshine.model.ElderUser">
+		insert into t_elder_user (id,elder_id,user_id,relation)
+		values(#{id},#{elder_id},#{user_id},#{relation})
+	</insert>
+
+
+	<!--删除指定的老人信息 -->
+	<delete id="removeElderUser" parameterType="string">
+		delete from t_elder_user where id=#{id}
+	</delete>
+
+	<!--更新老人用户信息 -->
+	<update id="updateElderUser" parameterType="com.sunshine.model.ElderUser">
+		update t_elder_User set
+		elder_id=#{elderid},
+		user_id=#{userid},
+		relation=#{relation}
+		where id=#{id}
+	</update>
+
+	<!--根据主键获取老人用户对象 -->
+	<select id="getElderUser" parameterType="string" resultType="com.sunshine.model.ElderUser">
+		select * from t_elder_user where id=#{id}
+	</select>
+
+	<!--获取所有和指定用户有关联的老人 -->
+	<select id="listAllRelatedElder" parameterType="string"
+		resultType="map">
+		SELECT e.id AS id, e.name AS name, r.relation AS relation,
+		YEAR(NOW())-YEAR(birthday) AS age
+		FROM t_elder_user AS r INNER JOIN t_elder AS e ON e.id = r.elder_id
+		WHERE e.id in
+		(SELECT teu.elder_id from t_elder_user as teu where user_id = '2')
+	</select>
+</mapper>

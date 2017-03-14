@@ -44,8 +44,8 @@ public class ElderServiceTest {
     /**
      * 描述：测试查询类的方法以及分页组建的使用
      */
-	/* @Test
-    public void getTest(){
+	 @Test
+    public void listTest(){
       ApplicationContext ac = new ClassPathXmlApplicationContext("spring/spring.xml");
  		ElderServiceImpl esi = ac.getBean(ElderServiceImpl.class);
     	 PageHelper.startPage(1,2);
@@ -53,7 +53,11 @@ public class ElderServiceTest {
     	 for(Elder e : list){
     		 log.info(e);
     	 }
-     }*/
+     }
+	 
+    /**
+     * 保存一条数据测试
+     */
     @Test
     public void saveTest(){
     	Elder elder=new Elder();
@@ -70,8 +74,36 @@ public class ElderServiceTest {
     	elder.setNeed_id("需要");
     	int rownum = getESI().saveElder(elder);
     	
-    	System.out.println("影响行数："+rownum);
-    	
+    	log.info("影响行数："+rownum);
+    }	
+    
+    /**
+     * 更改测试
+     */
+    @Test
+    public void updateTest(){
+    	Elder elder=new Elder();
+    	elder.setId("111");
+    	elder.setName("老大");
+    	elder.setGender(true);
+    	elder.setBirthday(new Date());
+    	elder.setIdcard("455455456465");
+    	elder.setPhone("13526161626");
+    	elder.setMarriage_id("结婚");
+    	elder.setNation_id("汉");
+    	elder.setAddress("郑州");
+    	elder.setPhoto("6555");
+    	elder.setNeed_id("需要");
+    	int rownum = getESI().updateElder(elder);
+    	log.info("影响行数："+rownum);
     }
     
+    /**
+     * 删除测试
+     */
+    @Test
+    public void removeTest(){
+    	int rownum = getESI().removeElder("77");
+    	log.info("数据执行影响行数"+rownum);
+    }
 }
