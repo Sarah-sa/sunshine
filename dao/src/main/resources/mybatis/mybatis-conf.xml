@@ -75,5 +75,6 @@
 
 		<mapper resource="mybatis/mappers/UricAcaidDao.xml" />
 			<mapper resource="mybatis/mappers/UserMappeer.xml" />
+		<mapper resource="mybatis/mappers/TipsDao.xml" />
 	</mappers>
 </configuration>

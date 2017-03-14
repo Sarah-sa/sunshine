@@ -51,7 +51,5 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 		return sid.saveStaff(si);
 	}
 	  
-	
-	
-	
+
 }

@@ -15,10 +15,11 @@ public class TipsCategoryCotroller {
 @Autowired
 private TipsCategoryService tcs;
 @RequestMapping("get")
-private String getCategoryList(){
+private String getCategoryList() {
  List<TipsCategory> list=tcs.listAllTipsCategory();
-
-	return "index";	
+  
+  
+	return "healthyTips";	
 }
 	
 	

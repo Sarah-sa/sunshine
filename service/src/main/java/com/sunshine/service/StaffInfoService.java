@@ -29,7 +29,6 @@ public interface StaffInfoService {
 			 * @param si为座席信息对象
 			 */
 			int saveStaff(StaffInfo si);
-			
 		}
 
 	

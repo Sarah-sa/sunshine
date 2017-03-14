@@ -2,23 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
-  <mapper namespace="com.sunshine.dao.TipsDao">
   
-    <resultMap type="com.sunshine.model.Tips" id="map">
-        <id property="id" column="id"/>
-        <result column="tip_ctgy_id" property="tips_ctgy_id"/>
-        <result column="title" property="title"/>
-        <result column="content" property="content"/>
-    </resultMap>  
-  <!--根据知识的种类id查询知识 -->
-  <select id="getTipsList" parameterType="java.lang.String" resultMap="map">
-  select content from t_tips where tip_ctgy_id=#{tips_ctgy_id}
-  </select> 
-  <!--根据标题的关键字查询知识的列表 -->
-  <select id="getLikeTips"  parameterType="String"  resultMap="map">
-  select content from t_tips where title like concat('%',#{titilename},'%')  
-  </select>
+  <mapper namespace="com.sunshine.dao.TipsDao">
   <!-- 向知识库插入一条数据 -->
 <insert id="saveTips" parameterType="com.sunshine.model.Tips">
 insert into t_tips(id,tips_ctgy_id,title,content)
@@ -29,7 +14,6 @@ values(#{id},#{tips_ctgy_id},#{title},#{content})
 <select id="getTips" parameterType="string" resultType="com.sunshine.model.Tips">
 select * from t_tips where id=#{id}
 </select>
-
 
 <!-- 获取所有的tips -->
 <select id="listAllTips" resultType="com.sunshine.model.Tips">
