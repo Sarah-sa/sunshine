@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,8 @@ import com.sunshine.service.ElderUserService;
  * @author 云和数据-陈剑洲
  *
  */
-@RestController
+@Controller
+@RequestMapping("/elder")
 public class ElderController {
 	
     /**
@@ -39,6 +41,7 @@ public class ElderController {
     	Elder ed=elderService.getElder(id);
     	    return ed;
     }
+    
     /**
      * 老人信息添加操作
      * @param elderuser 老人对象
@@ -49,7 +52,7 @@ public class ElderController {
     public String saveElderUser(Elder elder) throws Exception{
     	int i=elderService.saveElder(elder);
     	System.out.println("数据执行影响条数："+i);
-    	return "";
+    	return "homepage";
     }
     
     /**
@@ -61,7 +64,7 @@ public class ElderController {
     @RequestMapping("/updateed")
     public String updateElder(Elder elder) throws Exception{
     	int i=elderService.updateElder(elder);
-		return "";
+		return "homepage";
     }	
     
 	/**
@@ -70,10 +73,10 @@ public class ElderController {
 	 * @return
 	 * @throws Exception 
 	 */
-    @RequestMapping("/removeeu")
+    @RequestMapping("/removeed")
 	public String removeElder(String id) throws Exception{
 		   int i=elderService.removeElder(id);
-		   return "";
+		   return "homepage";
 	   } 
 
     /**
@@ -82,6 +85,7 @@ public class ElderController {
      * @return
      * @throws Exception 
      */
+    @RequestMapping("/listed")
     public List<Elder> listAllElders(String id) throws Exception{
     	List<Elder> list=elderService.listAllElders();
     	return list;

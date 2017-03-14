@@ -2,42 +2,43 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.sunshine.dao.ElderDao">
-  
-  <!-- 向老人表插入一条记录 -->
-  <insert id="saveElder" parameterType="com.sunshine.model.Elder">
-  insert into t_elder(id,name,gender,idcard,phone,nation_id,birthday,address,need_id)
-  values(#{id},#{name},#{gender},#{idcard},#{phone},#{nation_id},#{birthday},#{address},#{need_id})
-  </insert>
-  
-  <!-- 根据 id 获取 elder -->
-  <select id="getElder" parameterType="string" resultType="com.sunshine.model.Elder">
-    select * from t_elder where id=#{id}
-  </select>
-  
-   <!-- 获取所有elder -->
-   <select id="listAllElders" resultType="com.sunshine.model.Elder">
-   select * from t_elder
-   </select>
-   
-   <!--更新老人信息  -->
-  <update id="updateElder" parameterType="com.sunshine.model.Elder">
-         update t_elder set 
-          name=#{name},
-         gender=#{gender},
-         idcard=#{idcard},
-         phone=#{phone},
-         nation_id=#{nation_id},
-         address=#{address},
-         need_id=#{need_id} 
-         where id=#{id}
-  </update>
-  
-  <!--删除指定的elder  -->
-  <delete id="removeElder" parameterType="String">
-  delete from t_elder where id=#{id}
-  </delete>
-  
-  
-  </mapper>
+
+<mapper namespace="com.sunshine.dao.ElderDao">
+
+	<!-- 向老人表插入一条记录 -->
+	<insert id="saveElder" parameterType="com.sunshine.model.Elder">
+		insert into
+		t_elder(id,name,gender,idcard,phone,nation_id,birthday,address,need_id)
+		values(#{id},#{name},#{gender},#{idcard},#{phone},#{nation_id},#{birthday},#{address},#{need_id})
+	</insert>
+
+	<!-- 根据 id 获取 elder -->
+	<select id="getElder" parameterType="string" resultType="com.sunshine.model.Elder">
+		select * from t_elder where id=#{id}
+	</select>
+
+	<!-- 获取所有elder -->
+	<select id="listAllElders" resultType="com.sunshine.model.Elder">
+		select * from t_elder
+	</select>
+
+	<!--更新老人信息 -->
+	<update id="updateElder" parameterType="com.sunshine.model.Elder">
+		update t_elder set
+		name=#{name},
+		gender=#{gender},
+		idcard=#{idcard},
+		phone=#{phone},
+		nation_id=#{nation_id},
+		address=#{address},
+		need_id=#{need_id}
+		where id=#{id}
+	</update>
+
+	<!--删除指定的elder -->
+	<delete id="removeElder" parameterType="String">
+		delete from t_elder where id=#{id}
+	</delete>
+
+
+</mapper>
