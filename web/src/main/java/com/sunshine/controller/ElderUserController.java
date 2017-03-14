@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,8 @@ import com.sunshine.service.ElderUserService;
  * @author 云和数据-陈剑洲
  *
  */
-@RestController
+@Controller
+@RequestMapping("/elderuser")
 public class ElderUserController {
 	
     /**
@@ -44,7 +46,7 @@ public class ElderUserController {
     public String saveElderUser(ElderUser elderuser){
     	int i=elderUserService.saveElderUser(elderuser);
     	System.out.println("数据执行影响条数："+i);
-    	return "";
+    	return "home";
     }
     
     /**
@@ -55,7 +57,7 @@ public class ElderUserController {
     @RequestMapping("/updateeu")
     public String updateElderUser(ElderUser elderuser){
     	int i=elderUserService.updateElderUser(elderuser);
-		return "";
+		return "home";
     }	
     
 	/**
@@ -63,17 +65,20 @@ public class ElderUserController {
 	 * @param id 
 	 * @return
 	 */
- /*   @RequestMapping("/removeeu")
+   @RequestMapping("/removeeu")
 	public String removeElderUser(String id){
 		   int i=elderUserService.removeElderUser(id);
-		   return "";
-	   } */
+
+		   return "home";
+	   } 
+
 
     /**
      * 根据用户查询与之有关的所有老人
      * @param uid 指定用户的id
      * @return
      */
+    @RequestMapping("/listeu")
     public List<Map<String, Object>> listAllRelatedElder(String uid){
     	List<Map<String, Object>> list=elderUserService.listAllRelatedElder(uid);
     	return list;
