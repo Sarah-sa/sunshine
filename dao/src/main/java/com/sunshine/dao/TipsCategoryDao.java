@@ -23,6 +23,7 @@ public interface TipsCategoryDao {
 	     */
 	    List<TipsCategory> listAllTipsCategory();
 	    
+	    
 	    /**
 	     * 插入 知识记录 到数据库
 	     * @param tipscategory 知识种类记录对象

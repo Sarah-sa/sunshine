@@ -16,9 +16,9 @@ public interface TipsDao {
      * @return  知识
      */
     Tips getTips(String id);
-    	 
+  	 
     /**
-     * 根据分类的id获取所有的知识jilu
+     * 根据父分类的id获取所有的知识记录
      */
     List<Tips> getTipsList(String tips_ctgy_id);
     /**

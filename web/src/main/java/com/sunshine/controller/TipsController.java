@@ -1,6 +1,8 @@
 package com.sunshine.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +30,9 @@ private TipsService tp;
  * @return
  */
 @RequestMapping("gettips")
-public String getTips(String tips_ctgy_id){	
-List list=tp.getTipsList(tips_ctgy_id);
-return "index";	
+public String getTips(String tipsCatgyId){	
+List list=tp.getTipsList(tipsCatgyId);
+return "/WEB-INF/views/ftl/queryInfo/healthyTips";	
 }
 	
 
@@ -41,8 +43,10 @@ return "index";
  */
 @RequestMapping("getLiketips")
 public String getLikeTips(String titleName){	
-List list=tp.getTipsList(titleName);
-return "index";
+List list=tp.getLikeTips(titleName);
+Map<String,Object> rsMap = new HashMap<String,Object>();
+rsMap.put("data", list);
+return "healthyTips";
 	
 }
 }

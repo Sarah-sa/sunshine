@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sunshine.dao.EquipmentcategoryDao;
 import com.sunshine.model.Equipmentcategory;
@@ -15,6 +16,7 @@ import com.sunshine.service.EquipmentcategoryService;
  * @author 陈晓锋
  *
  */
+@Service
 public class EquipmentcategoryServiceImpl implements EquipmentcategoryService{
 
 	private static Logger logger = LogManager.getLogger(EquipmentcategoryServiceImpl.class);

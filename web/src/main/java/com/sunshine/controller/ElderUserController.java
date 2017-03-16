@@ -72,7 +72,6 @@ public class ElderUserController {
 		   return "home";
 	   } 
 
-
     /**
      * 根据用户查询与之有关的所有老人
      * @param uid 指定用户的id

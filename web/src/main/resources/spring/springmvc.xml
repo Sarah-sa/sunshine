@@ -19,12 +19,14 @@
 	
 
 	
-    
+   
     <!-- 针对JSP的视图配置 -->
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!--  
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value=""></property>
         <property name="suffix" value=".jsp"></property>
-    </bean> -->
+    </bean>  
+    -->
     <!-- 针对FREEMAKER的视图配置 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="cache" value="true" />
