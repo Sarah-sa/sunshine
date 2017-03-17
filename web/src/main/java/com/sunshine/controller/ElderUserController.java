@@ -68,10 +68,18 @@ public class ElderUserController {
    @RequestMapping("/removeeu")
 	public String removeElderUser(String id){
 		   int i=elderUserService.removeElderUser(id);
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/sunshinecommunity/sunshine.git
 		   return "home";
 	   } 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/sunshinecommunity/sunshine.git
 
     /**
      * 根据用户查询与之有关的所有老人

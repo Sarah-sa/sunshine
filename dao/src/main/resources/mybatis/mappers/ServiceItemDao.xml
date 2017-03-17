@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.ServiceItemDao">
+	<resultMap id="item" type="com.sunshine.model.ServiceItem" autoMapping="true">
+		<id property="id" column="id" />
+		<result column="server_id"  property="serverid" />
+		<result column="srv_ctgy_id" property="srvctgyid" />
+	</resultMap>
+	<sql id="fields">
+		id, name, server_id, srv_ctgy_id, price, description, status
+	</sql>
+	
+	<sql id="labelWithAlias">
+		si.id AS id, si.name AS name, si.srv_ctgy_id AS srvctgyid, cgy.name AS cgyname, si.price AS price, si.description AS description, si.status AS status
+		FROM t_service_item AS si LEFT JOIN t_srv_category AS cgy ON si.srv_ctgy_id = cgy.id
+	</sql>
+	
+	<!-- 根据 id获取服务条目 -->
+	<select id="getItem" parameterType="string" resultMap="item">
+		SELECT <include refid="fields" /> FROM t_service_item WHERE id = #{id}
+		ORDER BY name ASC
+	</select>
+	
+	<!-- 更新服务项目 -->
+	<update id="updateItem" parameterType="com.sunshine.model.ServiceItem">
+		UPDATE t_service_item SET
+		name = #{name}, server_id = #{serverid}, srv_ctgy_id = #{srvctgyid}, price = #{price}, description = #{description}, status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 向数据库添加一条服务项目 -->
+	<insert id="saveItem" parameterType="com.sunshine.model.ServiceItem">
+		INSERT INTO t_service_item(<include refid="fields" />) 
+		VALUES(
+			#{id}, #{name}, #{serverid}, #{srvctgyid}, #{price}, #{description}, #{status}
+		)
+	</insert>
+	
+	<!-- 删除一条服务项目 -->
+	<delete id="removeItem" parameterType="string">
+		DELETE FROM t_service_item WHERE id = #{id}
+	</delete>
+	
+	<!-- 列出服务商的所有服务 -->
+	<select id="listItemByServer" parameterType="string" resultType="map">
+		SELECT <include refid="labelWithAlias" />
+		WHERE si.server_id = #{serverid}
+		ORDER BY status DESC, name ASC
+	</select>
+	
+	<!-- 列出所有可用的服务项目 -->
+	<select id="listAvailableItemByServer" parameterType="string" resultType="map">
+		SELECT <include refid="labelWithAlias" />
+		WHERE si.server_id = #{serverid} AND si.status = b'1'
+		ORDER BY name ASC
+	</select>
+	
+	<!-- 列出所有不可用的服务项目 -->
+	<select id="listUnavailableItemByServer" parameterType="string" resultType="map">
+		SELECT <include refid="labelWithAlias" />
+		WHERE si.server_id = #{serverid} AND si.status = b'0'
+		ORDER BY name ASC
+	</select>
+	
+	<!-- 列出所有指定项目下的可用的服务项目 -->
+	<select id="listAvailableItemByCgy" parameterType="string" resultType="map">
+		SELECT <include refid="labelWithAlias" />
+		WHERE si.srv_ctgy_id = #{cgyId} AND si.status = b'0'
+		ORDER BY name ASC
+	</select>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.OrderDao">
+	<sql id="fields">
+		id, code, user_id, server_id, item_id, remark, 
+		createtime, expect_start_time, expect_end_time, 
+		address, quantity, cost, pay_method_id, accept_time, 
+		finish_time, order_status_id
+	</sql>
+	
+	<resultMap type="com.sunshine.model.Order" id="order" autoMapping="true">
+		<id column="id" property="id"/>
+		<result column="user_id" property="userid"/>
+		<result column="server_id" property="serverid"/>
+		<result column="item_id" property="itemid"/>
+		<result column="expect_start_time" property="expectstarttim"/>
+		<result column="expect_end_time" property="expectendtime"/>
+		<result column="pay_method_id" property="paymethodid"/>
+		<result column="accept_time" property="accepttime"/>
+		<result column="finish_time" property="finishtime"/>
+		<result column="order_status_id" property="orderstatusid"/>
+	</resultMap>
+	
+	<!-- 根据 id 查询 订单 -->
+	<select id="getOrder" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE id = #{id}
+		ORDER BY createtime DESC
+	</select>
+	
+	<!-- 根据订单号查询订单 -->
+	<select id="getByCode" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE code = #{code}
+		ORDER BY createtime DESC
+	</select>
+	
+	<!-- 向数据库种添加一条订单 -->
+	<insert id="saveOrder" parameterType="com.sunshine.model.Order">
+		INSERT INTO t_order(<include refid="fields" />) 
+		VALUES(
+			#{id}, #{code}, #{userid}, #{serverid}, #{itemid}, #{remark}, #{createtime}, #{expectstarttim},
+			#{expectendtime}, #{address}, #{quantity}, #{cost}, #{paymethodid}, #{accepttime}, #{finishtime},
+			#{orderstatusid}
+		)
+	</insert>
+	
+	<!-- 更新一条订单的数据 -->
+	<update id="updateOrder" parameterType="com.sunshine.model.Order">
+		UPDATE t_order SET
+			code = #{code}, user_id = #{userid}, server_id = #{serverid}, item_id = #{itemid}, remark = #{remark}, 
+			createtime = #{createtime}, expect_start_time = #{expectstarttim}, expect_end_time = #{expectendtime}, 
+			address = #{address}, quantity = #{quantity}, cost = #{cost}, pay_method_id = #{paymethodid}, 
+			accept_time = #{accepttime}, finish_time = #{finishtime}, order_status_id = #{orderstatusid}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 用户未完成订单查询 -->
+	<select id="listUnFinishedOrderByUser" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE user_id = #{id} AND finish_time IS NULL
+		ORDER BY createtime ASC
+	</select>
+	
+	<!-- 用户已完成订单 -->
+	<select id="listFinishedOrderByUser" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE user_id = #{id} AND finish_time IS NOT NULL
+		ORDER BY createtime DESC
+	</select>
+	
+	<!-- 用户所有订单 -->
+	<select id="listOrderByUser" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE user_id = #{id} AND finish_time IS NULL
+		UNION ALL
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE user_id = #{id} AND finish_time IS NOT NULL
+	</select>
+	
+	<!-- 商家未完成订单 -->
+	<select id="listUnFinishedOrderByServer" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE server_id = #{serverId} AND finish_time IS NULL
+		ORDER BY createtime ASC
+	</select>
+	
+	<!-- 商家已完成订单 -->
+	<select id="listFinishedOrderByServer" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE server_id = #{serverId} AND finish_time IS NOT NULL
+		ORDER BY createtime DESC
+	</select>
+	
+	<!-- 商家接到的所有订单 -->
+	<select id="listOrderByServer" parameterType="string" resultMap="order">
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE server_id = #{serverId} AND finish_time IS NULL
+		UNION
+		SELECT <include refid="fields" /> FROM t_order
+		WHERE server_id = #{serverId} AND finish_time IS NOT NULL
+	</select>
+	
+	<select id="listOrderByCriteria" parameterType="com.sunshine.criteria.CriteriaOrder" resultType="map">
+		SELECT * FROM v_order_detail WHERE
+		code LIKE CONCAT('%', #{code}, '%') AND consumerName LIKE CONCAT('%', #{consumerName}, '%')
+		AND productorName LIKE CONCAT('%', #{productorName}, '%') AND itemName LIKE CONCAT('%', #{itemName}, '%')
+		AND orderStatusId LIKE CONCAT('%', #{orderStatusId}, '%')
+		AND ${createTimeQueryString} AND ${acceptTimeQueryString}
+		AND ${finishQueryString} AND ${costQueryString}
+	</select>
+</mapper>

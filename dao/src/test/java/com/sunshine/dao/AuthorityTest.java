@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.sunshine.model.Module;
+import com.sunshine.model.OrderOperation;
 import com.sunshine.model.RoleModule;
 import com.sunshine.util.ModuleTree;
 import com.sunshine.util.ModuleTreeUtil;
@@ -29,6 +30,8 @@ public class AuthorityTest extends InitTestCase {
 		raDao = session.getMapper(RoleAuthDao.class);
 		moduleDao = session.getMapper(ModuleDao.class);
 		rmDao = session.getMapper(RoleModuleDao.class);
+		OrderOperation oo = new OrderOperation();
+		oo.setOperatetype(OrderOperation.OperaType.CHANGE);
 	}
 	
 	@Test

@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service;
 import com.sunshine.dao.UserDao;
 import com.sunshine.model.User;
 import com.sunshine.service.UserService;
+/**
+ * 用户表服务层的接口实现类，主要功能为用户登陆注册 增删改查
+ * 
+ * @author 云和数据-李颜
+ *
+ */
 
 @Service
 public class UserServiceImpl implements UserService {
