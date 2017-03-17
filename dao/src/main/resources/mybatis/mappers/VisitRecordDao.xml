@@ -29,13 +29,13 @@
     <select id="listVisitElderStaff" resultType="map" parameterType="map">
         select * from v_visit_elder_staff
         <where>
-          <if test = "id!=null">
+          <if test = "id!=null and id!='' ">
             id = #{id}          
           </if>
-          <if test = "name!=null">
+          <if test = "name!=null and name!='' ">
             and name = #{name}
           </if>
-          <if test = "status!=null">
+          <if test = "status!=null and status!='' ">
             and status = #{status}
           </if> 
           <if test = "startTime!=null and startTime!='' ">
