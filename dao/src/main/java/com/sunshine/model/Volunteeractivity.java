@@ -26,6 +26,12 @@ public class Volunteeractivity {
 	 * 服务的时间
 	 */
 	private Date svr_time; 
+	
+	/**
+	 * 资源者服务状态
+	 * @return
+	 */
+	private Boolean status; 
 
 	public String getId() {
 		return id;

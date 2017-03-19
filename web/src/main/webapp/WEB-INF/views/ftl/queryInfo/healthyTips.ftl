@@ -1,39 +1,95 @@
 <html>
 <head>
 <title>信息查询</title>
+
+  <link rel="stylesheet" href="/uicomponent/layui/css/layui.css">
 <#include "/WEB-INF/views/ftl/head.ftl">
 </head>
 <body>
 <#include "/oldhead.html">
-    <div class="side_cen">
-	<table class="sui-table table-zebra">
-		<thead>
-			<tr>
-				<th>照片</th>
-				<th>性别</th>
-				<th>昵称</th>
-				<th>地址</th>
-				<th>在职状态 </th>
-				<th>生日 </th>
-				<th>操作 </th>
-			</tr>
-		</thead>
-		<tbody>		
-		 <#if StaffInfoPage??>
-		 <#list StaffInfoPage as sip>
-		      <tr>
-		        <td>${sip.photo}</td>
-                <td>${(sip.gender==true)?string("男","女")}</td>
-                <td>${sip.nickName}</td>
-                <td>${sip.address}</td>
-                <td>${(sip.status==true)?string("在职","离职")}</td>
-                <td>${sip.birthday?string("yyyy-MM-dd")}</td>
-                <td><a>修改</a>  &nbsp;&nbsp;<a>查看</a>&nbsp;&nbsp;<a>删除</a></td>
-                </tr>
-		  </#list>
-		  </#if>
+
+  <div class="side_cen">
+  <div id="app" class="container">
+  
+  <from action="" method="post">
+   &nbsp;&nbsp;&nbsp;&nbsp; <button class="layui-btn  layui-btn-warm">搜索</button> &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="name" style="height:30px" value="请输入内容" size="8px"/>
+    </from>
+    
+    
+  </div>   
+ <br/>
+    <ul class="sui-nav nav-tabs nav-large tab-vertical">
+     <li>栏目导航 </li>
+   		<tr class="active" v-for="(item,index) in result">
+  <li class="active"><a href="" @click="showEvent(item.id)">{{item.name}}</a></li>  
+        </tr>
+    </ul>
+    	 
+</div> 
+
+
+
+
+
 		</tbody>
-	</table>
+			 
+		<div id="pagenav"></div>
+		 
+	 
+
+
+
+
+
+ 
+<script >
+
+var app = new Vue({
+	el : '#app',
+	data : {
+		result : []
+	}
+});
+
+
+//查询用户数据
+var getUserPageList = function(curr) {
+	$.ajax({
+		type : "GET",
+		dataType : "json",
+		url : "/tips/gettips",
+		data : {
+			pageNum:curr || 1,
+			pageSize:5,
+			name:$("#tipsCatgyId").val()
+		//向服务端传的参数，此处只是演示
+		},
+		success : function(msg) {
+			app.result = msg.result;
+			laypage({
+				cont : 'pagenav', //容器。值支持id名、原生dom对象，jquery对象,
+				pages : msg.totalPage, //总页数
+				first : true,
+				last : true,
+				curr : curr || 1, //当前页
+				jump : function(obj, first) { //触发分页后的回调
+					if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+						getUserPageList(obj.curr);
+					}
+				}
+			});
+		}
+	});
+}
+
+getUserPageList();
+
+</script>
+
+
+
+ 
     </div>
     <#include "/oldfoot.html">
 </body>

@@ -6,11 +6,11 @@
 <mapper namespace="com.sunshine.dao.EquipmentrecordDao">
 
 	<select id="getEquipmentrecord" parameterType="string"
-		resultType="equipmentrecord">
+		resultType="com.sunshine.model.Equipmentrecord">
 		select id,equp_id,lend_time,return_time,elder_id,user_id from t_equp_record where id = #{id}
 	</select>
 	
-	<insert id="saveEquipmentrecord" parameterType="equipmentrecord">
+	<insert id="saveEquipmentrecord" parameterType="com.sunshine.model.Equipmentrecord">
 		insert into t_equp_record(id,equp_id,lend_time,return_time,elder_id,user_id) values(#{id},#{equp_id},#{lend_time},#{return_time},#{elder_id},#{user_id})
 	</insert>
 	
@@ -18,7 +18,7 @@
 		delete from t_equp_record where id = #{id}
 	</delete>	
 	
-	<update id="updateEquipmentrecord" parameterType="equipmentrecord">
+	<update id="updateEquipmentrecord" parameterType="com.sunshine.model.Equipmentrecord">
 		update t_equp_record set id = #{id},equp_id = #{equp_id},lend_time = #{lend_time},return_time = #{return_time},elder_id = #{elder_id},user_id = #{user_id} where id = #{id}
 	</update>
 

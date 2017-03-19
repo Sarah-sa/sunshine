@@ -18,7 +18,7 @@
 
 	<!-- 获取所有的TipsCategory -->
 	<select id="listAllTipsCategory" resultType="com.sunshine.model.TipsCategory">
-		select * from t_tip_category
+		select name from t_tip_category
 	</select>
 
 	<!-- 更新知识库种类表信息 -->

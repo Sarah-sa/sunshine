@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.sunshine.dao.StaffInfoDao;
 import com.sunshine.model.StaffInfo;
 import com.sunshine.service.StaffInfoService;
@@ -24,6 +25,7 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 	@Override
 	public List<StaffInfo> getListStaff() {
 		// TODO Auto-generated method stub
+		PageHelper.startPage(1, 3, true);
 		return sid.getListStaff();
 	}
 	/**
@@ -51,7 +53,5 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 		return sid.saveStaff(si);
 	}
 	  
-	
-	
-	
+
 }

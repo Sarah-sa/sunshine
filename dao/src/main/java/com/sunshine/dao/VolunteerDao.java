@@ -28,4 +28,9 @@ public interface VolunteerDao {
 	 * 根据条件模糊查询志愿者
 	 */
 	List<Object> listAllVolunteer(Map<String,Object> volunteer);
+
+   
 }
+	
+
+

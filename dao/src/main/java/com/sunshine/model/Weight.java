@@ -18,6 +18,20 @@ public class Weight {
 	 */
 	private Double weight;
 	/**
+	 * 尿酸状态
+	 */
+	private String status;
+	/**
+	 * 身高
+	 */
+	private Double height;
+	@Override
+	public String toString() {
+		return "Weight [id=" + id + ", weight=" + weight + ", status=" + status + ", height=" + height + ", exam_time="
+				+ exam_time + ", elder_id=" + elder_id + "]";
+	}
+
+	/**
 	 * 测量时间
 	 */
 	private Date exam_time;
