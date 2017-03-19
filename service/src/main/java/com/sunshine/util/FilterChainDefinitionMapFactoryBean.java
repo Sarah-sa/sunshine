@@ -27,6 +27,15 @@ public class FilterChainDefinitionMapFactoryBean {
 		
 		//3. 登陆页不需要验证
 		filterChainDefinitionMap.put("/login.html", "anon");
+		filterChainDefinitionMap.put("/menu/**", "anon");
+//		filterChainDefinitionMap.put("/*", "anon");
+//		filterChainDefinitionMap.put("/js/**", "anon");
+//		filterChainDefinitionMap.put("/css/**", "anon");
+//		filterChainDefinitionMap.put("/images/**", "anon");
+//		filterChainDefinitionMap.put("/uicomponent/**", "anon");
+//		filterChainDefinitionMap.put("/info/**", "authc");
+		filterChainDefinitionMap.put("/**/*", "authc");
+		//filterChainDefinitionMap.put("/loginsui.html", "anon");
 		
 		//4. 注册也不需要验证
 		// TODO 添加注册也

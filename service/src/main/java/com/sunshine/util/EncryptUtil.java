@@ -11,14 +11,8 @@ import org.apache.shiro.util.ByteSource;
  */
 public class EncryptUtil {
 
-	/**
-	 * 默认加密算法 MD5
-	 */
 	private String algo;
 
-	/**
-	 * 默认在三列次数 100
-	 */
 	private int hashIterations;
 
 	/**

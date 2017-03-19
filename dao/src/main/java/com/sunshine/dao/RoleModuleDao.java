@@ -72,4 +72,19 @@ public interface RoleModuleDao {
 	 * @return 该角色所能获取到的目录
 	 */
 	List<Module> listModulesByRoleId(String rid);
+	
+	/**
+	 * 根据角色 id 获取 根目录信息
+	 * @param rid 角色 id
+	 * @return 根目录信息
+	 */
+	List<Module> listRootModulesByRoleId(String rid);
+	
+	/**
+	 * 根据角色id 和 父目录 id 获取子目录信息
+	 * @param rid 角色 id
+	 * @param pid 父目录 id
+	 * @return 子目录集合
+	 */
+	List<Module> listModulesByRoleIdAndPid(String rid, String pid);
 }

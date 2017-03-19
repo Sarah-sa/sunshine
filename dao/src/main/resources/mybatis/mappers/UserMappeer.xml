@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper  namespace="com.sunshine.dao.UserDao">
+	<resultMap id="user" type="com.sunshine.model.User" autoMapping="true">
+		<id property="id" column="id" />
+		<result property="communityId" column="community_id" />
+		<result property="roleId" column="role_id" />
+	</resultMap>
 	<!-- 用户注册 -->
 	<insert id="saveUser" parameterType="com.sunshine.model.User">
 		insert into t_user(id,username,pwd,realname,idcard,phone,community_id,email,role_id)
@@ -22,14 +27,14 @@
 		select id from t_user  where userName=#{name} and pwd=#{pwd}
 	</select>
 	<!-- 查询用户 -->
-	<select id="getuser" parameterType="string" resultType="com.sunshine.model.User">
+	<select id="getuser" parameterType="string" resultMap="user">
 	select * from t_user where id=#{id}
 	</select>
 	
 	<!-- 根据用户名查询用户
 			@author 云和数据-王辉
 	 -->
-	 <select id="getByUserName" parameterType="string" resultType="com.sunshine.model.User">
+	 <select id="getByUserName" parameterType="string" resultMap="user">
 	 	SELECT id, username, pwd, realname, idcard, phone, community_id, email, role_id FROM t_user
 	 	WHERE username = #{userName}
 	 </select>
