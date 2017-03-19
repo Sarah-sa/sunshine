@@ -19,10 +19,13 @@
 		select id,name,address,phone,code from t_volunteer
 		<where>
 			<if test="name !=null and name!=''">
-				name like concat('%',#{name},%)
+				name like concat('%',#{name},'%')
 			</if>
 			<if test="code !=null and code!=''">
 				and code = #{code}
+			</if>
+			<if test="address !=null and address!=''">
+				and address like concat('%',#{address},'%')
 			</if>
 
 		</where>

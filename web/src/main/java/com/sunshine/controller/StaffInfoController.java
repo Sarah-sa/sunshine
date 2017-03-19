@@ -18,7 +18,7 @@ public class StaffInfoController {
 private StaffInfoService sis;
 	@RequestMapping("/get")
 	public ModelAndView  getallStaffInfo(){
-		PageHelper.startPage(1, 3, true);
+		
 		
 		List<StaffInfo> page =sis.getListStaff(); 
 		return new ModelAndView("/WEB-INF/views/ftl/StaffInfoManage/StaffInfoManager","StaffInfoPage",page);

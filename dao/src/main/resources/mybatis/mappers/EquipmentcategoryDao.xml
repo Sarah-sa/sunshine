@@ -6,11 +6,11 @@
 <mapper namespace="com.sunshine.dao.EquipmentcategoryDao">
 
 	<select id="getEquipmentcategory" parameterType="string"
-		resultType="equipmentcategory">
+		resultType="com.sunshine.model.Equipmentcategory">
 		select id,pid,name from t_equp_category where id = #{id}
 	</select>
 	
-	<insert id="saveEquipmentcategory" parameterType="equipmentcategory">
+	<insert id="saveEquipmentcategory" parameterType="com.sunshine.model.Equipmentcategory">
 		insert into t_equp_category(id,pid,name) values(#{id},#{pid},#{name})
 	</insert>
 	
@@ -18,11 +18,11 @@
 		delete from t_equp_category where id = #{id}
 	</delete>	
 	
-	<update id="updateEquipmentcategory" parameterType="equipmentcategory">
+	<update id="updateEquipmentcategory" parameterType="com.sunshine.model.Equipmentcategory">
 		update t_equp_category set id = #{id},pid = #{pid},name = #{name} where id = #{id}
 	</update>
 	
-	<select id="getAllEquipmentcategory" resultType="map">
+	<select id="getAllEquipmentcategory" resultType="com.sunshine.model.Equipmentcategory">
 		select * from t_equp_category
 	</select>
 

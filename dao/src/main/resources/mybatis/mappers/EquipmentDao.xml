@@ -6,11 +6,11 @@
 <mapper namespace="com.sunshine.dao.EquipmentDao">
 
 	<select id="getEquipment" parameterType="string"
-		resultType="equipment">
+		resultType="com.sunshine.model.Equipment">
 		select id,name,equp_ctgy_id,code,status,accessable from t_equipment where id = #{id}
 	</select>
 	
-	<insert id="saveEquipment" parameterType="equipment">
+	<insert id="saveEquipment" parameterType="com.sunshine.model.Equipment">
 		insert into t_equipment(id,name,equp_ctgy_id,code,status,accessable) values(#{id},#{name},#{equp_ctgy_id},#{code},#{status},#{accessable})
 	</insert>
 	
@@ -18,7 +18,7 @@
 		delete from t_equipment where id = #{id}
 	</delete>	
 	
-	<update id="updateEquipment" parameterType="equipment">
+	<update id="updateEquipment" parameterType="com.sunshine.model.Equipment">
 		update t_equipment set id = #{id},name = #{name},equp_ctgy_id = #{equp_ctgy_id},code = #{code},status = #{status},accessable = #{accessable} where id = #{id}
 	</update>
 	

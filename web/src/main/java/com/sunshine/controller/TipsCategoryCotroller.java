@@ -1,6 +1,8 @@
 package com.sunshine.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,16 +12,20 @@ import com.sunshine.model.TipsCategory;
 import com.sunshine.service.TipsCategoryService;
 
 @Controller
-@RequestMapping("TipsCategory")
+@RequestMapping("/TipsCategory")
 public class TipsCategoryCotroller {
 @Autowired
 private TipsCategoryService tcs;
-@RequestMapping("get")
-private String getCategoryList() {
- List<TipsCategory> list=tcs.listAllTipsCategory();
-  
-  
-	return "healthyTips";	
+@RequestMapping("/get")
+/**
+ * 返回一个将一个集合封装在一个map集合里
+ * @return
+ */
+private String getCategoryList(Map rsMap){
+ List list=tcs.listAllTipsCategory();
+ rsMap.put("TipsCategoryList", list);
+	return "/WEB-INF/views/ftl/queryInfo/healthyTips";	
+	
 }
 	
 	
