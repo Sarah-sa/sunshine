@@ -7,9 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sunshine.model.ElderUser;
+import com.sunshine.model.VisitRecord;
 import com.sunshine.service.ElderUserService;
+import com.sunshine.util.UUIDUtil;
 
 /**
  * 老人用户  控制层
@@ -44,9 +49,14 @@ public class ElderUserController {
      */
     @RequestMapping("/saveeu")
     public String saveElderUser(ElderUser elderuser){
+    	
+    	elderuser.setId(UUIDUtil.genericUUID());
+    	elderuser.setElder_id("d0c63eb9-ccc7-4d76-ab39-f2ff3aa60cbd");
+    	elderuser.setUser_id("f79dafec-64a6-449a-be54-201fefeec85b");
+    	
     	int i=elderUserService.saveElderUser(elderuser);
     	System.out.println("数据执行影响条数："+i);
-    	return "home";
+    	return "aa";
     }
     
     /**
@@ -78,9 +88,12 @@ public class ElderUserController {
      * @param uid 指定用户的id
      * @return
      */
+   
     @RequestMapping("/listeu")
-    public List<Map<String, Object>> listAllRelatedElder(String uid){
-    	List<Map<String, Object>> list=elderUserService.listAllRelatedElder(uid);
-    	return list;
+    public ModelAndView listAllRelatedElder(String uid){
+    	
+    	PageHelper.startPage(1, 3, true);
+    	List<Map<String, Object>> page=elderUserService.listAllRelatedElder(uid);
+    	return new ModelAndView("/WEB-INF/views/ftl/ElderUserManager/elderusermanager","elderuserPage",page);
     }
 } 
