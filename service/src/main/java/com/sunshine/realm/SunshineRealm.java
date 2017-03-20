@@ -71,7 +71,7 @@ public class SunshineRealm extends AuthorizingRealm {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		String userName = usernamePasswordToken.getUsername();
 		User user = userDao.getByUserName(userName);
-		//StaffInfo staffInfo = infoDao.getStaff(user.getId());
+//		StaffInfo staffInfo = infoDao.getStaff(user.getId());
 //		if(staffInfo != null && staffInfo.getStatus())
 //			return new ;
 		if (user == null)
