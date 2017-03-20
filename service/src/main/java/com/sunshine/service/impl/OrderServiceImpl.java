@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.sunshine.dao.OrderDao;
+import com.sunshine.dao.ServCategoryDao;
 import com.sunshine.dao.ServiceItemDao;
 import com.sunshine.model.Order;
+import com.sunshine.model.ServCategory;
 import com.sunshine.model.ServiceItem;
 import com.sunshine.model.User;
 import com.sunshine.service.OrderService;
@@ -27,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private ServiceItemDao itemDao;
+	
+	@Autowired
+	private ServCategoryDao cateDao;
 	
 	@Override
 	public List<Map<String, Object>> getOrderSummary(int pageIndex, int pageSize) {
@@ -60,5 +64,21 @@ public class OrderServiceImpl implements OrderService {
 	
 	private User getPrincipal() {
 		return (User) SecurityUtils.getSubject().getPrincipal();
+	}
+
+	@Override
+	public Map<String, Object> getOrderDetail(String id) {
+		
+		return orderDao.getOrderDetail(id);
+	}
+	
+	@Override
+	public List<ServCategory> listRootCategory() {
+		return cateDao.listAllRootCategory();
+	}
+	
+	@Override
+	public List<ServCategory> listChildCategory(String pid) {
+		return cateDao.listByPid(pid);
 	}
 }
