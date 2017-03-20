@@ -5,14 +5,17 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunshine.model.Elder;
 import com.sunshine.model.ElderUser;
 import com.sunshine.service.ElderService;
 import com.sunshine.service.ElderUserService;
+import com.sunshine.util.UUIDUtil;
 
 /**
  * 老人  控制层
@@ -49,7 +52,8 @@ public class ElderController {
      * @throws Exception 
      */
     @RequestMapping("/saveed")
-    public String saveElderUser(Elder elder) throws Exception{
+    public String saveElder(Elder elder) throws Exception{
+    	
     	int i=elderService.saveElder(elder);
     	System.out.println("数据执行影响条数："+i);
     	return "homepage";

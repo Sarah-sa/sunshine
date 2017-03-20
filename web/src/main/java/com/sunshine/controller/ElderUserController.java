@@ -78,11 +78,9 @@ public class ElderUserController {
    @RequestMapping("/removeeu")
 	public String removeElderUser(String id){
 		   int i=elderUserService.removeElderUser(id);
-
 		   return "home";
 	   } 
-
-
+ 	      
     /**
      * 根据用户查询与之有关的所有老人
      * @param uid 指定用户的id
