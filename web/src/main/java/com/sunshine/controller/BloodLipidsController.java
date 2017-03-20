@@ -27,6 +27,7 @@ import com.sunshine.service.BloodLipidsService;
 	 *
 	 */
 	@RestController
+	@RequestMapping("/health")
 public class BloodLipidsController {
 	@Autowired	
 	private BloodLipidsService bloodLipidsService;
@@ -38,7 +39,7 @@ public class BloodLipidsController {
 	}
 	
 	@RequestMapping("/getbloodLipids")
-	public ModelAndView listUricAcaid(Date sdate, Date edate, HttpServletRequest req) throws ParseException{
+	public ModelAndView listUricAcaid(Date sdate, Date edate, HttpServletRequest req) {
 		List<BloodLipids> bloodLipids=(List<BloodLipids>) bloodLipidsService.getBloodLipids(sdate, edate);		
 		Map<String,Object> dat = new HashMap<String,Object>(); 
 		dat.put("BloodLipids",bloodLipids);
