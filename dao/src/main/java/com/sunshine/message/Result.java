@@ -60,10 +60,13 @@ public class Result<T> {
 	}
 
 	public enum RsCode{
-		Success(0, "Success"),
-		Fail(1, "Fail"),
-		IllegalArguement(2, "Illegal Arguement"),
-		NotAuthenticated(4, "Not Authenticated");
+		Success(0x00000000, "Success"),
+		Fail(0x00000001, "Fail"),
+		IllegalArguement(0x00000002, "Illegal Arguement"),
+		NotAuthenticated(0x00000004, "Not Authenticated"),
+		NoPermission(0x00000008, "No Persmission"),
+		LoginFailed(0x00000010, "Username or Password Error!"),
+		CredentialExpired(0x00000020, "Your're Fired!");
 		private int code;
 		private String status;
 		RsCode(int code, String status) {
