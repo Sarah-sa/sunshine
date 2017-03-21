@@ -5,51 +5,105 @@
 <mapper namespace="com.sunshine.dao.ComplainDao">
 
     <!-- 定义resultMap，解决表中字段名与模型中属性名不一致的问题 -->
-    <!-- id相当于resultmap的引用的唯一标识--> 
+    <!-- id相当于resultmap的引用的唯一标识 -->
     <resultMap id="ComplainMap" type="com.sunshine.model.Complain">
         <!-- property对应javabean的属性名，column对应数据库字段名 -->
-        <id property="id" column="id"/>
-        <result property="orderId" column="order_id"/>
-        <result property="createTime" column="create_time"/>
-        <result property="staffId" column="staff_id"/>
-        <result property="visitTime" column="visit_time"/>
-        <result property="visitResult" column="visit_result"/>       
+        <id property="id" column="id" />
+        <result property="orderId" column="order_id" />
+        <result property="createTime" column="create_time" />
+        <result property="staffId" column="staff_id" />
+        <result property="visitTime" column="visit_time" />
+        <result property="visitResult" column="visit_result" />
     </resultMap>
-    
+
     <!-- 根据id获得投诉对象 -->
     <select id="getComplain" parameterType="string" resultMap="ComplainMap">
         select * from t_complain where id = #{id}
     </select>
-    
-    <!--获得所有的投诉对象构成list集合  -->
-     <select id="listComplain"  resultMap="ComplainMap">
-        select * from t_complain 
+
+    <!--获得所有的投诉对象构成list集合 -->
+    <select id="listComplain" resultMap="ComplainMap">
+        select * from t_complain
     </select>
-    
-    <!--增加投诉到数据库中  -->
+
+    <!-- 根据查询条件map获得投诉表相关联的的投诉人、被投诉商家、处理人员等的投诉信息集合 -->
+    <select id="listComplainRelations" resultType="map"
+        parameterType="map">
+        select t.* from (
+        SELECT
+        c.id AS id,
+        c.order_id AS orderId,
+        c.content AS content,
+        c.create_time AS createTime,
+        c.staff_id AS staffId,
+        c.visit_time AS visitTime,
+        c.visit_result AS visitResult,
+        c.`status` AS status,
+        o.id AS oId,
+        u.username AS username,
+        s.shopname AS shopname,
+        u.id AS uId,
+        u.phone AS phone,
+        s.u_id AS sId
+        FROM
+        t_complain AS c ,t_order AS o , t_user AS u ,t_server_info AS s 
+        WHERE
+        c.order_id = o.id AND
+        o.user_id = u.id AND
+        o.server_id = s.u_id  ) as t
+        <where>
+        <if test="id != null and id != '' ">
+          id = #{id}
+        </if>
+        <if test="orderId != null and orderId != '' ">
+          and orderId = #{orderId}
+        </if>
+        <if test="username != null and username != '' ">
+          and username like concat('%', #{username},'%')
+        </if>
+        <if test="shopname != null and shopname != '' ">
+          and shopname = #{shopname}
+        </if>
+        <if test="staffId != null and staffId != '' ">
+          and staffId = #{staffId}
+        </if>
+        <if test="startTime !=null and startTime !='' ">
+          and createTime &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+          and createTime &lt;= #{endTime}
+        </if>
+        <if test="status != null and status != '' ">
+          and status = #{status}
+        </if>
+        </where>
+    </select>
+
+    <!--增加投诉到数据库中 -->
     <insert id="saveComplain" parameterType="com.sunshine.model.Complain">
-        insert into t_complain (id,order_id,content,create_time,staff_id,visit_time,visit_result,status) 
-            values(#{id},#{orderId},#{content},#{createTime},#{staffId,jdbcType=VARCHAR},
-                #{visitTime,jdbcType=DATE},#{visitResult,jdbcType=VARCHAR},#{status})
+        insert into t_complain
+        (id,order_id,content,create_time,staff_id,visit_time,visit_result,status)
+        values(#{id},#{orderId},#{content},#{createTime},#{staffId,jdbcType=VARCHAR},
+        #{visitTime,jdbcType=DATE},#{visitResult,jdbcType=VARCHAR},#{status})
     </insert>
-    
-    <!--更新投诉对象  -->
+
+    <!--更新投诉对象 -->
     <update id="updateComplain" parameterType="com.sunshine.model.Complain">
-        update t_complain set 
-	        order_id = #{orderId},
-	        content = #{content},
-	        create_time = #{createTime},
-	        staff_id = #{staffId,jdbcType=VARCHAR},
-	        visit_time = #{visitTime,jdbcType=DATE},
-	        visit_result = #{visitResult,jdbcType=VARCHAR},
-	        status = #{status}
+        update t_complain set
+        order_id = #{orderId},
+        content = #{content},
+        create_time = #{createTime},
+        staff_id = #{staffId,jdbcType=VARCHAR},
+        visit_time = #{visitTime,jdbcType=DATE},
+        visit_result = #{visitResult,jdbcType=VARCHAR},
+        status = #{status}
         where id = #{id}
     </update>
-    
-    <!--根据id删除对应的投诉对象  -->
+
+    <!--根据id删除对应的投诉对象 -->
     <delete id="removeComplain" parameterType="string">
         delete from t_complain where id = #{id}
-    </delete> 
+    </delete>
 
 
 </mapper>

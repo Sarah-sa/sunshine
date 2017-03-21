@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>走访关怀记录</title> <#include "/WEB-INF/views/ftl/head.ftl">
+<title>投诉管理</title> <#include "/WEB-INF/views/ftl/head.ftl">
 <script></script>
 <script type="text/javascript" src="/uicomponent/laypage/laypage.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/sui-append.min.css">
@@ -12,26 +12,23 @@
 
 		<div id="app">
 			<form class="sui-form form-horizontal" id="search"
-				action="/visitrecord/query" method="get">
-				<table class="sui-table">
+				action="/complain/query" method="get">
+				<table class="sui-table">				  
 					<tr>
-						<td>老人姓名：</td>
-						<td><select name="elderName" id="elderName"
-							onclick="lookfor()"> <#if name ??>
-								<option value="${name}" selected>${name}</option></#if>
-								<option value="">全部</option>
-								<option v-for="item in result" v-bind:value="item.name">{{item.name}}</option>
-						</select></td>
+						<td>投诉人：</td>
+						<td>
+						  <input type="text" name="userName" id="username" value="${username}"/>						 
+						</td>
 						<td>处理状态</td>
 						<td><input type="radio" name="status" value="0"<#if
 							status == 0>checked</#if>/>未处理&nbsp; 
 							<input type="radio" name="status" value="1"
 							<#if status == 1>checked</#if>/>已处理&nbsp;
-							<input type="radio" name="status" value=""/>全部&nbsp;
+							<input type="radio" name="status" value="" <#if status != 1 && status != 0>checked</#if>/>全部&nbsp;
 							</td>
 					</tr>
 					<tr>
-						<td>实际走访时间：</td>
+						<td>投诉时间：</td>
 						<td>
 							<div data-toggle="datepicker"
 								class="control-group input-daterange">
@@ -45,8 +42,7 @@
 						</td>
 						<td><input type="hidden" id="pageNum" name="pageNum" /> <input
 							type="hidden" id="pageSize" name="pageSize" /> <input
-							type="button" class="sui-btn btn-xlarge btn-primary" value="查询" onclick="findrec()" /></td>
-						<td><button type="button" class="sui-btn btn-xlarge btn-success" onclick="add()">增加走访计划</button></td>
+							type="button" class="sui-btn btn-xlarge btn-primary" value="查询" onclick="findrec()" /></td>						
 					</tr>
 
 				</table>
@@ -55,39 +51,46 @@
 
 		<table class="sui-table table-zebra" >
 			<thead>
-				<tr align="right">
-					<th>老人姓名</th>
-					<th>电话</th>
-					<th>地址</th>
-					<th>状态</th>
-					<th>操作</th>
-					<th>创建人</th>
-					<th>创建时间</th>
-					<th>计划走访时间</th>
-					<th>实际走访时间</th>
-					<th>走访结果</th>
+				<tr align="right">				     
+                        <th>投诉的定单号</th>
+                        <th>投诉人</th>
+                        <th>投诉时间</th>
+                        <th>投诉内容</th>   
+                        <th>联系电话</th>
+                        <th>处理人</th>                        
+                        <th>处理状态</th>
+                        <th>处理时间</th>                                           
+                        <th>处理结果</th>                                           
+                        <th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<#if vstcarePage??> <#list vstcarePage.list as map>
+				<#if compPage??> <#list compPage.list as map>
 				<tr>
-
-					<td>${map["name"] }</td>
-					<td>${map['phone'] }</td>
-					<td>${map["address"] }</td>
+					<td>${map["orderId"][0..9] }...</td>
+					<td>${map["username"] }</td>
+					<td>${map['createTime'] }</td>
+					<td>${map["content"] }</td>
+					<td>${map["phone"] }</td>
+					<td>
+					   <#if map["staffId"]?? && map["staffId"]?length gt 2>
+					${map["staffId"][0..2] }...</#if>
+					</td>
 					<td>${(map["status"]==true)?string("已处理","未处理") }</td>
-					<td><button onclick=editEven('${map["id"]}') class="sui-btn btn-bordered btn-small btn-warning"><i class="sui-icon icon-pencil"></i>编辑</button>&nbsp;&nbsp;
-						<button onclick=showlook('${map["id"]}') class="sui-btn btn-bordered btn-small btn-info";>查看</button>&nbsp;&nbsp;
-						<button onclick=deleEven('${map["id"]}') class="sui-btn btn-bordered btn-small btn-danger";>删除</button></td>
-					<td>${map["nickname"] }</td>
-					<td>${map["create_time"]?string("yyyy-MM-dd") }</td>
-					<td>${map["plan_time"]?string("yyyy-MM-dd") }</td>
-					<td><#if map["exec_time"]??
-						>${map["exec_time"]?string("yyyy-MM-dd") }</#if></td>
-					<td><#if (map["content"]?? && map["content"]?length gt 0 )> <a
-						href="#" onclick=showlook('${map["id"]}')>${map["content"][0..1] }...</a>
+					<td><#if map["visitTime"]??
+						>${map["visitTime"]?string("yyyy-MM-dd") }</#if></td>
+					<td><#if (map["visitResult"]?? && map["visitResult"]?length gt 0 )> <a
+						href="#" onclick=showlook('${map["id"]}')>${map["visitResult"][0..1] }...</a>
 						</#if>
 					</td>
+					<td>
+					<#if map["status"]==false>
+					    <button onclick=editEven('${map["id"]}') class="sui-btn btn-bordered btn-small btn-warning"><i class="sui-icon icon-pencil"></i>处理</button>&nbsp;&nbsp;
+                    </#if>
+                         <button onclick=showlook('${map["id"]}') class="sui-btn btn-bordered btn-small btn-info";>查看</button>&nbsp;&nbsp;
+                    <#if map["status"]==true>
+                        <button onclick=deleEven('${map["id"]}') class="sui-btn btn-bordered btn-small btn-danger";>删除</button></td>
+				    </#if>
 				</tr>
 				</#list> </#if>
 
@@ -95,7 +98,7 @@
 			</tbody>
 		</table>
 		<div id="pagination">
-			<input type="hidden" id="totalPages" value="${vstcarePage.pages }">
+			<input type="hidden" id="totalPages" value="${compPage.pages }">
 		</div>
 
 	</div>
@@ -103,49 +106,13 @@
 </body>
 <script>
 
+ /*
  var app = new Vue({
     el : '#app',
     data : {
         result : []
     }
-});
-
- 
-/* var getrecordList = function(curr){ 
-	//获取处理状态单选框的选中的值；
-    var radiochecked=document.getElementsByName("status");
-    var statusval = null;
-    for(var i=0;i<radiochecked.length;i++){
-        if(radiochecked[i].checked==true){
-            statusval=radiochecked[i].value;
-        }
-    };
-    //获得老人姓名下拉框的值；
-    var options=$("#elderName option:selected");
-    var op = null;
-    op = options.val();         
-    $.ajax({
-                type : "GET",                
-                url : "/visitrecord/query",
-                data : {
-                    pageNum:curr || 1,
-                    pageSize:4,
-                    elderName:op,
-                    status:statusval,
-                    startTime:$("#startTime").val(),
-                    endTime:$("#endTime").val()                    
-                //向服务端传的参数，此处只是演示
-                },
-                success : function(msg) {
-                    alert("成功返回"+msg);
-                    
-                },
-                error:function(ms){
-                    alert("你好 错误！"+ms);
-                }
-            });
-}; */
-        //getrecordList();
+});*/
         //分页
         //获得总页数
     var pageall = $("#totalPages").val() == '' ? 1 : $("#totalPages").val();
@@ -162,7 +129,7 @@
             jump : function(obj, first) { //触发分页后的回调
                 if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                 	$("#pageNum").val(obj.curr);
-                    $("#pageSize").val(4);
+                    $("#pageSize").val(3);
                     findrec(obj.curr);
                 }
             }
@@ -173,6 +140,7 @@
     	$("#search").submit();
       };
        
+/*
 //获取下拉框中老人名字的集合
 function lookfor() {
     $.ajax({
@@ -187,19 +155,19 @@ function lookfor() {
         }
     
     })
-};
-    //查看选中的走访记录的详细内容
+}; */
+    //查看选中投诉的详细内容
 	var showlook = function(id) {
 	 	layer.open({
 			type : 2,
-			title:"走访记录详情页",
+			title:"投诉详情页",
 			fix : false,
 			maxmin:true,
 			area : [ '900px', '540px' ],
 			shadeClose : false, //点击遮罩关闭
-			content : '/visitrecord/getone?id='+id,
+			content : '/complain/getone?opr=show&id='+id,
 			end:function(){
-                findrec();
+                //findrec();
             }
 		}); 		
 	};
@@ -207,12 +175,12 @@ function lookfor() {
     function editEven(id) {
         layer.open({
             type : 2,
-            title : '更新走访记录',
+            title : '投诉处理更新',
             fix : false,
             maxmin : true,
-            shadeClose : true,
+            shadeClose : false,
             area : [ '900px', '540px' ],
-            content : '/visitrecord/preupdate?id='+id,
+            content : '/complain/getone?opr=edit&id='+id,
             end : function() {
             	findrec();
             }
@@ -227,7 +195,7 @@ function lookfor() {
             maxmin:true,
             area : [ '900px', '540px' ],
             shadeClose : false, //点击遮罩关闭
-            content : '/visitrecord/preadd',
+            content : '/complain/getone?opr=add',
             end:function(){
                 findrec();;
             }
@@ -241,7 +209,7 @@ function lookfor() {
     			function(){//‘是’
     				$.ajax({
     					type:'get',
-    					url:'/visitrecord/delete',
+    					url:'/complain/delete',
     					data:{
     						"id":id
     					},
