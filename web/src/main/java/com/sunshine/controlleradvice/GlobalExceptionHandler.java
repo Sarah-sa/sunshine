@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sunshine.exception.CredentialExpiredException;
 import com.sunshine.message.Result;
 
 /**
@@ -33,6 +34,10 @@ public class GlobalExceptionHandler {
 		return mv;
 	}
 	
+	/**
+	 * 捕捉验证失败异常
+	 * @return
+	 */
 	@ExceptionHandler(AuthenticationException.class)
 	public Result<String> handleLoginErr() {
 		Result<String> rs = new Result<>();
@@ -41,11 +46,27 @@ public class GlobalExceptionHandler {
 		return rs;
 	}
 	
+	/**
+	 * 捕捉授权失败异常
+	 * @return
+	 */
 	@ExceptionHandler(AuthorizationException.class)
 	public Result<String> handleNoPermission() {
 		Result<String> rs = new Result<>();
 		rs.setRsCode(Result.RsCode.NoPermission);
 		rs.setData("您没有这个权限");
+		return rs;
+	}
+	
+	/**
+	 * 捕捉凭证过期异常
+	 * @return
+	 */
+	@ExceptionHandler(CredentialExpiredException.class)
+	public Result<String> handleCredentialExpired() {
+		Result<String> rs = new Result<>();
+		rs.setRsCode(Result.RsCode.CredentialExpired);
+		rs.setReason("Your have been FIRED!!!");
 		return rs;
 	}
 }

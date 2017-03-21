@@ -42,13 +42,14 @@
 					<div id="menu" class="list-block">
 						<ul v-for="menu in menus">
 							<a v-if="menu.url == null" data-no-cache="true"
-								v-bind:href="'/menu.html?pid='+menu.pid"
+								v-bind:href="'/menu.html?pid='+menu.id"
 								class="item-link item-content">
 								<div class="item-inner">
 									<div class="item-title">{{menu.name}}</div>
 								</div>
 							</a>
 							<a v-if="menu.url != null" data-no-cache="true"
+								v-on:click="toDest(url)"
 								v-bind:href="menu.url" class="item-link item-content">
 								<div class="item-inner">
 									<div class="item-title">{{menu.name}}</div>
@@ -92,12 +93,18 @@
 			location.href="menu.html?pid=" + ppid;
 		}
 		var v_menu;
+		function toDest(url) {
+			$(window.parent.document).contents().find("#mainbody").attr("src", url);
+		}
 		function initMenu() {
 			ppid = pid;
 			v_menu = new Vue({
 				el : "#menu",
 				data : {
 					menus : []
+				},
+				methods: {
+					toDest: toDest
 				}
 			});
 		}
