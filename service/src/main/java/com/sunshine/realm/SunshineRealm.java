@@ -16,9 +16,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.sunshine.dao.StaffInfoDao;
 import com.sunshine.dao.UserDao;
 import com.sunshine.model.Authority;
 import com.sunshine.model.Role;
+import com.sunshine.model.StaffInfo;
 import com.sunshine.model.User;
 import com.sunshine.service.AuthorityService;
 import com.sunshine.util.EncryptUtil;
@@ -38,7 +40,7 @@ public class SunshineRealm extends AuthorizingRealm {
 	private UserDao userDao;
 
 	@Autowired
-	private EncryptUtil util;
+	private StaffInfoDao infoDao;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -69,6 +71,9 @@ public class SunshineRealm extends AuthorizingRealm {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		String userName = usernamePasswordToken.getUsername();
 		User user = userDao.getByUserName(userName);
+//		StaffInfo staffInfo = infoDao.getStaff(user.getId());
+//		if(staffInfo != null && staffInfo.getStatus())
+//			return new ;
 		if (user == null)
 			throw new UnknownAccountException(userName + " is unknown");
 		String hashedCredentials = user.getPwd();

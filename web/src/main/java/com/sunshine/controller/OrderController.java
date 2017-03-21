@@ -1,8 +1,8 @@
 package com.sunshine.controller;
 
 import java.util.List;
-import java.util.Map;
 
+import java.util.Map;import org.apache.ibatis.mapping.ResultSetType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +20,12 @@ import com.sunshine.service.OrderService;
 @RequestMapping("/order")
 public class OrderController {
 	
+	
 	@Autowired
 	private OrderService orderService;
+	
+//	@Autowired
+//	private 
 	
 	/**
 	 * 获取商家未处理的订单
@@ -37,4 +41,12 @@ public class OrderController {
 		rs.setRsCode(Result.RsCode.Success);
 		return rs;
 	}
+	
+//	@RequestMapping("/detail")
+//	public Result<Map<String, Object>> getOrderDetail(String oid) {
+//		Map<String, Object> data = orderService.getOrderDetail(oid);
+//		Result<Map<String, Object>> rs = new Result<>();
+//		rs.setRsCode(Result.RsCode.Success);
+//	}
+
 }

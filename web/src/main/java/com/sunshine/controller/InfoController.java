@@ -10,9 +10,17 @@ import com.sunshine.model.Community;
 import com.sunshine.model.User;
 import com.sunshine.service.CommunityService;
 
+
+/**
+ * 获取登陆用户信息的handler
+ * @author 云和数据-王辉
+ *
+ */
 @RestController
 @RequestMapping("/info")
 public class InfoController {
+
+	
 
 	@Autowired
 	private CommunityService communityService;

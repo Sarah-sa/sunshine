@@ -25,11 +25,8 @@
 	<div class="page-group">
 		<div id="page-infinite-scroll-bottom" class="page">
 			<header class="bar bar-nav">
-				<a class="button button-link button-nav pull-left back"
-					href="/demos/infinite-scroll"> <span class="icon icon-left"></span>
-					返回
-				</a>
-				<h1 class="title">底部无限滚动</h1>
+
+				<h1 class="title">待处理订单</h1>
 			</header>
 			<div id="list" class="content infinite-scroll infinite-scroll-bottom"
 				data-distance="100">
@@ -41,7 +38,7 @@
 								<div class="item-media">
 									<i class="icon icon-f7"></i>
 								</div>
-								<div class="item-inner">
+								<div class="item-inner" onclick="">
 									<div class="item-title">订单号</div>
 									<div class="item-after">{{order.NO}}</div>
 								</div>
@@ -133,10 +130,10 @@
 			});
 		}
 		$(document).on('infinite', '.infinite-scroll-bottom', function() {
-			//flushData();
 			// 如果正在加载，则退出
 			if (loading)
 				return;
+			//flushData();
 
 			// 设置flag
 			loading = true;
@@ -145,8 +142,9 @@
 			setTimeout(function() {
 				// 重置加载flag
 				loading = false;
+				console.log('hh');
+				if (pageIndex >= maxItems) {
 
-				if (lastIndex >= maxItems) {
 					// 加载完毕，则注销无限加载事件，以防不必要的加载
 					$.detachInfiniteScroll($('.infinite-scroll'));
 					// 删除加载提示符
