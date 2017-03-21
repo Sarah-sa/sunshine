@@ -21,7 +21,7 @@ import com.sunshine.service.AdviceService;
  *
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/advice")
 public class AdviceController {
 	@Autowired
 	private AdviceService adviceService;
