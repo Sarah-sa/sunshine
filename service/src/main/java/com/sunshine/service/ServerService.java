@@ -1,9 +1,11 @@
 package com.sunshine.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
 import com.sunshine.model.ServerInfo;
+import com.sunshine.util.ServiceCategoryTree;
 
 /**
  * 服务商相关业务
@@ -34,4 +36,10 @@ public interface ServerService {
 	 * @return
 	 */
 	PageInfo<Map<String, Object>> listServerItem(String sid, int pageIndex, int pageSize, boolean available);
+	
+	/**
+	 * 获取所有服务分类
+	 * @return
+	 */
+	List<ServiceCategoryTree> listServCategoryTree();
 }

@@ -1,5 +1,7 @@
 package com.sunshine.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sunshine.dao.ServCategoryDao;
 import com.sunshine.dao.ServerInfoDao;
 import com.sunshine.dao.ServiceItemDao;
+import com.sunshine.model.ServCategory;
 import com.sunshine.model.ServerInfo;
 import com.sunshine.service.ServerService;
+import com.sunshine.util.ServiceCategoryTree;
 
 @Service
 public class ServerServiceImpl implements ServerService {
@@ -20,6 +25,10 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Autowired
 	private ServiceItemDao itemDao;
+	
+	@Autowired
+	private ServCategoryDao cateDao;
+	
 	@Override
 	public boolean improveServerInfo(ServerInfo info) {
 		// TODO Auto-generated method stub
@@ -44,6 +53,22 @@ public class ServerServiceImpl implements ServerService {
 		else
 			page = new PageInfo<>(itemDao.listUnavailableItemByServer(sid));
 		return page;
+	}
+
+	@Override
+	public List<ServiceCategoryTree> listServCategoryTree() {
+		List<ServiceCategoryTree> tree = new ArrayList<>();
+		List<ServCategory> rootCate = cateDao.listAllRootCategory();
+		for (ServCategory servCategory : rootCate) {
+			ServiceCategoryTree servTree = new ServiceCategoryTree();
+			servTree.setTreeNode(servCategory);
+			List<ServCategory> childTree = cateDao.listByPid(servCategory.getId());
+			
+			servTree.setChildNode(childTree);
+			tree.add(servTree);
+		}
+		
+		return tree;
 	}
 
 }
