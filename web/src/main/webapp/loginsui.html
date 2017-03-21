@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登陆</title>
+<link rel="stylesheet" href="/css/sm.min.css">
+<link rel="stylesheet" href="/css/sm-extend.min.css">
+<script type='text/javascript' src='/js/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/jquery-3.1.1.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/vue.js' charset='utf-8'></script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ba76f8230db5f616edc89ce066670710";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+</head>
+<body>
+	<header class="bar bar-nav">
+  <h1 class='title'>登陆</h1>
+</header>
+<div class="content">
+  <div class="list-block">
+    <ul>
+      <!-- Text inputs -->
+      <li>
+        <div class="item-content">
+          <div class="item-media"><i class="icon icon-form-name"></i></div>
+          <div class="item-inner">
+            <div class="item-title label">用户名</div>
+            <div class="item-input">
+              <input type="text" name="userName" placeholder="Your name">
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="item-content">
+          <div class="item-media"><i class="icon icon-form-password"></i></div>
+          <div class="item-inner">
+            <div class="item-title label">密码</div>
+            <div class="item-input">
+              <input type="password" name="password" placeholder="Password" class="">
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Switch (Checkbox) -->
+      <li>
+        <div class="item-content">
+          <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+          <div class="item-inner">
+            <div class="item-title label">自动登陆</div>
+            <div class="item-input">
+              <label class="label-switch">
+                <input type="checkbox" name="rem">
+                <div class="checkbox"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="content-block">
+    <div class="row">
+      <div class="col-100"><a href="#" class="button button-big button-fill button-success">登陆</a></div>
+      <br>
+      <br>
+      <br>
+      <div class="col-100"><a href="#" class="button button-big button-fill button-warn">注册</a></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -26,6 +26,7 @@ import com.sunshine.util.ModuleTree;
 @RequestMapping("/menu")
 public class ModuleController {
 	
+
 	
 	@Autowired
 	private AuthorityService authService;
@@ -60,6 +61,7 @@ public class ModuleController {
 	@RequestMapping("/menulist/{pid}")
 	@ResponseBody
 	Result<Set<Module>> getModule(@PathVariable(value="pid", required=false) String pid) {
+
 		Set<Module> menus = authService.parseUserMenu(pid);
 		Result<Set<Module>> rs = new Result<>();
 		rs.setRsCode(Result.RsCode.Success);

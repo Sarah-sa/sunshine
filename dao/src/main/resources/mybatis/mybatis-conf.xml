@@ -39,6 +39,7 @@
 		</plugin>
 
 	</plugins>
+	<!-- 
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -67,13 +68,20 @@
 		<mapper resource="mybatis/mappers/BloodSugarDao.xml" />
 		<mapper resource="mybatis/mappers/StepsDao.xml" />
         
-	
+	<mapper resource="mybatis/mappers/VolunteerDao.xml" />
 
 		<mapper resource="mybatis/mappers/StaffInfoDao.xml"/> 
 		<mapper resource="mybatis/mappers/LoginRecordDao.xml"/>
+		<mapper resource="mybatis/mappers/CommunityDao.xml"/>
 		
 
 		<mapper resource="mybatis/mappers/UricAcaidDao.xml" />
 			<mapper resource="mybatis/mappers/UserMappeer.xml" />
+		<mapper resource="mybatis/mappers/TipsDao.xml" />
+		<mapper resource="mybatis/mappers/VolunteeractivityDao.xml" />
+		<mapper resource="mybatis/mappers/EquipmentDao.xml" />
+		<mapper resource="mybatis/mappers/EquipmentcategoryDao.xml" />
+		<mapper resource="mybatis/mappers/EquipmentrecordDao.xml" />
 	</mappers>
+	  -->
 </configuration>

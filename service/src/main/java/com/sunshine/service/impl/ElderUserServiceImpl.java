@@ -51,4 +51,9 @@ public class ElderUserServiceImpl implements ElderUserService {
 		return elderUserDao.listAllRelatedElder(uid);
 	}
 
+	@Override
+	public List<ElderUser> listElderUser() {
+		// TODO Auto-generated method stub
+		return elderUserDao.listElderUser();
+	}
 }

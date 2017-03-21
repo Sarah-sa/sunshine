@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sunshine.dao.StaffInfoDao;
 import com.sunshine.dao.UserDao;
+import com.sunshine.exception.CredentialExpiredException;
 import com.sunshine.model.Authority;
 import com.sunshine.model.Role;
 import com.sunshine.model.StaffInfo;
@@ -71,14 +72,14 @@ public class SunshineRealm extends AuthorizingRealm {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		String userName = usernamePasswordToken.getUsername();
 		User user = userDao.getByUserName(userName);
-//		StaffInfo staffInfo = infoDao.getStaff(user.getId());
-//		if(staffInfo != null && staffInfo.getStatus())
-//			return new ;
+		StaffInfo staffInfo = infoDao.getStaff(user.getId());
+		if(staffInfo != null && !staffInfo.getStatus())
+			throw new CredentialExpiredException();
 		if (user == null)
 			throw new UnknownAccountException(userName + " is unknown");
-		String hashedCredentials = util.encrypt(user.getPwd(), userName);
+
 		ByteSource salt = ByteSource.Util.bytes(userName);
-		return new SimpleAuthenticationInfo(user, hashedCredentials, salt, getName());
+		return new SimpleAuthenticationInfo(user, user.getPwd(), salt, getName());
 	}
 
 }

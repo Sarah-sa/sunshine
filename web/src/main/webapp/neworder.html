@@ -25,6 +25,7 @@
 	<div class="page-group">
 		<div id="page-infinite-scroll-bottom" class="page">
 			<header class="bar bar-nav">
+
 				<h1 class="title">待处理订单</h1>
 			</header>
 			<div id="list" class="content infinite-scroll infinite-scroll-bottom"
@@ -143,6 +144,7 @@
 				loading = false;
 				console.log('hh');
 				if (pageIndex >= maxItems) {
+
 					// 加载完毕，则注销无限加载事件，以防不必要的加载
 					$.detachInfiniteScroll($('.infinite-scroll'));
 					// 删除加载提示符

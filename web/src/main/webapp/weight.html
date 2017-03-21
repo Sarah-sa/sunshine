@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>血压查询</title> 
+<#include "/WEB-INF/views/ftl/head.ftl">
+ <script src="/eui/echarts.min.js"></script>
+
+</head>
+<body>
+	<#include "/oldhead.html">
+	<div class="side_cen" style="width: 800px; height: 1800">
+		<br> <br>
+
+		<form action="/health/get" method="get">
+			开始时间：<input type="text" name="stime"
+				style="width: 260px; height: 40px"> 结束时间：<input type="text"
+				name="etime" style="width: 260px; height: 40px"> <input
+				type="submit" value="查询" style="width: 60px; height: 40px">
+
+
+		</form>
+
+		<!--  <br> <select name="time" 
+				style="width: 150px; height: 35px"> <#list mylist as item>
+				<option value="请选择您查询开始的时间">${item.exam_time?string('yyyy-MM-dd HH:mm:ss') }</option>
+
+				</#list>
+			</select> <select name="time" id="etime" style="width: 150px; height: 35px">
+				<#list mylist as item>
+				<option value="请选择您查询结束的时间">${item.exam_time?string('yyyy-MM-dd HH:mm:ss') }</option>
+
+				</#list>
+				</select>
+				-->
+<br><br><br>
+	<div align="center">
+         <div id="main" style="width: 600px;height:400px;" align="center"></div>
+    
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+        	    title: {
+        	        text: '血压变化图'
+        	    },
+        	    tooltip: {
+        	        trigger: 'axis'
+        	    },
+        	    legend: {
+        	        data:['低压','脉率','高压']
+        	    },
+        	    grid: {
+        	        left: '3%',
+        	        right: '4%',
+        	        bottom: '3%',
+        	        containLabel: true
+        	    },
+        	    toolbox: {
+        	        feature: {
+        	            saveAsImage: {}
+        	        }
+        	    },
+        	    xAxis: {
+        	        type: 'category',
+        	        boundaryGap: false,
+        	        data: ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
+        	    },
+        	    yAxis: {
+        	        type: 'value'
+        	    },
+        	    series: [
+        	        {
+        	            name:'低压',
+        	            type:'line',
+        	            stack: '总量',
+        	            data:[<#list getbloodPressure as item>${item.lowpressuer!},</#list>]
+        	        },
+        	            
+        	                  
+        	        {
+        	            name:'脉率',
+        	            type:'line',
+        	            stack: '总量',
+        	            data:[<#list getbloodPressure as item>${item.pr!},</#list>]
+        	            
+        	        },
+        	        {
+        	            name:'高压',
+        	            type:'line',
+        	            stack: '总量',
+        	            data:[<#list getbloodPressure as item>${item.highpressure!},</#list>]
+  	            
+        	        },
+        	        
+        	        
+        	    ]
+        	};
+        myChart.setOption(option);
+    </script>
+    </div>
+	
+	
+
+		<div align="center">
+			<table border="1" >
+
+				<tr>
+					<td style="width: 200px; height: 30px">日期：</td>
+					<td>高压(mmHg)：</td>
+					<td>低压(mmHg)：</td>
+					<td>脉率：</td>
+					<td>状态：</td>
+				</tr>
+
+				<#list getbloodPressure as item>
+				<tr>
+					<td style="width: 200px; height: 30px">${item.exam_time?string('yyyy-MM-dd HH:mm:ss')}</td>
+
+					<td>${item.highpressure}</td>
+
+					<td>${item.lowpressuer}</td>
+
+					<td>${item.pr}</td>
+
+					<td>${item.status}</td>
+				</tr>
+				</#list>
+			</table>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+	<#include "/oldfoot.html">
+</body>
+
+</html>

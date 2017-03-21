@@ -5,7 +5,7 @@
 <mapper namespace="com.sunshine.dao.ModuleDao">
 
 	<sql id="fields">
-		id, name, pid, icon
+		id, name, pid, icon, url
 	</sql>
 	
 	<!-- 根据 id 获取一条目录信息 -->
@@ -15,12 +15,12 @@
 	
 	<!-- 保存一条目录信息 -->
 	<insert id="saveModule" parameterType="com.sunshine.model.Module">
-		INSERT INTO t_module(<include refid="fields" />) VALUES(#{id}, #{name}, #{pid}, #{icon})
+		INSERT INTO t_module(<include refid="fields" />) VALUES(#{id}, #{name}, #{pid}, #{icon}, #{url})
 	</insert>
 	
 	<!-- 更新一条目录信息 -->
 	<update id="updateModule" parameterType="com.sunshine.model.Module">
-		UPDATE t_module SET name = #{name}, pid = #{pid}, icon = #{icon}
+		UPDATE t_module SET name = #{name}, pid = #{pid}, icon = #{icon}, url = #{url}
 		WHERE id = #{id}
 	</update>
 	
