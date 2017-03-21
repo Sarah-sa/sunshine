@@ -51,7 +51,7 @@ public class VisitRecordController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/query")
-	public ModelAndView getList(Integer pageSize,Integer pageNum,String elderName,Integer status,String startTime,String endTime){
+	public ModelAndView getList(Integer pageSize,Integer pageNum,String elderName,String status,String startTime,String endTime){
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("name", elderName);
