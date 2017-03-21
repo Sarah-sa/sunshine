@@ -12,16 +12,16 @@
 
 </head>
 <body>
-	<#include "/oldhead.html">
-	<div class="side_cen"  style="width: 800px; height: 800px" >		
-		<div align="left" style="margin-left: 35rem; margin-top: 1rem">
-		<div class="layui-inline">
-		<form action="/getUricAcaid" method="get">
-			开始时间： <input class="layui-input" name="sdate" placeholder="自定义日期格式" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-			结束时间：<input class="layui-input" name="edate" placeholder="自定义日期格式"
-				onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-			<button style="width: 60px; height: 30px">查询</button>
-
+	<div style="background-color:#A6FFFF;height:1000px">		
+		<div align="center">
+		<div class="layui-inline" style="margin-top: 5rem">
+		<form action="/health/getUricAcaid" method="get">
+		<table>
+		<tr>
+			<td>开始时间： </td><td><input class="layui-input" name="sdate" placeholder="请选择日期" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+			<td>结束时间： </td><td><input class="layui-input" name="edate" placeholder="请选择日期" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+			<td></td><td><button style="width: 60px; height: 30px">查询</button></td>
+		</tr></table>
 		</form>
 				<script src="/eui/layui/layui.js" charset="utf-8"></script>
 			<script>
@@ -134,7 +134,7 @@ layui.use('laydate', function(){
 					<td>状态：</td>
 				</tr>
 
-				<#list UricAcid as item>
+				<#list UricAcaid as item>
 				<tr>
 					<td style="width: 200px; height: 30px">${item.exam_time?string('yyyy-MM-dd HH:mm:ss')}</td>
 
@@ -147,14 +147,6 @@ layui.use('laydate', function(){
 
 	</div>
 
-
-
-
-
-
-
-
-	<#include "/oldfoot.html">
 </body>
 
 </html>
