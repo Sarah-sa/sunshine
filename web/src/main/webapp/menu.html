@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>金夕-社区养老系统</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+<!-- Google Web Fonts -->
+
+<link rel="stylesheet" href="/css/sm.min.css">
+<link rel="stylesheet" href="/css/sm-extend.min.css">
+<link rel="stylesheet" href="/css/demos.css">
+
+<!-- <script type='text/javascript' src='/js/jquery-3.1.1.min.js' charset='utf-8'></script> -->
+
+<script type='text/javascript' src='/js/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/config.js' charset='utf-8'></script>
+
+<script type='text/javascript' src='/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/sm-city-picker.min.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='/js/sm-extend.min.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='/js/demos.js' charset='utf-8'></script>
+
+<script type='text/javascript' src='/js/vue.js' charset='utf-8'></script>
+</head>
+<body class="theme-dark">
+	<div class="page-group">
+		<div class="page" id="page-index">
+			<header class="bar bar-nav">
+				<a class="back icon icon-back pull-left open-panel"
+					onclick="back()"><span class="icon icon-left"></span>返回</a>
+			</header>
+			<div class="content" id='page-index'>
+				<div class="content-inner">
+					<!-- <div class="content-block-title">示例</div> -->
+					<div id="menu" class="list-block">
+						<ul v-for="menu in menus">
+							<a v-if="menu.url == null" data-no-cache="true"
+								v-bind:href="'/menu.html?pid='+menu.pid"
+								class="item-link item-content">
+								<div class="item-inner">
+									<div class="item-title">{{menu.name}}</div>
+								</div>
+							</a>
+							<a v-if="menu.url != null" data-no-cache="true"
+								v-bind:href="menu.url" class="item-link item-content">
+								<div class="item-inner">
+									<div class="item-title">{{menu.name}}</div>
+								</div>
+							</a>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function initData() {
+			getMenuData();
+		}
+		
+		var pid, ppid;
+		function getMenuData() {
+			var url = location.href;
+			var reg = /^.+=(.*)$/;
+			if(!reg.test(url))
+				pid = 0;
+			else
+				pid = reg.exec(url)[1];
+			console.log(url);
+			console.log(pid);
+			$.ajax({
+				url : "/menu/menulist/" + pid,
+				type : "get",
+				dataType : "json",
+				async : false,
+				success : function(data) {
+					v_menu.menus = data.data;
+				}
+			});
+		}
+		function back() {
+			if(!ppid) ppid = 0;
+			if(!pid) return;
+			location.href="menu.html?pid=" + ppid;
+		}
+		var v_menu;
+		function initMenu() {
+			ppid = pid;
+			v_menu = new Vue({
+				el : "#menu",
+				data : {
+					menus : []
+				}
+			});
+		}
+		initMenu();
+		$(document).on("pageAnimationStart", initMenu);
+		$(document).on("pageInit", initData);
+	</script>
+</body>
+</html>
