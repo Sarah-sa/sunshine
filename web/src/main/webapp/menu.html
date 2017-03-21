@@ -49,8 +49,8 @@
 								</div>
 							</a>
 							<a v-if="menu.url != null" data-no-cache="true"
-								v-on:click="toDest(url)"
-								v-bind:href="menu.url" class="item-link item-content">
+								v-on:click="toDest(menu.url)"
+								class="item-link item-content">
 								<div class="item-inner">
 									<div class="item-title">{{menu.name}}</div>
 								</div>
@@ -75,8 +75,6 @@
 				pid = 0;
 			else
 				pid = reg.exec(url)[1];
-			console.log(url);
-			console.log(pid);
 			$.ajax({
 				url : "/menu/menulist/" + pid,
 				type : "get",

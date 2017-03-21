@@ -61,6 +61,8 @@
 		<mapper resource="mybatis/mappers/ElderDao.xml" />
 		<mapper resource="mybatis/mappers/ElderUserDao.xml" />
 		<mapper resource="mybatis/mappers/WeightDao.xml" />
+		<mapper resource="mybatis/mappers/ModuleDao.xml" />
+		<mapper resource="mybatis/mappers/RoleModuleDao.xml" />
 
 		 <mapper resource="mybatis/mappers/BloodLipidsDao.xml" /> 
 		
@@ -83,5 +85,5 @@
 		<mapper resource="mybatis/mappers/EquipmentcategoryDao.xml" />
 		<mapper resource="mybatis/mappers/EquipmentrecordDao.xml" />
 	</mappers>
-	  -->
+	 -->
 </configuration>

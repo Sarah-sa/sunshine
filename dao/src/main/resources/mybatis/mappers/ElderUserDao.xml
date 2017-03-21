@@ -30,9 +30,9 @@
 		select * from t_elder_user where id=#{id}
 	</select>
     <!-- 根据主键获取所有老人用户对象 -->
-    <select id="listElderUser" resultMap="ElderUserMap">
+    <!-- <select id="listElderUser" resultMap="ElderUserMap">
     select * from t_elder_user
-    </select>
+    </select> -->
 	<!--获取所有和指定用户有关联的老人 -->
 	<select id="listAllRelatedElder" parameterType="string"
 		resultType="map">

@@ -46,10 +46,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public String login(User user) {
-		System.out.println(user.getPwd());
-		System.out.println(user.getUserName());
-		String b = dao.login(user);
-		return b;
+//		System.out.println(user.getPwd());
+//		System.out.println(user.getUserName());
+//		String b = dao.login(user);
+//		return b;
+		return null;
 
 	}
 
@@ -69,7 +70,8 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public List<User> all() {
-		return dao.all();
+		//return dao.all();
+		return null;
 	}
 	
 	/**
