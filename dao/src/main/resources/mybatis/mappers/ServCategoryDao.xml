@@ -20,7 +20,7 @@
 	<!-- 获取父分类下的所有子分类 -->
 	<select id="listByPid" parameterType="string" resultType="com.sunshine.model.ServCategory">
 		SELECT id, name, pid FROM t_srv_category
-		WHERE pid = #{pid}
+		WHERE pid = #{pid} AND id &lt;&gt; pid
 		ORDER BY id ASC
 	</select>
 	
