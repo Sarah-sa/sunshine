@@ -3,6 +3,7 @@ package com.sunshine.service;
 import java.util.Set;
 
 import com.sunshine.model.Authority;
+import com.sunshine.model.Module;
 import com.sunshine.model.Role;
 import com.sunshine.util.ModuleTree;
 
@@ -24,6 +25,15 @@ public interface AuthorityService {
 	Role parseRole(String uid);
 
 	/**
+	 * 获取用户所拥有的所有角色，包括直接继承和间接继承
+	 * 
+	 * @param uid
+	 *            用户主键
+	 * @return 用户所拥有的角色集合
+	 */
+	Set<Role> listRoles(String uid);
+
+	/**
 	 * 解析指定用户所具有的所有权限
 	 * 
 	 * @param user
@@ -41,6 +51,12 @@ public interface AuthorityService {
 	 */
 	Set<ModuleTree> parseModules(String uid);
 
+	/**
+	 * 后去当前用户的目录树
+	 * @return
+	 */
+	Set<ModuleTree> parseModules();
+	
 	/**
 	 * 为用户赋予角色
 	 * 
@@ -73,17 +89,6 @@ public interface AuthorityService {
 	boolean grantPriviledgesToRole(String roleId, String... privIds);
 
 	/**
-	 * 批量解除角色权限
-	 * 
-	 * @param roleId
-	 *            要操作的角色
-	 * @param privIds
-	 *            要接触的权限
-	 * @return
-	 */
-	boolean revokePriviledgesFromRole(String roleId, String... privIds);
-
-	/**
 	 * 为角色授予目录权限
 	 * 
 	 * @param roleId
@@ -93,16 +98,12 @@ public interface AuthorityService {
 	 * @return
 	 */
 	boolean grantModulesToRole(String roleId, String... mdIds);
-
+	
 	/**
-	 * 从角色解除目录权限
-	 * 
-	 * @param roleId
-	 *            要解除权限的角色
-	 * @param mdIds
-	 *            要解除的权限
-	 * @return
+	 * 获取当前角色的目录权限
+	 * @param pid 父目录
+	 * @return 当前角色所拥有的子目录
 	 */
-	boolean revokeModulesFromRole(String roleId, String... mdIds);
+	Set<Module> parseUserMenu(String pid);
 
 }

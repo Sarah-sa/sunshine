@@ -20,7 +20,7 @@ public interface ElderDao {
 	         * @return 受影响的条数
 	         * @throws Exception
 	         */
-	        int saveElder(Elder elder) throws Exception; 
+	        int saveElder(Elder elder); 
 	        
 	        /**
 	         * 更新老人信息
@@ -29,7 +29,7 @@ public interface ElderDao {
 	         * @return  受影响的条数
 	         * @throws Exception
 	         */
-	        int updateElder(Elder elder)throws Exception;
+	        int updateElder(Elder elder);
 	        
 	        /**
 	         * 删除一条老人信息
@@ -38,7 +38,7 @@ public interface ElderDao {
 	         * @return   受影响的条数
 	         * @throws Exception
 	         */
-	        int removeElder(String id)throws Exception;
+	        int removeElder(String id);
 	        
 	        /**
 	         * 根据主键获取老人对象
@@ -46,7 +46,7 @@ public interface ElderDao {
 	         * @return     老人主键
 	         * @throws Exception
 	         */
-	        Elder getElder(String id)throws Exception;
+	        Elder getElder(String id);
 	        
 	        
 	        /**
@@ -55,6 +55,6 @@ public interface ElderDao {
 	         * @return  返回所有的老人信息
 	         * @throws Exception
 	         */
-	        List<Elder> listAllElders()throws Exception;
+	        List<Elder> listAllElders();
 	        
 }

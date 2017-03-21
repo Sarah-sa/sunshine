@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.ServCategoryDao">
+
+	<!-- 根据id 查询对应的项目分类 -->
+	<select id="getCategory" parameterType="string" resultType="com.sunshine.model.ServCategory">
+		SELECT id, name, pid FROM t_srv_category 
+		WHERE id = #{id}
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 获取所有服务分类数据 -->
+	<select id="listAllCategory" resultType="com.sunshine.model.ServCategory">
+		SELECT id, name, pid FROM t_srv_category
+		ORDER BY pid ASC, id ASC
+	</select>
+	
+	<!-- 获取父分类下的所有子分类 -->
+	<select id="listByPid" parameterType="string" resultType="com.sunshine.model.ServCategory">
+		SELECT id, name, pid FROM t_srv_category
+		WHERE pid = #{pid}
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 获取所有根分类 -->
+	<select id="listAllRootCategory" resultType="com.sunshine.model.ServCategory">
+		SELECT id, name, pid FROM t_srv_category
+		WHERE id = pid
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 新增一个分类 -->
+	<insert id="saveCategory" parameterType="com.sunshine.model.ServCategory">
+		INSERT INTO t_srv_category(id, name, pid) VALUES(#{id}, #{name}, #{pid})
+	</insert>
+	
+	<!-- 更新分类数据 -->
+	<update id="updateCategory" parameterType="com.sunshine.model.ServCategory">
+		UPDATE t_srv_category
+		SET name = #{name}, pid = #{pid}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 删除一条分类信息 -->
+	<delete id="deleteCategory" parameterType="string">
+		DELETE FROM t_srv_category
+		WHERE id = #{id}
+	</delete>
+	
+	<!-- 删除指定父分类下的所有子分类数据 -->
+	<delete id="removeAllChildNode" parameterType="string">
+		DELETE FROM t_srv_category
+		WHERE pid = #{id} AND id &lt;&gt; pid
+	</delete>
+	
+	<!-- 根据名字和父id获取服务类别 -->
+	<select id="getByNameAndPid" resultType="com.sunshine.model.ServCategory">
+		SELECT id, name, pid FROM t_srv_category
+		WHERE name = #{0} AND pid = #{1} AND id &lt;&gt; pid
+		ORDER BY id ASC
+	</select>
+</mapper>

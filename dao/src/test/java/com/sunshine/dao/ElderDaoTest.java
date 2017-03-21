@@ -1,10 +1,9 @@
-package com.sunshine.dao.test;
+package com.sunshine.dao;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.sunshine.dao.ElderDao;
-import com.sunshine.dao.InitTestCase;
 import com.sunshine.model.Elder;
 import com.sunshine.util.UUIDUtil;
 

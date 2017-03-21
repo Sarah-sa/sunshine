@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 配置shiro的 SecurityManager -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="authenticator" ref="authenticator"></property>
+		<property name="cacheManager" ref="cacheManager"></property>
+		<property name="realms">
+			<list>
+				<ref bean="sunshineRealm" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置CacheManager -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache.xml"></property>
+	</bean>
+
+	<!-- 配置shiro的验证器 -->
+	<bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+		<property name="authenticationStrategy">
+			<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean>
+		</property>
+	</bean>
+
+	<!-- 配置 LifecycleBeanPostProcessor. 可以自动的来调用配置在 Spring IOC 容器中 shiro bean 
+		的生命周期方法 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- 启用 IOC 容器中使用 shiro 的注解. 但必须在配置了 LifecycleBeanPostProcessor 之后才可以使用 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager"></property>
+	</bean>
+
+	<!-- 配置 ShiroFilter.id 必须和 web.xml 文件中配置的 DelegatingFilterProxy 的 <filter-name> 
+		一致. 若不一致, 则会抛出: NoSuchBeanDefinitionException. 因为 Shiro 会来 IOC 容器中查找和 <filter-name> 
+		名字对应的 filter bean. -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 默认登陆网址 -->
+		<property name="loginUrl" value="/login.html"></property>
+		<!-- 登陆成功后跳转的url -->
+		<!-- <property name="successUrl" value=""></property> -->
+		<!-- 未授权时跳转的页面 -->
+		<!-- <property name="unauthorizedUrl" value=""></property> -->
+		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
+	</bean>
+
+	<!-- 配置一个 权限表 生成的工厂bean -->
+	<bean id="filterChainDefinitionMapFactoryBean" class="com.sunshine.util.FilterChainDefinitionMapFactoryBean"></bean>
+	<!-- 配置一个权限表的bean -->
+	<bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapFactoryBean"
+		factory-method="buildFilterChainDefinitionMap"></bean>
+
+	<!-- 配置一个 realm -->
+	<bean id="sunshineRealm" class="com.sunshine.realm.SunshineRealm">
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="${hashAlgorithmName}"></property>
+				<property name="hashIterations" value="${hashIterations}"></property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 配置加密工具类 -->
+	<bean id="encryptUtil" class="com.sunshine.util.EncryptUtil">
+		<property name="algo" value="${hashAlgorithmName}"></property>
+		<property name="hashIterations" value="${hashIterations}"></property>
+	</bean>
+</beans>
