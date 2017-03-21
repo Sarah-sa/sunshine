@@ -21,7 +21,7 @@
     <import resource="spring-mybatis.xml" />
     
     <!-- 引入 shiro 配置文件 -->
-    <import resource="spring-shiro.xml"/>
+    <!-- <import resource="spring-shiro.xml"/> -->
     
     <!-- 自动扫描(自动注入)，扫描cn.yunhe.spring这个包以及它的子包的所有使用@注解标注的类 -->
     <context:component-scan base-package="com.sunshine.service" />

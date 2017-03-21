@@ -76,7 +76,7 @@ public class SunshineRealm extends AuthorizingRealm {
 //			return new ;
 		if (user == null)
 			throw new UnknownAccountException(userName + " is unknown");
-		String hashedCredentials = user.getPwd();
+		String hashedCredentials = util.encrypt(user.getPwd(), userName);
 		ByteSource salt = ByteSource.Util.bytes(userName);
 		return new SimpleAuthenticationInfo(user, hashedCredentials, salt, getName());
 	}

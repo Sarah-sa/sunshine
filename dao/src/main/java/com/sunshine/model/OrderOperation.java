@@ -1,36 +1,14 @@
 package com.sunshine.model;
 
 import java.util.Date;
-/**
- * 工单管理表
- * @author 陈晓锋
- *
- */
+
 public class OrderOperation {
 
-	/**
-	 * 工单管理表的id
-	 */
 	private String id;
-	/**
-	 * 坐席人员id
-	 */
 	private String staffid;
-	/**
-	 * 原先订单id
-	 */
 	private String oldorderid;
-	/**
-	 * 新订单号
-	 */
 	private String neworderid;
-	/**
-	 * 新下单时间
-	 */
 	private Date operatetime;
-	/**
-	 * 操作类型
-	 */
 	private String operatetype;
 	public String getId() {
 		return id;

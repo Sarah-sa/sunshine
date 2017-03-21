@@ -42,9 +42,4 @@
 	<delete id="removeServerInfo" parameterType="string">
 		DELETE FROM t_server_info WHERE u_id = #{id}
 	</delete>
-	
-	<!-- 根据供应商审核状态获取供应商 -->
-	<select id="listServersByStatus" parameterType="string" resultMap="serverInfo">
-		SELECT <include refid="fields" /> FROM t_server_info WHERE status = #{status}
-	</select>
 </mapper>

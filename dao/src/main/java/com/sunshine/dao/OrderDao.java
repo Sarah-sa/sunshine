@@ -93,11 +93,4 @@ public interface OrderDao {
 	 * @return 符合条件的订单
 	 */
 	List<Map<String, String>> listOrderByCriteria(CriteriaOrder criteriaOrder);
-	
-	/**
-	 * 获取订单详情
-	 * @param id 订单 id
-	 * @return 订单详情
-	 */
-	Map<String, Object> getOrderDetail(String id);
 }

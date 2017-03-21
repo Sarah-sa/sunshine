@@ -6,29 +6,29 @@
 <mapper namespace="com.sunshine.dao.TipsCategoryDao">
 	<!-- 向知识库种类表插入一条数据 -->
 	<insert id="saveTipsCategory" parameterType="com.sunshine.model.TipsCategory">
-		insert into t_tip_category(id,name)
+		insert into TipsCategory(id，name)
 		values(#{id},#{name})
 	</insert>
 
 	<!-- 根据id获取TipsCategory -->
 	<select id="getTipsCategory" parameterType="string"
 		resultType="com.sunshine.model.TipsCategory">
-		select * from t_tip_category where id=#{id}
+		select * from TipsCategory where id=#{id}
 	</select>
 
 	<!-- 获取所有的TipsCategory -->
 	<select id="listAllTipsCategory" resultType="com.sunshine.model.TipsCategory">
-		select name from t_tip_category
+		seelct * from TipsCategory
 	</select>
 
 	<!-- 更新知识库种类表信息 -->
 	<update id="updateTipsCategory" parameterType="com.sunshine.model.TipsCategory">
-		update t_tip_category set name#{name} where id=#{id}
+		update TipsCategory set name#{name} where id=#{id}
 	</update>
 
 	<!-- 删除指定的TipsCategory -->
 	<delete id="removeTipsCategory" parameterType="com.sunshine.model.TipsCategory">
-		delete from t_tip_category where id=#{id}
+		delete from TipsCategory where id=#{id}
 	</delete>
 
 

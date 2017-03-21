@@ -28,7 +28,7 @@
                 <td>${sip.address}</td>
                 <td>${(sip.status==true)?string("在职","离职")}</td>
                 <td>${sip.birthday?string("yyyy-MM-dd")}</td>
-                <td><a>修改</a>  &nbsp;&nbsp;<a>查看</a>&nbsp;&nbsp;<a>删除</a></td>
+                <td><a>修改</a>&nbsp;&nbsp;<a>查看</a>&nbsp;&nbsp;<a>删除</a></td>
                 </tr>
 		  </#list>
 		  </#if>

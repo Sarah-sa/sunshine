@@ -6,7 +6,7 @@
 <select id="getWeight"
 		 resultType="com.sunshine.model.Weight">
 		
-		select exam_time, status, height, weight from t_weight where exam_time between #{0} and #{1}
+		select exam_time, weight from t_weight where exam_time between #{0} and #{1}
 	</select>
 	
 </mapper>
