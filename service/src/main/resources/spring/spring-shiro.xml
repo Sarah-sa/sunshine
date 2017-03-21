@@ -44,16 +44,16 @@
 	<!-- 配置 ShiroFilter.id 必须和 web.xml 文件中配置的 DelegatingFilterProxy 的 <filter-name> 
 		一致. 若不一致, 则会抛出: NoSuchBeanDefinitionException. 因为 Shiro 会来 IOC 容器中查找和 <filter-name> 
 		名字对应的 filter bean. -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	 <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager"></property>
-		<!-- 默认登陆网址 -->
+		<!--默认登陆网址  --> 
 		<property name="loginUrl" value="/login.html"></property>
 		<!-- 登陆成功后跳转的url -->
-		<!-- <property name="successUrl" value=""></property> -->
-		<!-- 未授权时跳转的页面 -->
-		<!-- <property name="unauthorizedUrl" value=""></property> -->
+		<property name="successUrl" value=""></property>
+		<!-- 未授权时跳转的页面-->
+		<property name="unauthorizedUrl" value=""></property>
 		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
-	</bean>
+	</bean> 
 
 	<!-- 配置一个 权限表 生成的工厂bean -->
 	<bean id="filterChainDefinitionMapFactoryBean" class="com.sunshine.util.FilterChainDefinitionMapFactoryBean"></bean>

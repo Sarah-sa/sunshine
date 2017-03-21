@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace的值就是dao接口的完整路径，就这个demo而言namespace 就是EquipmentMapper.java的完整路径 -->
+<mapper namespace="com.sunshine.dao.EquipmentDao">
+
+	<select id="getEquipment" parameterType="string"
+		resultType="com.sunshine.model.Equipment">
+		select id,name,equp_ctgy_id,code,status,accessable from t_equipment where id = #{id}
+	</select>
+	
+	<insert id="saveEquipment" parameterType="com.sunshine.model.Equipment">
+		insert into t_equipment(id,name,equp_ctgy_id,code,status,accessable) values(#{id},#{name},#{equp_ctgy_id},#{code},#{status},#{accessable})
+	</insert>
+	
+	<delete id="removeEquipment" parameterType="string">
+		delete from t_equipment where id = #{id}
+	</delete>	
+	
+	<update id="updateEquipment" parameterType="com.sunshine.model.Equipment">
+		update t_equipment set id = #{id},name = #{name},equp_ctgy_id = #{equp_ctgy_id},code = #{code},status = #{status},accessable = #{accessable} where id = #{id}
+	</update>
+	
+	<select id="getAllEquipment" resultType="map">
+		select * from t_equipment
+	</select>
+
+	
+	
+	 
+</mapper>

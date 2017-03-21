@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.dao.OrderOperationDao">
+	<resultMap id="operation" type="com.sunshine.model.OrderOperation" autoMapping="true">
+		<id property="id" column="id" />
+		<result property="staffid" column="staff_id" />
+		<result property="oldorderid" column="old_order_id" />
+		<result property="neworderid" column="new_order_id" />
+		<result property="operatetime" column="operate_time" />
+		<result property="operatetype" column="operate_type" />
+	</resultMap>
+	<sql id="fields">
+		o.id AS id, o.staff_id AS staffId, s.username AS staffName, 
+		old_order_id AS oldorderid, new_order_id AS neworderid, 
+		operate_time AS operatetime, operate_type AS operatetype
+		FROM t_order_operation AS o LEFT JOIN t_user AS s ON o.staff_id = s.id
+	</sql>
+	
+	<!-- 根据订单操作记录表的主键获取订单操作记录 -->
+	<select id="getOperation" parameterType="string" resultType="map">
+		SELECT <include refid="fields" />
+		WHERE o.id = #{id}
+	</select>
+	
+	<!-- 获取指定坐席人员对订单所进行的所有操作 -->
+	<select id="listByStaffId" parameterType="string" resultType="map">
+		SELECT <include refid="fields" />
+		WHERE o.staff_id = #{id}
+		ORDER BY o.operate_time DESC
+	</select>
+	
+	<!-- 获取指定坐席人员所下订单的记录 -->
+	<select id="listPlacedOrderByStaff" parameterType="string" resultType="map">
+		SELECT <include refid="fields" />
+		WHERE o.staff_id = #{id} AND o.operate_type = '下单'
+		ORDER BY o.operate_time DESC
+	</select>
+	
+	<!-- 获取指定坐席人员所改派订单的记录 -->
+	<select id="listChangedOrderByStaff" parameterType="string" resultType="map">
+		SELECT <include refid="fields" />
+		WHERE o.staff_id = #{id} AND o.operate_type = '改派'
+		ORDER BY o.operate_time DESC
+	</select>
+	
+	<!-- 插入一条订单操作记录 -->
+	<insert id="saveOperation" parameterType="com.sunshine.model.OrderOperation">
+		INSERT INTO t_order_operation(id, staff_id, old_order_id, new_order_id, operate_time, operate_type) 
+		VALUES(#{id}, #{staffid}, #{oldorderid}, #{neworderid}, #{operatetime}, #{operatetype})
+	</insert>
+	
+	<!-- 获取所有坐席人员订单操作记录 -->
+	<select id="listAll" resultType="map">
+		SELECT <include refid="fields" />
+		ORDER BY o.staff_id ASC, o.operate_time DESC
+	</select>
+	
+	<!-- 根据旧的订单号查询改派操作 -->
+	<select id="getByOldOrderId" parameterType="string" resultType="map">
+		SELECT <include refid="fields" />
+		WHERE o.old_order_id = #{id}
+	</select>
+	
+	<!-- 订单模糊查询 -->
+	<select id="listByCriteria" parameterType="com.sunshine.criteria.CriteriaOrderOperation" resultType="map">
+		SELECT <include refid="fields" />
+		WHERE o.staff_id LIKE CONCAT('%', #{staffId}, '%') AND o.operate_type LIKE CONCAT('%', #{operatetype}, '%')
+		AND ${operationTimeQueryString}
+	</select>
+</mapper>

@@ -1,5 +1,7 @@
 package com.sunshine.dao;
 
+import java.util.List;
+
 import com.sunshine.model.ServerInfo;
 
 /**
@@ -38,4 +40,10 @@ public interface ServerInfoDao {
 	 */
 	int removeServerInfo(String id);
 	
+	/**
+	 * 根据审核状态获取所有满足条件的供应商
+	 * @param status 审核状态
+	 * @return 满足条件的
+	 */
+	List<ServerInfo> listServersByStatus(String status);
 }

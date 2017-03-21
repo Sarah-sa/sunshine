@@ -44,7 +44,19 @@
 	
 	<!-- 根据角色获取目录权限 -->
 	<select id="listModulesByRoleId" parameterType="string" resultType="com.sunshine.model.Module">
-		SELECT id, name, icon, pid FROM t_module WHERE id IN
+		SELECT id, name, icon, pid, url FROM t_module WHERE id IN
 		(SELECT module_id FROM t_role_module WHERE role_id = #{id})	
+	</select>
+	
+	<!-- 根据角色 id 获取 根目录信息 -->
+	<select id="listRootModulesByRoleId" parameterType="string" resultType="com.sunshine.model.Module">
+		SELECT  id, name, icon, pid, url FROM t_module WHERE (id=pid OR pid is NULL) AND id IN
+		(SELECT module_id FROM t_role_module WHERE role_id = #{id})
+	</select>
+	
+	<!-- 根据角色id 和 父目录 id 获取子目录信息 -->
+	<select id="listModulesByRoleIdAndPid" resultType="com.sunshine.model.Module">
+		SELECT  id, name, icon, pid, url FROM t_module WHERE pid=#{1} AND id &lt;&gt;pid AND id IN
+		(SELECT module_id FROM t_role_module WHERE role_id = #{0})
 	</select>
 </mapper>
