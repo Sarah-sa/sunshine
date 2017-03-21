@@ -17,6 +17,12 @@ public class Community {
 	private String identifier;
 	//行政代码
 	private String administrativeCode;
+	
+	/**
+	 * 是否审核通过
+	 */
+	private Boolean status;
+	private Boolean handle;
 	public String getId() {
 		return id;
 	}
@@ -46,6 +52,18 @@ public class Community {
 	}
 	public void setAdministrativeCode(String administrativeCode) {
 		this.administrativeCode = administrativeCode;
+	}
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	public Boolean getHandle() {
+		return handle;
+	}
+	public void setHandle(Boolean handle) {
+		this.handle = handle;
 	}
 	@Override
 	public String toString() {

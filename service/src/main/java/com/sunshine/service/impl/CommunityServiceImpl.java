@@ -65,9 +65,11 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Community currentCommunity() {
 		User user = (User) SecurityUtils.getSubject().getPrincipal();
+
 		Community com = communityDao.getCommunity(user.getCommunityId());
 		System.out.println(com);
 		return com;
+
 	}
 
 }

@@ -22,7 +22,7 @@ import com.sunshine.service.ServerService;
 @RequestMapping("/server")
 public class ServerController {
 	
-	
+
 	@Autowired
 	private ServerService serverService;
 	

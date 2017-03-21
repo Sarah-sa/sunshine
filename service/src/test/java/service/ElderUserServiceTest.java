@@ -47,7 +47,15 @@ public class ElderUserServiceTest {
 			log.info(m);
 		}
 	}
-
+	
+    @Test
+	public void list1(){
+		PageHelper.startPage(1, 2);
+		List<ElderUser> list =  getEUI().listElderUser();
+		for(ElderUser eu : list){
+			log.info(eu);
+		}
+	} 
 	/**
 	 * 保存一条数据测试
 	 */

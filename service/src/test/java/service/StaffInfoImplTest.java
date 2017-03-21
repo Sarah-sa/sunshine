@@ -28,11 +28,11 @@ StaffInfoService stf =cte.getBean(StaffInfoService.class);
 /**
  * 测试获取座席信息集合
  */
-//@Test
-//public void  getListStaffTest() {
-//	// TODO Auto-generated constructor stub
-//           List staffList =(List) stf.getListStaff();
-//           log.info(staffList);
+@Test
+public void getListStaffTest() {
+	// TODO Auto-generated constructor stub
+           List staffList =(List) stf.getListStaff();
+           log.info(staffList);
  
 ///**
 // * 测试添加座席信息
@@ -54,7 +54,7 @@ StaffInfoService stf =cte.getBean(StaffInfoService.class);
 //	log.info("添加成功");
 //	System.out.println(i);
 //}
-//}
+}
 
 /**
  * 删除座席信息 

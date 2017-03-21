@@ -77,6 +77,7 @@ public class SunshineRealm extends AuthorizingRealm {
 			throw new CredentialExpiredException();
 		if (user == null)
 			throw new UnknownAccountException(userName + " is unknown");
+
 		ByteSource salt = ByteSource.Util.bytes(userName);
 		return new SimpleAuthenticationInfo(user, user.getPwd(), salt, getName());
 	}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<title>地图定位</title>
+<link rel="stylesheet" href="css/theOld.css">
+<script src="js/jquery-1.8.3.min.js"></script>
+<!-- 百度API接口和自己申请的密钥，版本号 -->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=1.3&key=8z4KWFbqT3WaVBIy02x2NocZZ4wgaFW8"></script>
+<!-- jquery引用 -->
+<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+<!-- 鼠标绘制管理类,实现鼠标绘制管理的入口 -->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<!-- 百度路书引用 -->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/library/LuShu/1.2/src/LuShu_min.js"></script>
+<!-- 百度测距工具类引用 -->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+<!-- 区域范围判断类引用 电子围栏-->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+<!-- 鼠标绘制管理类样式,实现鼠标绘制管理的入口 -->
+<link rel="stylesheet"
+	href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+</head>
+<body>
+	<div class="head">
+		<div class="nav">
+			<div class="nav_box">
+				<ul class="nav_div">
+					<li class="nav_logo"><img src="" alt=""></li>
+					<li class="nav_li">智慧养老服务管理平台</li>
+					<li class="nav_li">|</li>
+					<li class="nav_li">服务中心</li>
+				</ul>
+				<ul class="nav_div" style="float: right">
+					<li class="nav_logo" style="width: 100px"><img src="" alt=""></li>
+					<li class="nav_li nav_ll">欢迎使用客服演示</li>
+					<li class="nav_li nav_ll">|</li>
+					<li class="nav_li nav_ll">安全退出</li>
+				</ul>
+			</div>
+			<div class="nav_big">
+				<ul class="nav_ul">
+					<li class="nav_kj">空间|</li>
+					<li class="nav_sec">忙碌</li>
+					<li class="nav_phone">手机坐席号码</li>
+					<li class="nav_sec"></li>
+					<li class="nav_size">设置</li>
+					<li class="nav_pho"></li>
+					<li class="nav_sj"><img src="" alt=""></li>
+					<li class="nav_mSize">我的设置</li>
+				</ul>
+				<div class="nav_date">2017年08月08日 08:08:08</div>
+			</div>
+		</div>
+		<div>
+			<div class="sidebar">
+				<div class="side_bar">
+					<ul class="side_ul">
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+						<li>7</li>
+						<li>8</li>
+						<li>9</li>
+					</ul>
+					<div class="side_pre">
+						<div class="side_box" style="display: block; background: orange"></div>
+						<div class="side_box" style="background: green"></div>
+						<div class="side_box" style="background: blue"></div>
+						<div class="side_box" style="background: yellow"></div>
+						<div class="side_box" style="background: pink"></div>
+						<div class="side_box" style="background: black"></div>
+						<div class="side_box" style="background: #986758"></div>
+						<div class="side_box" style="background: #129767"></div>
+						<div class="side_box" style="background: #987688"></div>
+						<div class="side_box" style="background: #123456"></div>
+					</div>
+				</div>
+				<div>请输入老人ID</div>
+				<input type="search"
+					style="margin-left: 0.3rem; width: 250px; height: 30px; border: 1px">
+				<button type="button" id="search" onclick="sear()">查询老人当前位置</button>
+				<button type="button" id="search2" onclick="sea()">查询老人历史轨迹</button>
+				<table width="500" align="center">
+					<tr height="30">
+						<td width="45">姓名</td>
+						<td width="120">时间</td>
+						<td width="180">位置</td>
+					</tr>
+					<tr height="30">
+						<td width="45"></td>
+						<td width="120"></td>
+						<td width="180"></td>
+					</tr>
+					<tr height="30">
+						<td width="45"></td>
+						<td width="120"></td>
+						<td width="180"></td>
+					</tr>
+					<tr height="30">
+						<td width="45"></td>
+						<td width="120"></td>
+						<td width="180"></td>
+					</tr>
+					<tr height="30">
+						<td width="45"></td>
+						<td width="120"></td>
+						<td width="180"></td>
+					</tr>
+				</table>
+				<!-- 定义一个DIV用来显示地图 -->
+				<div align="center"
+					style="margin-left: 45rem; margin-top: -13.5rem; width: 580px; height: 580px; border: 1px solid gray"
+					id="container"></div>
+
+				<!-- 路书开始按钮 -->
+				<div align="center"
+					style="margin-left: 35rem; width: 1000px; height: 20px"
+					id="container">
+					<input type="button" id="run" value="开始" onclick="cs()">
+					<!-- 路书停止按钮 -->
+					<input type="button" id="stop" value="停止 " onclick="cs1()">
+					<!-- 路书暂停按钮 -->
+					<input type="button" id="pause" value="暂停" onclick="cs2()">
+					<!-- 地图测距开始按钮 -->
+					<input type="button" value="开启测距" onclick="myDis.open();" />
+					<!-- 地图测距关闭按钮  -->
+					<input type="button" value="关闭测距" onclick="myDis.close()" />
+				</div>
+			</div>
+</body>
+<script src="js/theOld.js"></script>
+<script type="text/javascript">
+function initMap(x, y) {
+	var map = new BMap.Map("container"); // 创建地图实例  
+	//var longitude = "113.549805";//经度  
+	//var latitude = "34.808465";//纬度  
+	//var longitude = "${list.longitude}";//经度  
+	//var latitude = "${list.latitude}";//纬度  
+	var point = new BMap.Point(x, y); // 创建点坐标  
+	map.centerAndZoom(point, 15);//初始化地图，设置中心点坐标和地图级别
+	var myDis = new BMapLib.DistanceTool(map);//测距时间添加到地图上
+	var marker = new BMap.Marker(point);//在地图上创建标注
+	var opts = {
+		//width : 250,     // 信息窗口宽度       
+		//height: 100,     // 信息窗口高度       
+		title : "" // 信息窗口标题       
+	}
+	var infoWindow = new BMap.InfoWindow("我是Sarah，我在这里，在这里(>-<)！", opts); // 创建信息窗口对象
+	// 百度地图API功能    
+	map.openInfoWindow(infoWindow, map.getCenter());//添加信息窗
+	map.addOverlay(marker);// 实例化标注,并添加到地图中  	
+	map.addControl(new BMap.NavigationControl()); //添加平移缩放控件  		
+	map.addControl(new BMap.MapTypeControl());//添加卫星视图
+	map.addControl(new BMap.CopyrightControl());//添加版本号
+	map.addControl(new BMap.ScaleControl());//添加放大、缩小控件  
+	map.enableScrollWheelZoom();//允许鼠标滑轮操作  
+	//鼠标绘制完成回调方法   获取各个点的经纬度
+	var overlays = [];//定义一个缓冲数组，
+	var lushu;//定义路书函数
+	var overlaycomplete = function(e) {
+		overlays.push(e.overlay);//把得到的点坐标添加到数组
+		var path = e.overlay.getPath();//Array<Point> 返回多边型的点数组
+		/*for(var i=0;i<path.length;i++){
+		    alert("lng:"+path[i].lng+"\n lat:"+path[i].lat);
+		}*/
+		lushu = new BMapLib.LuShu(map, path, {
+			defaultContent : "崔赛赛：谁卖废品",//标题
+			autoView : true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+			icon : new BMap.Icon('33.png', new BMap.Size(52, 80), {
+				anchor : new BMap.Size(27, 13)
+			}),
+			speed : 800,//设置移动速度，值越小越慢
+			enableRotation : true,//是否设置marker随着道路的走向进行旋转
+			landmarkPois : [
+			//里面填写之间相应的点坐标
+			]
+		});
+	};
+	var styleOptions = {
+		strokeColor : "red", //边线颜色。
+		fillColor : "pink", //填充颜色。当参数为空时，圆形将没有填充效果。
+		strokeWeight : 3, //边线的宽度，以像素为单位。
+		strokeOpacity : 0.8, //边线透明度，取值范围0 - 1。
+		fillOpacity : 0.6, //填充的透明度，取值范围0 - 1。
+		strokeStyle : 'solid' //边线的样式，solid或dashed。
+	}
+	//实例化鼠标绘制工具
+	var drawingManager = new BMapLib.DrawingManager(map, {
+		isOpen : false, //是否开启绘制模式
+		enableDrawingTool : true, //是否显示工具栏
+		drawingMode : BMAP_DRAWING_POLYGON,//绘制模式  多边形
+		drawingToolOptions : {
+			anchor : BMAP_ANCHOR_BOTTOM_RIGHT, //位置
+			offset : new BMap.Size(5, 5), //偏离值
+			drawingModes : [ BMAP_DRAWING_MARKER,// 画点 
+			BMAP_DRAWING_CIRCLE,//画圆 
+			BMAP_DRAWING_POLYLINE,//画线 
+			BMAP_DRAWING_POLYGON,//画多边形 
+			BMAP_DRAWING_RECTANGLE //画矩形
+			]
+		},
+		polygonOptions : styleOptions
+	//多边形的样式
+	});
+
+	//添加鼠标绘制工具监听事件，用于获取绘制结果
+	drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+}
+	
+	function clearAll() {
+		for (var i = 0; i < overlays.length; i++) {
+			map.removeOverlay(overlays[i]);
+		}
+		overlays.length = 0
+	}
+	
+	
+	var id;
+	function query() {
+		
+		id = 22
+	}
+	function flushPostion() {
+		//var position;
+		$.ajax({
+			dataType : "json",
+			url : "position/getposition?id=" + 22,
+			async : false,
+			type : "get",
+			success : function(data) {
+				updateMap(data.x, data.y);
+				
+			}
+			
+		});
+	}
+
+		 
+	updateMap("113.549805", "34.8080");
+	function updateMap(x, y) {
+		
+		
+		initMap(x, y);
+		
+	}
+	var clock = window.setInterval("flushPostion()", 50000);
+	
+	
+	function 
+	
+</script>
+</html>

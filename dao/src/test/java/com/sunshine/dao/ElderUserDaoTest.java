@@ -27,7 +27,13 @@ public class ElderUserDaoTest extends InitTestCase {
 	public void testList() {
 		System.out.println(euDao.listAllRelatedElder("id"));
 	}
-*/
+    */
+	
+	@Test
+	public void textList1(){
+		System.out.println(euDao.listElderUser());
+	}
+	
 	@Test
 	public void testSave() {
 
