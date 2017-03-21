@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +97,6 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public Set<ModuleTree> parseModules(String uid) {
 		// 1. 获取当前用户所属的角色
 		Role role = parseRole(uid);
-
 		// 2. 创建权限的集合
 		Set<Module> modules = new TreeSet<>();
 
@@ -117,6 +118,36 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return ModuleTreeUtil.buildModuleForest(modules);
 	}
 
+	@Override
+	public Set<Module> parseUserMenu(String pid) {
+		
+		//1. 创建目录集合
+		Set<Module> modules = new TreeSet<>();
+		
+		//2. 解析当前登陆用户
+		User user = getPrincipal();
+		
+		//3. 获取当前用户的直接继承角色
+		Role role = parseRole(user.getId());
+		
+		//4. 自底向上遍历用户的角色链， 并获取角色链中所有的平级目录权限
+		while (role != null) {
+
+			// 4.1 根据角色解析目录
+			modules.addAll(getMenu(role.getId(), pid));
+
+			// 4.2 判断是否存在角色的继承
+			if (role.getId() != role.getPid())
+				// 4.2.1 若存在，将role更新为父角色，使循环得以继续
+				role = roleDao.getRole(role.getPid());
+			else
+				// 4.2.2 若不存在，将role设为null，使循环能够跳出
+				role = null;
+		}
+		
+		//5. 返回查询结果
+		return modules;
+	}
 	/**
 	 * 根据角色id获取目录权限
 	 * 
@@ -204,4 +235,37 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return roles;
 	}
 
+	@Override
+	public Set<ModuleTree> parseModules() {
+		User user = getPrincipal();
+		if(user == null)
+			return null;
+		return parseModules(user.getId());
+	}
+
+	/**
+	 * 获取当前登陆用户
+	 * @return
+	 */
+	private User getPrincipal() {
+		Subject sub = SecurityUtils.getSubject();
+		Object obj = sub.getPrincipal();
+		if(obj == null || !(obj instanceof User))
+			return null;
+		else
+			return (User) obj;
+	}
+	
+	/**
+	 * 获取根目录或当前父目录的子目录
+	 * @param rid 角色id
+	 * @param pid 父目录id
+	 * @return 对应的目录集合
+	 */
+	private List<Module> getMenu(String rid, String pid) {
+		if (pid.equals("0"))
+			return roleModuleDao.listRootModulesByRoleId(rid);
+		else
+			return roleModuleDao.listModulesByRoleIdAndPid(rid, pid);
+	}
 }
