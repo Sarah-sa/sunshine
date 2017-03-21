@@ -28,4 +28,11 @@ public interface StaffInfoDao {
 	 */
 	int saveStaff(StaffInfo si);
 	
+	/**
+	 * 根据坐席人员id查询坐席人员信息 
+	 * @param staffId 坐席人员 id
+	 * @return 对应的坐席人员信息
+	 */
+	StaffInfo getStaffInfo(String staffId);
+	
 }
