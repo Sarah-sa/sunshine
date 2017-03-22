@@ -42,4 +42,12 @@ public interface ServerService {
 	 * @return
 	 */
 	List<ServiceCategoryTree> listServCategoryTree();
+	
+	/**
+	 * 列出某种类的所有可用的服务项目
+	 * @param cgyId 服务项目的类别
+	 * @return 该类目下所有可用的服务
+	 */
+	List<Map<String, Object>> listAvailableItemByCgy(String cgyId);
+	
 }
