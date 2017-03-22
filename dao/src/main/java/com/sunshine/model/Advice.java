@@ -29,6 +29,11 @@ public class Advice {
 	private String adviceCtgyId;
 	//发布人
 	private String publisher;
+	
+	/**
+	 * 用户id
+	 */
+	private String userId;
 	public String getId() {
 		return id;
 	}
@@ -82,6 +87,12 @@ public class Advice {
 	}
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	@Override
 	public String toString() {

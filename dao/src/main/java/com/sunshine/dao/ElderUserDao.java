@@ -18,7 +18,7 @@ public interface ElderUserDao {
 	     * @param relation
 	     * @return
 	     */
-	    int saveElderUser(ElderUser elderUser);
+	    int saveElderUser(ElderUser eu);
 	    
 	    /**
          * 更新老人用户信息
@@ -27,7 +27,7 @@ public interface ElderUserDao {
          * @return  受影响的条数
          * @throws Exception
          */
-        int updateElderUser(ElderUser elderUser);
+        int updateElderUser(ElderUser eu);
         
         /**
          * 删除一条老人用户信息
@@ -45,6 +45,12 @@ public interface ElderUserDao {
          * @throws Exception
          */
         ElderUser getElderUser(String id);
+        
+        /**
+    	 * 获得所有的老人用户信息
+    	 * @return 老人用户的list集合
+    	 */
+    	List<ElderUser> listElderUser();
         
         
     	/**

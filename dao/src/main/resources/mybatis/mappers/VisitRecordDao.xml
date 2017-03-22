@@ -14,6 +14,7 @@
         <result column="plan_time" property="planTime"/>     
         <result column="exec_time" property="execTime"/>
     </resultMap>  
+   
     <!--按照id获得单个走访记录对象  -->
     <select id="getVisitRecord" parameterType="string" resultMap="VisitRecordMap">
         select * from t_visit_record where id = #{id}
@@ -22,6 +23,29 @@
     <!--获得所有的走访记录  -->
     <select id="listVisitRecord" resultMap="VisitRecordMap">
         select * from t_visit_record
+    </select>
+    
+    <!-- 从视图v_visit_elder_staff中查询走访记录表、老人表、坐席表中相关联的字段  -->
+    <select id="listVisitElderStaff" resultType="map" parameterType="map">
+        select * from v_visit_elder_staff
+        <where>
+          <if test = "id!=null and id!='' ">
+            id = #{id}          
+          </if>
+          <if test = "name!=null and name!='' ">
+            and name = #{name}
+          </if>
+          <if test = "status!=null and status!='' ">
+            and status = #{status}
+          </if> 
+          <if test = "startTime!=null and startTime!='' ">
+            and exec_time &gt; #{startTime}
+          </if> 
+          <if test = "endTime!=null and endTime!='' ">
+            and exec_time &lt; #{endTime}
+          </if>    
+            
+        </where>
     </select>
     
     <!--插入 走访记录  信息  注意！：对可能是空值的字段要标明jdbcType-->
@@ -47,6 +71,7 @@
     <delete id="removeVisitRecord" parameterType="string">
         delete from t_visit_record where id = #{id}
     </delete>
+    
     
     
 </mapper>

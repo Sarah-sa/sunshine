@@ -24,7 +24,7 @@ public class AdviceServiceTest {
 	/**
 	 * 日志记录
 	 */
-	private Logger log = LogManager.getLogger(ComplainServiceTest.class);
+	private Logger log = LogManager.getLogger(AdviceServiceTest.class);
 
 	/**
 	 * 描述：获得AdviceService的实现类对象

@@ -3,6 +3,7 @@ package com.sunshine.service;
 import java.util.Set;
 
 import com.sunshine.model.Authority;
+import com.sunshine.model.Module;
 import com.sunshine.model.Role;
 import com.sunshine.util.ModuleTree;
 
@@ -51,6 +52,12 @@ public interface AuthorityService {
 	Set<ModuleTree> parseModules(String uid);
 
 	/**
+	 * 后去当前用户的目录树
+	 * @return
+	 */
+	Set<ModuleTree> parseModules();
+	
+	/**
 	 * 为用户赋予角色
 	 * 
 	 * @param userId
@@ -91,5 +98,12 @@ public interface AuthorityService {
 	 * @return
 	 */
 	boolean grantModulesToRole(String roleId, String... mdIds);
+	
+	/**
+	 * 获取当前角色的目录权限
+	 * @param pid 父目录
+	 * @return 当前角色所拥有的子目录
+	 */
+	Set<Module> parseUserMenu(String pid);
 
 }

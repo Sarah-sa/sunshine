@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import com.sunshine.model.BloodSugar;
 import com.sunshine.model.UricAcaid;
 import com.sunshine.service.UricAcaidService;
 
@@ -30,6 +28,7 @@ import freemarker.core.ParseException;
  *
  */
 	@RestController
+	@RequestMapping("/health")
 public class UricAcaidController {
 		
 	@Autowired
@@ -43,7 +42,7 @@ public class UricAcaidController {
 
 	
 	@RequestMapping(value="/getUricAcaid",method=RequestMethod.GET)
-	public ModelAndView listUricAcaid(Date sdate, Date edate, HttpServletRequest req) throws ParseException{
+	public ModelAndView listUricAcaid(Date sdate, Date edate, HttpServletRequest req){
 			
 		List<UricAcaid> uricAcaid=uricAcaidService.getUricAcaid(sdate, edate);
 		Map<String,Object> data = new HashMap<String,Object>(); 

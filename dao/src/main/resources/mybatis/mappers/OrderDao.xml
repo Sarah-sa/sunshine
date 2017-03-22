@@ -111,4 +111,11 @@
 		AND ${createTimeQueryString} AND ${acceptTimeQueryString}
 		AND ${finishQueryString} AND ${costQueryString}
 	</select>
+	
+	<!-- 获取订单详情 -->
+	<select id="getOrderDetail" parameterType="string" resultType="map">
+		SELECT o.id AS id, o.code AS code, u.id as consumerId, i.id as itemId, i.name as itemName, o.remark as remark,
+		o.createtime as createtime, o.expect_start_time as expectStartTime, o.expect_end_time as expectEndTime, o.address as address,
+		o.quantity as quantity, o.cost as cost FROM t_order as o left join t_user as u on o.user_id = u.id where o.id = #{id}
+	</select>
 </mapper>

@@ -40,7 +40,7 @@ public class WeightController {
 	}
   	
 	@RequestMapping("/getweight")
-	public ModelAndView listWeight(Date sdate, Date edate, HttpServletRequest req) throws ParseException{
+	public ModelAndView listWeight(Date sdate, Date edate, HttpServletRequest req){
 		List<Weight> weight=weightService.getWeight(sdate, edate);
 		Map<String,Object> dat = new HashMap<String,Object>(); 
 		dat.put("Weight",weight);

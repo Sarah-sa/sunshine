@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <title>体重查询</title> 
-<#include "/WEB-INF/views/ftl/head.ftl">
+
 <script src="/eui/echarts.min.js"></script>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,16 +12,16 @@
 
 </head>
 <body>
-	<#include "/oldhead.html">
-	<div class="side_cen"  style="width: 800px; height: 800px" >		
-		<div align="left" style="margin-left: 35rem; margin-top: 1rem">
-		<div class="layui-inline">
-		<form action="/getUricAcaid" method="get">
-			开始时间： <input class="layui-input" name="sdate" placeholder="自定义日期格式" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-			结束时间：<input class="layui-input" name="edate" placeholder="自定义日期格式"
-				onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-			<button style="width: 60px; height: 30px">查询</button>
-
+	<div style="background-color:#A6FFFF;height:1000px">		
+		<div align="center">
+		<div class="layui-inline" style="margin-top: 5rem">
+		<form action="/health/getweight" method="get">
+			<table>
+		<tr>
+			<td>开始时间： </td><td><input class="layui-input" name="sdate" placeholder="请选择日期" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+			<td>结束时间： </td><td><input class="layui-input" name="edate" placeholder="请选择日期" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+			<td><button style="width: 60px; height: 30px">查询</button></td>
+		</tr></table>
 		</form>
 				<script src="/eui/layui/layui.js" charset="utf-8"></script>
 			<script>
@@ -83,7 +83,7 @@ layui.use('laydate', function(){
         	        trigger: 'axis'
         	    },
         	    legend: {
-        	        data:['体重']
+        	        data:['体重','BMI']
         	    },
         	    grid: {
         	        left: '3%',
@@ -99,27 +99,35 @@ layui.use('laydate', function(){
         	    xAxis: {
         	        type: 'category',
         	        boundaryGap: false,
-        	        data: ['3.1','3.2','3.3','3.4','3.5','3.6','3.7','3.8','3.9','3.10','3.11','3.12','3.13','3.14','3.15']
+        	        data: ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
         	    },
         	    yAxis: {
         	        type: 'value'      	  
-        	        }
+        	        },
         	    series: [
         	        {
         	            name:'体重',
         	            type:'line',
-        	            stack: '总量',
+        	          
         	            data:[<#list Weight as item>${item.weight!},</#list>]
         	        },
+        	            <#assign weight=85>
+        	            <#assign height=1.8>
         	            
-        	                  
-        	      
-        	        
-        	        
-        	        
-        	    ]
+        	        {
+        	            name:'bmi',
+        	            type:'line',
+        	          
+        	            data:[<#list Weight as item>${ item.weight/(height*height)},</#list>]      
+        	        },
+        	   ]
         	};
         myChart.setOption(option);
+        
+        
+        
+        
+        
     </script>
 		</div>
 
@@ -136,20 +144,34 @@ layui.use('laydate', function(){
 					
 					<td>状态：</td>
 				</tr>
-
+				     
 				<#list Weight as item>
 				<tr>
 					<td style="width: 200px; height: 30px">${item.exam_time?string('yyyy-MM-dd HH:mm:ss')}</td>
-
-					<td>${item.weight}</td>
-					<td>${item.status}</td>
+					<td>${item.weight} </td>
+					<td>
+					<#assign bmi= item.weight/(height*height)>
+					
+					<#if bmi gt 28>
+					肥胖
+       				<#elseif bmi gt 24>
+         			超重
+       				<#elseif bmi gt 18.5>     
+          			健康
+       				<#else>
+          			偏瘦
+      				</#if>
+      				
+					</td>
 				</tr>
 				</#list>
+				
 			</table>
 		</div>
 
 	</div>
-	<#include "/oldfoot.html">
+
+
 </body>
 
 </html>

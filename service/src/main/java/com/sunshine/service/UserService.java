@@ -1,4 +1,6 @@
 package com.sunshine.service;
+import java.util.List;
+
 /**
  * 用户表的服务层接口，主要功能为用户登陆注册 增删改查
  * 
@@ -32,14 +34,17 @@ public interface UserService {
 	void removeUser(String id);
 
 	/**
-	 * 用户登陆
 	 * 
-	 * @param userName
-	 * @param pwd
+	 * @param user
 	 * @return
 	 */
-
-	String login(String userName, String pwd);
+	String login(User user);
+	
+	/**
+	 * 
+	 * 查询所有用户信息
+	 */
+	List<User> all();
 
 	/**
 	 * 用户查询

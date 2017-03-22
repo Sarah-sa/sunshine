@@ -1,7 +1,5 @@
 package com.sunshine.model;
 
-import com.sunshine.util.UUIDUtil;
-
 /**
  * 
  * @author 云和数据-边晓鹏
