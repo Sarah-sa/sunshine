@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+　　<form id="form1" runat="server">
+　　<div>
+　　<table style="width: 96%; border-collapse: separate; text-align: center">
+　　<tr>
+　　<td colspan="3">
+　　从Excel中导入</td>
+　　</tr>
+　　<tr>
+　　<td colspan="3" style="text-align: left; height: 9px;">
+　　</td>
+　　</tr>
+　　<tr>
+　　<td align="center" style="width: 20%;">
+　　请选择Excel文件路径</td>
+　　<td align="center" style="width: 483px; height: 18px; text-align: left">
+　　<asp:FileUpload ID="FileUpload1" runat="server" Width="555px" /></td>
+　　<td align="center" style="width: 10%">
+　　<asp:Button ID="Btn_Inport" runat="server" Text="导 入" OnClick="Btn_Inport_Click" /></td>
+　　</tr>
+　　<tr>
+　　<td align="center">
+　　请选择表名</td>
+　　<td align="center" style="width: 483px; height: 18px; text-align: left">
+　　<asp:DropDownList ID="DDList_Sheet" runat="server"></asp:DropDownList></td>
+　　<td align="center">
+　　</td>
+　　</tr>
+　　<tr>
+　　<td colspan="3">
+　　<asp:GridView ID="GV_Excel" runat="server" Height="133px" Width="100%">
+　　</asp:GridView>
+　　</td>
+　　</tr>
+　　<tr>
+　　<td style="height: 18px">
+　　</td>
+　　<td style="width: 483px; height: 18px;">
+　　</td>
+　　<td style="width: 243px; height: 18px;">
+　　</td>
+　　</tr>
+　　</table>
+　　</div>
+　　</form>
+</body>
+</html>

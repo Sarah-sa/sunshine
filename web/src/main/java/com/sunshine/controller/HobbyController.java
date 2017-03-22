@@ -1,10 +1,5 @@
 package com.sunshine.controller;
 
-
-
-
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +27,24 @@ public class HobbyController {
 		@RequestMapping("/hobbyes")
 		public ModelAndView saveHobby(Hobby hobby){ 
 			
-			return new ModelAndView("/WEB-INF/views/ftl/hobby/hobby","hobbyes", hobby);
+			return new ModelAndView("/WEB-INF/views/ftl/hobby/hobby",null);
+			
+		}
+		@RequestMapping("/hobs")
+		public ModelAndView saveHobb(){
+			
+			
+			return new ModelAndView("/WEB-INF/views/ftl/hobby/demo",null);
+			
+			
+		}
+		@RequestMapping("/hoba")
+		public ModelAndView saveHobba(){
+			
+			 
+			
+			return new ModelAndView("/WEB-INF/views/ftl/hobby/htest",null);
+			
 			
 		}
 }

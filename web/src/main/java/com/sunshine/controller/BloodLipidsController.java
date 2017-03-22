@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.tools.example.debug.expr.ParseException;
+
 import com.sunshine.model.BloodLipids;
 import com.sunshine.model.UricAcaid;
 import com.sunshine.service.BloodLipidsService;
+
+import freemarker.core.ParseException;
 
 /**
 	 * 
