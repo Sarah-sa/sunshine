@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.sunshine.dao.ExamineElderDao">
+  <!-- 根据条件迷糊查询老人的状态 -->
+  <select id="listAllExamine" parameterType="map" resultType="map">
+  	select tu.id,tu.username,tu.phone,tu.email,tu.realname,tu.idcard,tu.community_id,
+  	te.id,te.elder_name,te.user_id,te.create_time,te.status from t_user as tu,t_elder_requestion as te
+  	where tu.id = te.user_id AND status=B'0'
+  	<if test="elder_name != null and elder_name != ''">
+  	and te.elder_name like concat ('%',#{te.elder_name},'%')
+  	</if>
+  	<if test="idcard !=null and idcard!=''">
+  	and tu.idcard = #{tu.idcard}
+  	</if>
+  	<if test="phone != null and phone !=''">
+  	and tu.phone = #{tu.phone}
+  	</if>
+  </select>
+  </mapper>

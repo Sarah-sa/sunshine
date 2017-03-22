@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sunshine.model.BloodLipids;
 import com.sunshine.service.BloodLipidsService;
 
+import freemarker.core.ParseException;
+
 /**
 	 * 
 	 * @author 云和数据-孙爱平

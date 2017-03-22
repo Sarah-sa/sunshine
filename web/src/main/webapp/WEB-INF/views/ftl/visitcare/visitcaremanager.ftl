@@ -6,9 +6,9 @@
 <link rel="stylesheet" type="text/css" href="/css/sui-append.min.css">
 </head>
 <body>
-	<#include "/oldhead.html">
+	<#include "/newhead.html">
 
-	<div class="side_cen">
+	<div class="main">
 
 		<div id="app">
 			<form class="sui-form form-horizontal" id="search"
@@ -99,7 +99,7 @@
 		</div>
 
 	</div>
-	<#include "/oldfoot.html">
+	<#include "/newfoot.html">
 </body>
 <script>
 
