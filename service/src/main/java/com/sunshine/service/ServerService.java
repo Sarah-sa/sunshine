@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
+import com.sunshine.model.ServCategory;
 import com.sunshine.model.ServerInfo;
+import com.sunshine.model.ServiceItem;
 import com.sunshine.util.ServiceCategoryTree;
 
 /**
@@ -50,4 +52,24 @@ public interface ServerService {
 	 */
 	List<Map<String, Object>> listAvailableItemByCgy(String cgyId);
 	
+	/**
+	 * 添加服务条目
+	 * @param item 服务条目
+	 * @return
+	 */
+	boolean AddServiceItem(ServiceItem item);
+	
+	/**
+	 * 通过 Item 的 主键获取 ServiceItem
+	 * @param id
+	 * @return
+	 */
+	ServiceItem getItem(String id);
+	
+	/**
+	 * 根据 category id 获取 服务分类
+	 * @param id
+	 * @return
+	 */
+	ServCategory getCategory(String id);
 }

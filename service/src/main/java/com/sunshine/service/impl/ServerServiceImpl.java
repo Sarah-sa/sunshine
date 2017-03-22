@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,12 @@ import com.sunshine.dao.ServerInfoDao;
 import com.sunshine.dao.ServiceItemDao;
 import com.sunshine.model.ServCategory;
 import com.sunshine.model.ServerInfo;
+import com.sunshine.model.ServiceItem;
+import com.sunshine.model.User;
 import com.sunshine.service.ServerService;
+import com.sunshine.service.UserService;
 import com.sunshine.util.ServiceCategoryTree;
+import com.sunshine.util.UUIDUtil;
 
 @Service
 public class ServerServiceImpl implements ServerService {
@@ -29,10 +34,15 @@ public class ServerServiceImpl implements ServerService {
 	@Autowired
 	private ServCategoryDao cateDao;
 	
+	@Autowired
+	private UserService usersService;
+	
 	@Override
 	public boolean improveServerInfo(ServerInfo info) {
-		// TODO Auto-generated method stub
-		return false;
+		info.setUid(((User) usersService.currentUser()).getId());
+		ServerInfo servinfo = infoDao.getServerInfo(info.getUid());
+		if(servinfo == null) return infoDao.saveServerInfo(info) > 0;
+		else return infoDao.updateServerInfo(info) > 0;
 	}
 
 	@Override
@@ -77,5 +87,22 @@ public class ServerServiceImpl implements ServerService {
 		return itemDao.listAvailableItemByCgy(cgyId);
 	}
 
-	
+	@Override
+	public boolean AddServiceItem(ServiceItem item) {
+		if(item.getId() == null) item.setId(UUIDUtil.genericUUID());
+		return itemDao.saveItem(item) > 0;
+	}
+
+	@Override
+	public ServiceItem getItem(String id) {
+		
+		return itemDao.getItem(id);
+	}
+
+	@Override
+	public ServCategory getCategory(String id) {
+		
+		return cateDao.getCategory(id);
+	}
+
 }

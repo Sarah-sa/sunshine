@@ -31,13 +31,6 @@ $(function () {
     var maxItems = 100;
     var lastIndex = $('.list-container li').length;
     function addItems(number, lastIndex) {
-      /*// 生成新条目的HTML
-      var html = '';
-      for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
-        html += '<li class="item-content"><div class="item-inner"><div class="item-title">新条目</div></div></li>';
-      }
-      // 添加新条目
-      $('.infinite-scroll .list-container').append(html);*/
     }
     $(page).on('infinite', function() {
       // 如果正在加载，则退出

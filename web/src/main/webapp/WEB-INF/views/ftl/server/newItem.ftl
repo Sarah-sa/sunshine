@@ -2,7 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<#include "/WEB-INF/views/ftl/suihead.ftl" />
+<link rel="stylesheet" href="/css/sm.min.css">
+<link rel="stylesheet" href="/css/sm-extend.min.css">
+
+
+<script type='text/javascript' src='/js/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/config.js' charset='utf-8'></script>
 <title>新增服务项目</title>
 </head>
 <body>
@@ -14,6 +19,7 @@
 				</a>
 				<h1 class="title">新增服务</h1>
 			</header>
+			<form id="formData">
 			<div class="content">
 				<div class="list-block">
 					<ul id="itemform">
@@ -40,16 +46,17 @@
 								<div class="item-inner">
 									<div class="item-title label">服务分类</div>
 									<div class="item-input">
-										<select name="srvctgyid">
-											<optgroup v-for="cate in categories" :label="cate.treeNode.name">
-												<option v-for="child in cate.childNode" value="child.id">{{child.name}}</option>
+										<select id="srvctgyid" name="srvctgyid">
+											<optgroup v-for="cate in categories"
+												:label="cate.treeNode.name">
+												<option v-for="child in cate.childNode" :value="child.id">{{child.name}}</option>
 											</optgroup>
 										</select>
 									</div>
 								</div>
 							</div>
 						</li>
-						
+
 						<li>
 							<div class="item-content">
 								<div class="item-media">
@@ -63,7 +70,7 @@
 								</div>
 							</div>
 						</li>
-						
+
 						<!-- Switch (Checkbox) -->
 						<li>
 							<div class="item-content">
@@ -73,7 +80,8 @@
 								<div class="item-inner">
 									<div class="item-title label">启用服务</div>
 									<div class="item-input">
-										<label class="label-switch"> <input name="status" type="checkbox">
+										<label class="label-switch"> <input name="status"
+											type="checkbox">
 											<div class="checkbox"></div>
 										</label>
 									</div>
@@ -97,74 +105,113 @@
 				</div>
 				<div class="content-block">
 					<div class="row">
-						<div class="col-50">
+						<!-- <div class="col-50">
 							<a href="#" class="button button-big button-fill button-danger">取消</a>
-						</div>
-						<div class="col-50">
-							<a href="#" class="button button-big button-fill button-success">提交</a>
+						</div> -->
+						<div class="col-100">
+							<a href="#" id="submitForm" class="button button-big button-fill button-success">提交</a>
 						</div>
 					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 	</div>
+</body>
+	<script type='text/javascript' src='/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='/js/sm-city-picker.min.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='/js/sm-extend.min.js'
+		charset='utf-8'></script>
+
+	<script type='text/javascript' src='/js/vue.js' charset='utf-8'></script>
 	<script type="text/javascript">
-	
-		var validate = false;
-		$('#itemform li input').blur(function() {
-			
-			var msg = doValidate(this);
-			if(!validate) $.alert(msg);
-		});
+		var validateName = false;
+		var validatePrice = false;
+		var validateCate = false;
+		
 		function doValidate(item) {
-			var flag = false;
+			var flag ;
 			var $item = $(item);
-			var reg = /^d+$/;
+			var reg = /^\d+$/;
 			var message;
-			switch($item.attr('name')) {
+			switch ($item.attr('name')) {
 			case 'name':
-				if($item.val().trim() == '') {
-					flag = false;
+				if ($item.val().trim() == '') {
+					validateName = false;
 					message = '服务名不能为空';
-				}
-				else
-					flag = true;
+				} else
+					validateName = true;
+				flag = validateName;
 				break;
 			case 'price':
-				if(!reg.test($item.val())) {
-					flag = false;
+				if (!reg.test($item.val())) {
+					validatePrice = false;
 					message = '价格只能是数字';
 				} else {
-					flag = true;
+					validatePrice = true;
 				}
+				flag = validatePrice;
 				break;
 			case 'srvctgyid':
-				if($item.val() == null) {
-					flag = false;
+				if ($item.val() == null) {
+					validateCate = false;
 					message = '请选择服务分类';
-				}
-				else
-					flag = true;
+				} else
+					validateCate = true;
+				flag = validateCate;
 				break;
 			}
-			validate = flag;
-			return message;
+			
+			return {'msg': message, 'flag': flag};
 		}
 		var formData = new Vue({
-			el: '#itemform',
-			data: {
-				categories: []
+			el : '#itemform',
+			data : {
+				categories : []
 			}
 		});
 		$.ajax({
-			url: '${request.contextPath}/server/servcategory',
-			type: 'GET',
-			dataType: 'json',
-			success: function(data) {
+			url : '${request.contextPath}/server/servcategory',
+			type : 'GET',
+			dataType : 'json',
+			success : function(data) {
 				formData.categories = data.data;
 			}
-			
+
 		});
+		
+		$('#itemform input').on('blur',function() {
+			var rs = doValidate(this);
+			if (!rs.flag)
+				$.alert(rs.msg);
+		});
+		
+		$('#submitForm').on('click', function() {
+			var validate;
+			$('#itemform input, #itemform select').each(function() {
+				var item = this;
+				doValidate(item);				
+			});
+			validate = validateName && validatePrice && validateCate;
+			if(!validate) $.alert('请填写必要信息');
+			else doSubmit();
+		});
+		
+		function doSubmit() {
+			$.ajax({
+				url: '/server/addserviceitem',
+				data: $('#formData').serialize(),
+				type: 'post',
+				dataType: 'json',
+				success: function(data) {
+					if(data.code == 0) {
+						$.alert('操作成功！');
+						location.href="${request.contextPath}/server/index";
+					} else
+						$.alert('操作失败');
+				}
+			});
+		}
 	</script>
-</body>
 </html>
