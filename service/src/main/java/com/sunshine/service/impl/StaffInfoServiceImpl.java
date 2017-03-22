@@ -1,10 +1,12 @@
 package com.sunshine.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sunshine.dao.StaffInfoDao;
 import com.sunshine.model.StaffInfo;
@@ -24,7 +26,6 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 	 */
 	@Override
 	public List<StaffInfo> getListStaff() {
-		// TODO Auto-generated method stub
 		PageHelper.startPage(1, 3, true);
 		return sid.getListStaff();
 	}
@@ -32,8 +33,7 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 	 * 修改座席信息 
 	 */
 	@Override
-	public int updateStaff(StaffInfo si) {
-		// TODO Auto-generated method stub
+	public int updateStaff(String id,StaffInfo si) {
 		return sid.updateStaff(si);
 	}
 	/**
@@ -41,7 +41,6 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 	 */
 	@Override
 	public int delStaff(String id) {
-		// TODO Auto-generated method stub
 		return sid.delStaff(id);
 	}
 	/**
@@ -49,9 +48,15 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 	 */
 	@Override
 	public int saveStaff(StaffInfo si) {
-		// TODO Auto-generated method stub
 		return sid.saveStaff(si);
 	}
-	  
-
+	 
+	@Override
+	public List<Map<String, Object>> getLikeStaffInfo(Map<String, Object> map) {
+		return sid.getLikeStaffInfo(map);
+	}
+	@Override
+	public List<Map<String, Object>> getStaff(String id) {
+		return sid.getStaff(id);
+	}
 }

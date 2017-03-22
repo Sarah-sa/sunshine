@@ -1,21 +1,44 @@
 package com.sunshine.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Test;
+
+import com.github.pagehelper.PageHelper;
+import com.sunshine.model.StaffInfo;
 
 /**
  * 
  * @author 云和数据-齐铁成 测试有关座席人员的接口
  */
 
-public class StaffInfoTest {
+public class StaffInfoTest extends InitTestCase{
 	private static Logger log = LogManager.getLogger(StaffInfoTest.class);
 
 	/**
 	 * 
 	 * @throws IOException
 	 */
+@Test
+public void getAllInfo(){
+  Map<String, Object> map =new HashMap<>();
+//map.put("username","贪恋");   
+//map.put("status","");
+  map.put("gender", "1");
+  map.put("communityId","1");
+ //PageHelper.startPage(1,3);
+ session.getMapper(StaffInfoDao.class).getLikeStaffInfo(map);
+}
 
+@Test
+public void getStaffInfo(){
+	session.getMapper(StaffInfoDao.class).getStaff("61d88662-c2cf-4b96-85b8-5103eb50baba");
+}
+	
 	// @SuppressWarnings("static-access")
 	// @Test
 	// public void saveStaff() throws IOException{
@@ -106,5 +129,7 @@ public class StaffInfoTest {
 	// sqlSession.commit();
 	// sqlSession.close();
 	// }
+	
+	
 
 }

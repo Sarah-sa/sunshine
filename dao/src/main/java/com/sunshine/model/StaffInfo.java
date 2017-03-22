@@ -22,8 +22,14 @@ public class StaffInfo {
 	 //头像
 	 private String photo;
 	 //昵称
-	 private String nickName;
-	 //出生日期
+	 private String nickname;
+	 public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	//出生日期
 	 private Date birthday;
 	 //是否在职
 	 private Boolean status;
@@ -57,12 +63,7 @@ public class StaffInfo {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
+	 
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -78,7 +79,7 @@ public class StaffInfo {
 	@Override
 	public String toString() {
 		return "StaffInfo [uid=" + uid + ", gender=" + gender + ", address=" + address + ", tel=" + tel + ", photo="
-				+ photo + ", nickName=" + nickName + ", birthday=" + birthday + ", status=" + status + "]";
+				+ photo + ", nickName=" + nickname + ", birthday=" + birthday + ", status=" + status + "]";
 	}
 	
 	

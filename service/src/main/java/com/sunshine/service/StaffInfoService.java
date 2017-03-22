@@ -1,7 +1,9 @@
 package com.sunshine.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.github.pagehelper.Page;
 import com.sunshine.model.StaffInfo;
 /**
  *  座席服务层接口实现类
@@ -19,7 +21,7 @@ public interface StaffInfoService {
 			 *对单个座席人员进行修改
 			 *@param si为座席信息对象
 			 */
-		    int updateStaff(StaffInfo si);
+		    int updateStaff(String id, StaffInfo si);
 			/**
 			 * 根据id对单个座席人员进行删除
 			 */
@@ -29,6 +31,14 @@ public interface StaffInfoService {
 			 * @param si为座席信息对象
 			 */
 			int saveStaff(StaffInfo si);
+			/**
+			 * 根据条件模糊查询座席人员信息
+			 */
+			List<Map<String,Object>>getLikeStaffInfo(Map<String, Object> map);
+			/**
+			 * 根据座席人员的id获取座席人员的信息
+			 */
+			List<Map<String, Object>> getStaff(String id);
 		}
 
 	

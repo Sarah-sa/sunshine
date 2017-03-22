@@ -2,7 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
 <mapper namespace="com.sunshine.dao.StaffInfoDao">
+
      <!--获取所有的座席人员信息列表 -->
     <select id="getListStaff" resultType="com.sunshine.model.StaffInfo">
      select * from t_staff_info
@@ -23,5 +25,42 @@
      delete from t_staff_info where u_id=#{uid}
     </delete>
     
-
+     <!--根据座席人员姓名和所属社区条件动态查询座席人员的信息关联三个表 user，community，和座席人员staffInfo表--> 
+	<select id="getLikeStaffInfo" parameterType="map"
+		resultType="map">
+		select u.id,u.email,u.community_id,u.realname,s.u_id,u.username,u.phone,s.nickname,s.photo,s.birthday,s.gender,s.address,s.status from 
+		 t_staff_info s left join t_user u on u.id=s.u_id    
+		<where>
+			<if test="communityId !=null and communityId!=''">
+				 community_id=#{communityId}
+			</if>
+			<if test="username !=null and username!=''">
+				and  username like concat('%',#{username},'%')
+			</if>
+			<if test="status !=null and status!=''">
+			 	and s.status=#{status} 
+			</if>
+			<if test="gender!=null and gender !=''">
+				and s.gender=#{gender}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getStaff" parameterType="java.lang.String"
+		resultType="map">
+	select u.username,u.phone,u.phone,u.email,u.idcard,s.u_id,s.photo,s.nickname,s.birthday,s.gender,s.address,s.status,c.name from (t_user u
+		left join t_staff_info s on u.id=s.u_id) left join t_community c on s.u_id=u.community_id where s.u_id=#{uid}
+	</select>
+	 <!--获取所有的座席人员的状态 -->
+	<select id="getStatus" >
+	select status from t_staff_info
+	</select>
+	
+	 <!-- 根据坐席人员 id 获取坐席人员信息 -->
+	<select id="getStaffInfo" parameterType="string" resultType="com.sunshine.model.StaffInfo">
+		SELECT u_id as uid, nickname, birthday, gender, address, tel, photo, status
+		FROM t_staff_info WHERE u_id = #{id}
+	</select>
+	
+	
 </mapper>

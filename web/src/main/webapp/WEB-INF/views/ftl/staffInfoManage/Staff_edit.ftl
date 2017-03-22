@@ -2,115 +2,102 @@
 <head>
 <title>编辑座席人员信息</title>
  <#include "/WEB-INF/views/ftl/head.ftl">
+ <style>
+		input.error{
+			border: 1px solid #E6594E;
+		}
+	</style>
 </head>
 <body>
-
-<form id="editStaffInfoForm">
-<table class="sui-table table-bordered">  
-		  <br/>
-		  
-		  <div class="form-group">
-			<label for="userage">座席昵称：</label>
-		  <input type="text" class="form-control" id="username" name="username" value="${data.name}" placeholder="输入名称"> 
-		  </div>
-		   <div class="form-group">
-			<label for="userage">座席工号：</label>
-		  <input type="text" class="form-control" id="username" name="username" value="${data.name}" placeholder="输入名称"> 
-		  </div>
-		   <div class="form-group">
-			  座席生日： 
-			 <form id="demo1" class="sui-form">  <input type="text"> </form>
-		      $('#demo1 input').datepicker({size:"small"});
-		  </div>
-		  <div class="form-group">
-			<label for="userage">座席性别：</label>
-		  
-		  </div>
-		   <div class="form-group">
-			<label for="userage">座席地址：</label>
-		  <input type="text" class="form-control" id="username" name="username" value="${data.name}" placeholder="输入名称"> 
-		  </div>
-		  <div class="form-group">
-			<label for="userage">座席头像：</label>
-		  <input type="text" class="form-control" id="username" name="username" value="${data.name}" placeholder="输入名称"> 
-		  </div>
-		  <div class="form-group">
-		  <button type="button" id="saveBtn" class="btn btn-success">提交</button>
-		  <button type="button" id="cancelBtn" class="btn btn-default">取消</button>
-		  </div>
-		</form>
-
-  <center>
-  <tr><td>座席信息</td></tr>
-  <table class="sui-table table-bordered">   
-    <tr>
-      <td><select name="elderName" id="elderName"
-							onclick="lookfor()"> <#if name ??>
-								<option value="${name}" selected>${name}</option></#if>
-								<option value="">全部</option>
-								<option v-for="item in result" v-bind:value="item.name">{{item.name}}</option>
-						</select></td> <td>*座席头像</td> <td>  </td> </tr>
-    <tr>
-      <td>*座席工号</td>
-      <td> </td>
-      <td>座席昵称</td>
-      <td> </td>
-      <td>地址</td>
-      <td> </td>
-    </tr>
-        <tr>
-      <td>*性别</td>
-      <td> </td>
-      <td>生日</td>
-      <td> </td>
-      <td>是否在职</td>
-      <td> </td>
-    </tr>
- </table>
-  </center>
-
+<div style='text-align:center;'>
+<form class="sui-form form-horizontal">
+<table class="sui-table table-sideheader" style='margin:0px auto;'>
+     所属社区：
+ <#if theone??>  <#list theone as one>
+       <tr>
+	 <th>座席昵称：</th>  
+	    <td><input type="text" class="form-control" id="nickname" name="nickname" value="${one.nickname}" ></td> &nbsp;&nbsp;&nbsp;&nbsp;
+		<th> 座席生日：</th><td> <input type="text" data-toggle="datepicker" value="${one.birthday}"> </td>
+		</tr>
+		<tr>
+	    <th> 座席性别：</th>  
+	    <td><input type="text"  name="gender" value="${(one.gender==true)?string('男','女')}"></td>
+		<th> 座席地址：</th>
+		 <td><input type="text" class="form-control" id="address" name="address" value="${one.address}"> </td>
+		 </tr>
+		 <tr>
+	     <th> 座席手机：</th>
+		 <td><input type="text" class="form-control" id="photo" name="phone" value="${one.phone}" ></td>
+		 <th>Email：</th>
+		 <td><input type="text" class="form-control" id="email" name="email" value="${one.email}" ></td> </tr> 
+		  <tr>
+	     <th>在职状态：</th>
+		 <td><input type="text"  name="status" value="${(one.status==true)?string('在职','已离职')}"></td>
+		 <th>头像：</th>
+		 <td><input type="text" class="form-control" id="" name="email" value="${one.photo}" ></td> </tr> 
+         </#list>
+           </#if> 
+		 </table>
+		   <button type="button" id="saveBtn"   class="sui-btn btn-xlarge btn-primary">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		  <button type="button" id="cancelBtn" class="sui-btn btn-xlarge btn-success">取消</button>
+		</form></div>
 </body>
- 
 <script>
+var editStaffInfoForm = function(){
+	if(!check().form()){ 
+		return;  
+	}
+	$.ajax({
+		   type: "GET",
+		   dataType: "json",
+		   url: "/staff/edit",
+		   data: {
+				"id": ${data.id},
+				"name": $("#nickname").val(),
+				"address":$("#address").val()
+		   },
+		   success: function(msg){
+			 			
+		   }
+	});
+}
 
-		//编辑座席人员信息事件
-		var editEvent = function(id) {
-			layer.open({
-				type : 2,
-				title:"编辑座席信息页",
-				fix : false,
-				maxmin:true,
-				area : [ '900px', '540px' ],
-				shadeClose : false, //点击遮罩关闭
-				content : ' 自定义内容 ',
-				end:function(){
-	                
-	            }
-			}); 		 
-				 
-		}
-		
-		//查看座席人员信息事件
-		var showlook= function() {
-			layer.open({
-				type : 2,
-				title:"查看座席信息页",
-				fix : false,
-				maxmin:true,
-				area : [ '900px', '540px' ],
-				shadeClose : false, //点击遮罩关闭
-				content : ' 自定义内容 ',
-				end:function(){
-	                
-	            }
-			}); 		 
-				 
-		}
-		
-	 
+ 
+ 
+});
+
+
+//校验字段是否正确 
+function check(){ 
+    /*返回一个validate对象，这个对象有一个form方法，返回的是是否通过验证*/ 
+    return $("#editStaffInfoForm").validate({ 
+                rules:{ 
+                	nickname:{ 
+                        required:true
+                    },
+                    address:{ 
+                        required:true                                   
+                    },
+                    photo:{
+                    	required:true 
+                    }
+                    
+                }, 
+                messages:{ 
+                	nickname:{ 
+                        required:""
+                    },
+                    address:{ 
+                        required:""                                
+                    },
+                    photo:{ 
+                        required:""                                
+                    } 
+                    
+                }     
+            }); 
+} 
+
 	</script>
-
-
-
 
 </html>
