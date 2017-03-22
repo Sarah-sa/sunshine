@@ -71,4 +71,11 @@ public class ServerServiceImpl implements ServerService {
 		return tree;
 	}
 
+	@Override
+	public List<Map<String, Object>> listAvailableItemByCgy(String cgyId) {
+		
+		return itemDao.listAvailableItemByCgy(cgyId);
+	}
+
+	
 }
