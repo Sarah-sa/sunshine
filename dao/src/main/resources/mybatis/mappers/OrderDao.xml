@@ -10,6 +10,11 @@
 		finish_time, order_status_id
 	</sql>
 	
+	<sql id="mulFields">
+		o.code as NO, o.cost as cost, o.quantity as quantity, o.item_id as itemId, 
+		i.itemName as itemName, o.createtime as createTime FROM t_order AS o left join t_service_item as i 
+	</sql>
+	
 	<resultMap type="com.sunshine.model.Order" id="order" autoMapping="true">
 		<id column="id" property="id"/>
 		<result column="user_id" property="userid"/>
@@ -58,49 +63,59 @@
 	</update>
 	
 	<!-- 用户未完成订单查询 -->
-	<select id="listUnFinishedOrderByUser" parameterType="string" resultMap="order">
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE user_id = #{id} AND finish_time IS NULL
-		ORDER BY createtime ASC
+	<select id="listUnFinishedOrderByUser" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.user_id = #{id} AND o.finish_time IS NULL
+		ORDER BY o.createtime ASC
 	</select>
 	
 	<!-- 用户已完成订单 -->
-	<select id="listFinishedOrderByUser" parameterType="string" resultMap="order">
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE user_id = #{id} AND finish_time IS NOT NULL
-		ORDER BY createtime DESC
+	<select id="listFinishedOrderByUser" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.user_id = #{id} AND o.finish_time IS NOT NULL
+		ORDER BY o.createtime DESC
 	</select>
 	
 	<!-- 用户所有订单 -->
-	<select id="listOrderByUser" parameterType="string" resultMap="order">
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE user_id = #{id} AND finish_time IS NULL
-		UNION ALL
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE user_id = #{id} AND finish_time IS NOT NULL
+	<select id="listOrderByUser" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.user_id = #{id}
+		ORDER BY o.createtime DESC
 	</select>
 	
 	<!-- 商家未完成订单 -->
-	<select id="listUnFinishedOrderByServer" parameterType="string" resultMap="order">
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE server_id = #{serverId} AND finish_time IS NULL
-		ORDER BY createtime ASC
+	<select id="listUnFinishedOrderByServer" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.server_id = #{serverId} AND o.finish_time IS NULL
+		ORDER BY o.createtime ASC
+	</select>
+	
+	<!-- 根据服务项目获取未完成订单 -->
+	<select id="listUnHandledOrderByItem" parameterType="string" resultType="order">
+		SELECT <include refid="mulFields" />
+		WHERE o.item_id = #{itemId} AND o.finish_time IS NOT NULL
+		ORDER BY o.createtime ASC
 	</select>
 	
 	<!-- 商家已完成订单 -->
-	<select id="listFinishedOrderByServer" parameterType="string" resultMap="order">
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE server_id = #{serverId} AND finish_time IS NOT NULL
-		ORDER BY createtime DESC
+	<select id="listFinishedOrderByServer" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.server_id = #{serverId} AND o.finish_time IS NOT NULL
+		ORDER BY o.createtime DESC
 	</select>
 	
 	<!-- 商家接到的所有订单 -->
-	<select id="listOrderByServer" parameterType="string" resultMap="order">
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE server_id = #{serverId} AND finish_time IS NULL
-		UNION
-		SELECT <include refid="fields" /> FROM t_order
-		WHERE server_id = #{serverId} AND finish_time IS NOT NULL
+	<select id="listOrderByServer" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.server_id = #{serverId}
+		ORDER BY o.createtime DESC
+	</select>
+	
+	<!-- 商家已接单未完成订单 -->
+	<select id="listAcceptOrderSummaryByServer" parameterType="string" resultType="map">
+		SELECT <include refid="mulFields" />
+		WHERE o.server_id = #{serverId} AND o.accept_time IS NOT NULL AND o.finish_time IS NULL
+		ORDER BY o.createtime DESC
 	</select>
 	
 	<select id="listOrderByCriteria" parameterType="com.sunshine.criteria.CriteriaOrder" resultType="map">
@@ -118,4 +133,5 @@
 		o.createtime as createtime, o.expect_start_time as expectStartTime, o.expect_end_time as expectEndTime, o.address as address,
 		o.quantity as quantity, o.cost as cost FROM t_order as o left join t_user as u on o.user_id = u.id where o.id = #{id}
 	</select>
+	
 </mapper>
