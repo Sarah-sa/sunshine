@@ -67,6 +67,19 @@ public interface OrderService {
 	List<ServCategory> listChildCategory(String pid);
 	
 	/**
+	 * 新增一个订单
+	 * @param order
+	 * @return
+	 */
+	boolean addOrder(Order order);
+	
+	/**
+	 * 更改订单内容
+	 * @param order
+	 * @return
+	 */
+	boolean updateOrder(Order order);
+	/**
 	 * 列出该服务项目下所有未完成的订单
 	 * @param pageIndex
 	 * @param pageSize
