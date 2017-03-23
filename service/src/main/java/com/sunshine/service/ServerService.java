@@ -72,4 +72,11 @@ public interface ServerService {
 	 * @return
 	 */
 	ServCategory getCategory(String id);
+	
+	/**
+	 * 通过id服务商信息
+	 * @param id 服务商 id
+	 * @return
+	 */
+	ServerInfo getServerInfo(String id);
 }

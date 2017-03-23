@@ -24,8 +24,22 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-//	@Autowired
-//	private 
+	/**
+	 * 获取商家接到的所有的订单
+	 * @param pageSize
+	 * @param pageIndex
+	 * @return
+	 */
+	@RequestMapping("/server/all")
+	private Result<Page<Map<String, Object>>> getAllReceived(int pageSize, int pageIndex) {
+		Result<Page<Map<String, Object>>> rs = new Result<>();
+		
+		Page<Map<String, Object>> page = orderService.listOrderSummaryByServer(pageIndex, pageSize);
+		rs.setRsCode(Result.RsCode.Success);
+		rs.setData(page);
+		
+		return rs;
+	}
 	
 	/**
 	 * 获取商家未处理的订单
@@ -35,7 +49,7 @@ public class OrderController {
 	 */
 	@RequestMapping("/server/new")
 	public Result<Page<Map<String, Object>>> getNewReceived(@RequestParam("pageSize") int pageSize, @RequestParam("pageIndex") int pageIndex) {
-		Page<Map<String, Object>> orderList = orderService.listUnFinishedOrderSummary(pageIndex, pageSize);
+		Page<Map<String, Object>> orderList = orderService.listUnFinishedOrderSummaryByServer(pageIndex, pageSize);
 		Result<Page<Map<String, Object>>> rs = new Result<>();
 		rs.setData(orderList);
 		rs.setRsCode(Result.RsCode.Success);
@@ -48,9 +62,9 @@ public class OrderController {
 	 * @param pageIndex
 	 * @return
 	 */
-	@RequestMapping("/finished")
+	@RequestMapping("/server/finished")
 	public Result<Page<Map<String, Object>>> getOrderDetail(@RequestParam("pageSize") int pageSize, @RequestParam("pageIndex") int pageIndex) {
-		Page<Map<String, Object>> orderList = orderService.listFinishedOrderSummary(pageIndex, pageSize);
+		Page<Map<String, Object>> orderList = orderService.listFinishedOrderSummaryByServer(pageIndex, pageSize);
 		Result<Page<Map<String, Object>>> rs = new Result<>();
 		rs.setData(orderList);
 		rs.setRsCode(Result.RsCode.Success);

@@ -104,4 +104,9 @@ public class ServerServiceImpl implements ServerService {
 		return cateDao.getCategory(id);
 	}
 
+	@Override
+	public ServerInfo getServerInfo(String id) {
+		return infoDao.getServerInfo(id);
+	}
+
 }
