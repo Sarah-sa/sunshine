@@ -26,7 +26,7 @@
 		<div id="page-infinite-scroll-bottom" class="page">
 			<header class="bar bar-nav">
 
-				<h1 class="title">待处理订单</h1>
+				<h1 class="title">已完成订单</h1>
 			</header>
 			<div id="list" class="content infinite-scroll infinite-scroll-bottom"
 				data-distance="100">
@@ -102,7 +102,7 @@
 		flushData();
 		function flushData() {
 			$.ajax({
-				url : '/order/server/new',
+				url : '/order/server/finished',
 				dataType : 'json',
 				type : 'get',
 				data : {

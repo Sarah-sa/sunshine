@@ -1,7 +1,5 @@
 package com.sunshine.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +14,9 @@ import com.sunshine.dao.ServCategoryDao;
 import com.sunshine.dao.ServiceItemDao;
 import com.sunshine.model.Order;
 import com.sunshine.model.ServCategory;
-import com.sunshine.model.ServiceItem;
 import com.sunshine.model.User;
 import com.sunshine.service.OrderService;
+import com.sunshine.util.UUIDUtil;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -33,33 +31,9 @@ public class OrderServiceImpl implements OrderService {
 	private ServCategoryDao cateDao;
 	
 	@Override
-	public List<Map<String, Object>> getOrderSummary(int pageIndex, int pageSize) {
-		System.out.println(pageIndex + ":" + pageSize);
-		PageHelper.startPage(pageIndex, pageSize);
-		Page<Order> page = (Page<Order>) orderDao.listUnFinishedOrderByServer(getPrincipal().getId());
-		if(page.getTotal() < pageIndex)
-			return null;
-//		PageInfo<Order> page = orderList.toPageInfo();
-//		page.getFirstPage();
-		List<Map<String, Object>> maps = new ArrayList<>();
-		Map<String, ServiceItem> itemMap = new HashMap<>();
-		for (int i = 0; i < page.getPageSize(); i++) {
-			Order order = page.get(i);
-			String itemId = order.getItemid();
-			ServiceItem item = itemMap.get(itemId);
-			if(item == null) {
-				item = itemDao.getItem(itemId);
-				itemMap.put(itemId, item);
-			}
-			Map<String, Object> orderMap = new HashMap<>();
-			orderMap.put("NO", order.getCode());
-			orderMap.put("cost", order.getCost());
-			orderMap.put("quantity", order.getQuantity());
-			orderMap.put("itemName", item.getName());
-			orderMap.put("createTime", order.getCreatetime());
-			maps.add(orderMap);
-		}
-		return maps;
+	public Page<Map<String, Object>> listOrderSummaryByServer(int pageIndex, int pageSize) {
+		
+		return listOrderSummary(pageIndex, pageSize, null);
 	}
 	
 	private User getPrincipal() {
@@ -80,5 +54,57 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<ServCategory> listChildCategory(String pid) {
 		return cateDao.listByPid(pid);
+	}
+
+	@Override
+	public Page<Order> listUnHandledOrderSummaryByItemAndServer(int pageIndex, int pageSize, String itemId) {
+		PageHelper.startPage(pageIndex, pageSize);
+		
+		Page<Order> page =  (Page<Order>) orderDao.listUnHandledOrderByItem(itemId);
+		return page;
+	}
+
+	@Override
+	public Page<Map<String, Object>> listFinishedOrderSummaryByServer(int pageIndex, int pageSize) {
+		
+		return listOrderSummary(pageIndex, pageSize, true);
+	}
+	
+	private Page<Map<String, Object>> listOrderSummary(int pageIndex, int pageSize, Boolean handled) {
+		Page<Map<String, Object>> page = null;
+		PageHelper.startPage(pageIndex, pageSize);
+		if(handled == null)
+			page = (Page<Map<String, Object>>) orderDao.listOrderByServer(getPrincipal().getId());
+		else if(handled)
+			page = (Page<Map<String, Object>>) orderDao.listFinishedOrderByServer(getPrincipal().getId());
+		else
+			page = (Page<Map<String, Object>>) orderDao.listUnFinishedOrderByServer(getPrincipal().getId());
+		return page;
+	}
+
+	@Override
+	public Page<Map<String, Object>> listUnFinishedOrderSummaryByServer(int pageIndex, int pageSize) {
+		
+		return listOrderSummary(pageIndex, pageSize, false);
+	}
+
+	@Override
+	public Page<Map<String, Object>> listAcceptOrderSummaryByServer(int pageIndex, int pageSize) {
+		PageHelper.startPage(pageIndex, pageSize);
+		Page<Map<String, Object>> page = orderDao.listAcceptOrderSummaryByServer(getPrincipal().getId());
+		return page;
+	}
+
+	@Override
+	public boolean addOrder(Order order) {
+		if(order.getId() == null)
+			order.setId(UUIDUtil.genericUUID());
+		return orderDao.saveOrder(order) > 0;
+	}
+
+	@Override
+	public boolean updateOrder(Order order) {
+		
+		return orderDao.updateOrder(order) > 0;
 	}
 }

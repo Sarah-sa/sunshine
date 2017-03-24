@@ -54,4 +54,10 @@ public interface UserService {
 	 */
 	public User getuser(String id);
 
+	/**
+	 * 获取当前登陆的用户
+	 * @author 云和数据-王辉
+	 * @return
+	 */
+	<T> T currentUser();
 }

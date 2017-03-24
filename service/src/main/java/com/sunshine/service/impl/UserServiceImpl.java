@@ -2,6 +2,9 @@ package com.sunshine.service.impl;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,6 +83,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getuser(String id) {
 		return dao.getuser(id);
+	}
+
+	@Override
+	public <T> T currentUser() {
+		Subject sub = SecurityUtils.getSubject();
+		Object principal = sub.getPrincipal();
+		if(principal == null)
+			throw new UnauthenticatedException("用户未登录");
+		
+		return (T) principal;
 	}
 
 	

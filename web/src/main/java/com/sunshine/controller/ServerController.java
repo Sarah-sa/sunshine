@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.sunshine.message.Result;
+import com.sunshine.model.ServiceItem;
 import com.sunshine.service.ServerService;
 import com.sunshine.util.ServiceCategoryTree;
+import com.sunshine.util.UUIDUtil;
 
 /**
  * 服务商模块控制器
@@ -40,6 +42,50 @@ public class ServerController {
 	public String listServicecategory() {
 		return "/WEB-INF/views/ftl/server/newItem";
 	}
+	
+	@RequestMapping("/itemlist")
+	public String itemList() {
+		return "/WEB-INF/views/ftl/server/itemlist";
+	}
+	
+	@RequestMapping("/orderlist")
+	public String orderList() {
+		return "/WEB-INF/views/ftl/server/orderlist";
+	}
+	
+	@RequestMapping("/neworder")
+	public String newOrder() {
+		return "/WEB-INF/views/ftl/server/neworder";
+	}
+	@RequestMapping("/handledorder")
+	public String handledOrder() {
+		return "/WEB-INF/views/ftl/server/handledorder";
+	}
+	@RequestMapping("/allorder")
+	public String allOrder() {
+		return "/WEB-INF/views/ftl/server/allorder";
+	}
+	
+	@RequestMapping("myitemlist")
+	@ResponseBody
+	public Result<List<Map<String, Object>>> listItemOfCurrentServer() {
+		Result<List<Map<String, Object>>> rs = new Result<>();
+		
+		
+		
+		return rs;
+	}
+	
+	@RequestMapping("/addserviceitem")
+	public Result<Object> addServerItem(ServiceItem item) {
+		item.setId(UUIDUtil.genericUUID());
+		boolean success = serverService.AddServiceItem(item);
+		Result<Object> rs = new Result<>();
+		rs.setRsCode(success ? Result.RsCode.Success : Result.RsCode.Fail);
+		return rs;
+	}
+	
+	
 	
 	@RequestMapping("/servcategory")
 	@ResponseBody
