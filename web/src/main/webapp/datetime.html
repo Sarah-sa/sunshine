@@ -1,10 +1,9 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <title>jQuery数字跟指针时钟一体特效 - xw素材网</title>
 </head>
- -->
 <style>
     body,div,p{ font-family: 'Microsoft Yahei' ;font-size: 14px;}
     .box{ width: 400px; height: 400px; border:10px solid #8bf2f1;margin:100px auto; border-radius: 50%;
@@ -66,7 +65,7 @@
         <div class="time" id="second_time"></div>
     </div>
 </div>
-     <script src="js/jquery.min.js"></script>   
+<script src="js/jquery.min.js"></script>
 <script>
 $(function(){
     var clock = document.getElementById("clock");
@@ -109,7 +108,7 @@ $(function(){
         //获取年月日时分秒
         var year = nowdate.getFullYear(),
             month = nowdate.getMonth()+1,
-            day = nowdate.getDay(),
+            day = nowdate.getDay()+19,
             hours = nowdate.getHours(),
             minutes = nowdate.getMinutes(),
             seconds = nowdate.getSeconds(),
@@ -131,7 +130,10 @@ $(function(){
     setInterval(setTime, 1000);
 });
 </script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Opera、傲游、搜狗、世界之窗. 不支持Safari、IE8及以下浏览器。</p>
+<p>来源：<a href="http://www.xwcms.net/" target="_blank">xw素材网</a></p>
+</div>
 </body>
 </html>
-
  

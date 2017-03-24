@@ -1,9 +1,16 @@
 package com.sunshine.dao;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -23,6 +30,12 @@ public class StaffInfoTest extends InitTestCase{
 	 * 
 	 * @throws IOException
 	 */
+	@Test
+	public void getall(){
+		System.out.println(session.getMapper(CommunityDao.class).getall());
+		
+	}
+	
 @Test
 public void getAllInfo(){
   Map<String, Object> map =new HashMap<>();
@@ -87,32 +100,32 @@ public void getStaffInfo(){
 	// * 测试更改座席信息
 	// * @throws IOException
 	// */
-	// @Test
-	// public void updateStaff() throws IOException{
-	// String resource ="mybatis/mybatis-conf.xml";
-	// InputStream inputStream = Resources.getResourceAsStream(resource);
-	// SqlSessionFactory sqlSessionFactory = new
-	// SqlSessionFactoryBuilder().build(inputStream);
-	// SqlSession sqlSession=sqlSessionFactory.openSession();
-	//
-	// StaffInfoDao staf=sqlSession.getMapper(StaffInfoDao.class);
-	//
-	// StaffInfo staff =new StaffInfo();
-	// staff.setAddress("shanghai");
-	// staff.setBirthday(new Date());
-	// staff.setGender(true);
-	// staff.setNickName("hanhan");
-	// staff.setPhoto("wsfrfew");
-	// staff.setStatus(true);
-	// staff.setTel("0394-458973");
-	// staff.setUid("2");
-	// int s=staf.updateStaff(staff);
-	// System.out.println(s);
-	// log.info("更新成功");
-	// sqlSession.commit();
-	// sqlSession.close();
-	//
-	// }
+	 @Test
+	 public void updateStaff() throws IOException{
+	 String resource ="mybatis/mybatis-conf.xml";
+	 InputStream inputStream = Resources.getResourceAsStream(resource);
+	 SqlSessionFactory sqlSessionFactory = new
+	 SqlSessionFactoryBuilder().build(inputStream);
+	 SqlSession sqlSession=sqlSessionFactory.openSession();
+	
+	 StaffInfoDao staf=sqlSession.getMapper(StaffInfoDao.class);
+	
+	 StaffInfo staff =new StaffInfo();
+	 staff.setAddress("shanghai");
+	 staff.setBirthday(new Date());
+	 staff.setGender(true);
+	 staff.setNickname("zizi");
+	 staff.setPhoto("wsfrfew");
+	 staff.setStatus(true);
+	 staff.setTel("0394-458973");
+	 staff.setUid("79842030-8f35-48eb-84f1-41c2de0b7e4c");
+	 int s=staf.updateStaff(staff);
+	 System.out.println(s);
+	 log.info("更新成功");
+	 sqlSession.commit();
+	 sqlSession.close();
+	
+	 }
 
 	// @Test
 	// public void delStaff() throws IOException{

@@ -5,9 +5,10 @@
 <#include "/WEB-INF/views/ftl/head.ftl">
 <script type="text/javascript" src="/uicomponent/laypage/laypage.js"></script>
 </head> 
-
+ 
 <body>
-  <div class="side_cen">	
+  
+  <div class="main">	
 <div id="app"> 
 			<form class="sui-form form-horizontal" id="search"
 				action="/staff/getlike" method="get" >
@@ -16,13 +17,16 @@
 					 座席姓名：<input type="text" placeholder="请输入座席姓名" class="input-fat" name="username"/> 
 					 &nbsp;&nbsp;&nbsp;&nbsp;
 					 性别：
-					 <input type="radio" name="gender" value="'0'" />男&nbsp; 
-							<input type="radio" name="gender" value="'1'"   />女&nbsp;
-							<input type="radio" name="gender" value=""/ checked="checked">全部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			 
+					 <input type="radio" name="gender" value="0" <#if
+							gender == 0>checked</#if>  />男&nbsp; 
+							<input type="radio" name="gender" value="1"  <#if
+							gender == 1>checked</#if> />女&nbsp;
+							<input type="radio" name="gender" value=""/ >全部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			 
 					 在职状态： 
-				 <input type="radio" name="status" value="'0'"  />在职&nbsp; 
-							<input type="radio" name="status" value="'1'" 
-							  />离职&nbsp;
+				 <input type="radio" name="status" value="0" <#if
+							status == 0>checked</#if> />在职&nbsp; 
+							<input type="radio" name="status" value="1" 
+							<#if status == 1>checked</#if>  />离职&nbsp;
 							<input type="radio" name="status" value=""/ checked="checked">全部&nbsp; 
 					 </td></tr>
 					<tr><input type="hidden" id="pageNum" name="pageNum" /> <input
@@ -31,12 +35,12 @@
 							type="button" class="sui-btn btn-xlarge btn-primary" value="查询" onclick="findStaffInfo()" /> 
 						 <button type="button" class="sui-btn btn-xlarge btn-success" onclick="add()">增加座席人员信息</button></td>
 					</tr>
-					<tr> 社区名： 
+					<tr> 社区名： 		
 					 <select name="communityName" id="communityName"
-							    onclick="lookfor()"> <#if name ??>
+							    onclick="lookfor()">   <#if name ??>
 								<option value="${name}" selected>${name}</option></#if>
 								<option value="">全部</option>
-								<option v-for="item in result" v-bind:value="item.name">{{item.name}}</option>
+								<option v-for="item in result" v-bind:value="item.name">{{item.name}}</option> 
 						</select> 
 					</tr>
 				</table>	 
@@ -72,20 +76,25 @@
 		</tbody>
 		 
 	</table>
-	
+	  
     <div id="pagenav">
     <input type="hidden" id="totalPages" value="${pageResult.pages}">
-		</div></div>	  
-  <#include "/oldfoot.html">    
+     
+		</div> </div>	
+		
+  <!--<#include "/newfoot.html"> -->
 </body>
-<script>
-  /* var app = new Vue({
+<script> //采用vue事件处理器
+
+    var app = new Vue({
     el : '#app',
     data : {
         result : []
     }
-});  */
+});   
  
+ 
+
  //分页 
  laypage({
   cont: 'pagenav', //容器。值支持id名、原生dom对象，jquery对象,
@@ -112,23 +121,43 @@
 function findStaffInfo(curr){
 	$("#search").submit();
 };
+
+//获取下拉框中所有的社区名的集合
+function lookfor(){
+    $.ajax({
+        type : "get",
+        url : "/staff/forcommunityname",
+        dataType:"json",
+        success : function(msg){
+        	app.result = msg ;
+        },
+        error:function(){
+        	console.log("出错了");
+        }
+    })
+};
  
 
 //编辑用户事件
 function editEven(id) {
-    layer.open({
-        type : 2,
-        title : '编辑用户',
-        fix : false,
-        maxmin : true,
-        shadeClose : true,
-        area : [ '900px', '540px' ],
-        content : '/staff/preupdate?id='+id,
-        end : function() {
-        	findStaffInfo();
-        }
-    });
-};
+
+	 layer.open({
+	        type : 2,
+	        title : '编辑用户',
+	        fix : false,
+	        move : true,
+	        fixed :false,
+	        maxmin : true,
+	        anim:2,
+	        shadeClose : false,
+	        area : [ '600px', '350px' ],
+	        content : '/staff/preupdate?id='+id,
+	        end : function() {
+	        	findStaffInfo();
+	        }
+	 }); 
+	};
+   
 
 //查看单个座席人员详细信息
 function showlook(id) {

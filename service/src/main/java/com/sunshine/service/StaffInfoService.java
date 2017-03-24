@@ -21,7 +21,7 @@ public interface StaffInfoService {
 			 *对单个座席人员进行修改
 			 *@param si为座席信息对象
 			 */
-		    int updateStaff(String id, StaffInfo si);
+		    int updateStaff(StaffInfo  sf);
 			/**
 			 * 根据id对单个座席人员进行删除
 			 */

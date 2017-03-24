@@ -12,12 +12,12 @@
     <!--插入座席人员-->
     <insert id="saveStaff"  parameterType="com.sunshine.model.StaffInfo">
      insert into t_staff_info(u_id,nickname,birthday,gender,address,tel,photo,status)
-     values (#{uid},#{nickName},#{birthday},#{gender},#{address},#{photo},#{tel},
+     values (#{uid},#{nickname},#{birthday},#{gender},#{address},#{photo},#{tel},
       #{status})
     </insert>
      <!--修改座席人员信息-->
     <update id="updateStaff" parameterType="com.sunshine.model.StaffInfo"  >
-      update t_staff_info set nickname=#{nickName},birthday=#{birthday},gender=#{gender},
+      update t_staff_info set nickname=#{nickname},birthday=#{birthday},gender=#{gender},
      address=#{address},tel=#{tel}, photo=#{photo}, status=#{status} where u_id=#{uid}
     </update>
      <!--删除座席人员信息-->
@@ -48,7 +48,7 @@
 	
 	<select id="getStaff" parameterType="java.lang.String"
 		resultType="map">
-	select u.username,u.phone,u.phone,u.email,u.idcard,s.u_id,s.photo,s.nickname,s.birthday,s.gender,s.address,s.status,c.name from (t_user u
+	select u.id,u.username,u.phone,u.phone,u.email,u.idcard,s.u_id,s.photo,s.nickname,s.birthday,s.gender,s.address,s.status,c.name from (t_user u
 		left join t_staff_info s on u.id=s.u_id) left join t_community c on s.u_id=u.community_id where s.u_id=#{uid}
 	</select>
 	 <!--获取所有的座席人员的状态 -->

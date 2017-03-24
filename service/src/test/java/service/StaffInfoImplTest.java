@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sunshine.model.StaffInfo;
+import com.sunshine.service.CommunityService;
 import com.sunshine.service.StaffInfoService;
 import com.sunshine.util.UUIDUtil;
 
@@ -24,16 +25,23 @@ public class StaffInfoImplTest {
 private static Logger log=Logger.getLogger(StaffInfoImplTest.class);
  
 ApplicationContext  cte=new ClassPathXmlApplicationContext("classpath:spring/spring.xml","classpath:spring/spring-mybatis.xml");
-StaffInfoService stf =cte.getBean(StaffInfoService.class);
+CommunityService stf =cte.getBean(CommunityService.class);
 /**
  * 测试获取座席信息集合
  */
 @Test
 public void getListStaffTest() {
 	// TODO Auto-generated constructor stub
-           List staffList =(List) stf.getListStaff();
-           log.info(staffList);
+           List staffList =(List) stf.getall();
+            System.out.println(staffList);
+}
  
+           
+//           @Test
+//           public void getListcommunity() {
+//           	// TODO Auto-generated constructor stub
+//                      List staffList =(List) stf.getListStaff();
+//                      log.info(staffList);
 ///**
 // * 测试添加座席信息
 // */
@@ -54,15 +62,15 @@ public void getListStaffTest() {
 //	log.info("添加成功");
 //	System.out.println(i);
 //}
-}
+ 
 
 /**
  * 删除座席信息 
  */
-@Test
-public void  delStaffTest() {
-	// TODO Auto-generated constructor stub
-         int i=stf.delStaff("fb2c3b89-fbaa-4e91-88c1-7df258777fc2");
-         log.info(i);
-}
+//@Test
+//public void  delStaffTest() {
+//	// TODO Auto-generated constructor stub
+//         int i=stf.delStaff("fb2c3b89-fbaa-4e91-88c1-7df258777fc2");
+//         log.info(i);
+//}
 }

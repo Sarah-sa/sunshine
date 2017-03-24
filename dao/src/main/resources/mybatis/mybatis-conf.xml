@@ -52,7 +52,7 @@
 	</environments>
 
 	<mappers>
-     <!--  
+       <!--  
 		<mapper resource="mybatis/mappers/AdminMapper.xml" />
 		<mapper resource="mybatis/mappers/AdviceDao.xml" />
 		<mapper resource="mybatis/mappers/RoleDao.xml" />
@@ -80,6 +80,7 @@
 		<mapper resource="mybatis/mappers/EquipmentDao.xml" />
 		<mapper resource="mybatis/mappers/EquipmentcategoryDao.xml" />
 		<mapper resource="mybatis/mappers/EquipmentrecordDao.xml" />
-		  --> 
+		<mapper resource="mybatis/mappers/CommunityDao.xml" />
+		    -->
 	</mappers>
 </configuration>

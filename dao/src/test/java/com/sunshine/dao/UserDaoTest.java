@@ -46,20 +46,19 @@ public class UserDaoTest extends InitTestCase {
 	 *	修改用户信息
 	 * @throws Exception
 	 */
-/*	@Test
+ 	@Test
 	public void updateUserTest() throws Exception{
 		
 		UserDao userDao = session.getMapper(UserDao.class);
 		// new UUIDUtil().genericUUID();
-		User user =new User();
+       User user=userDao.getuser("44");
 		user.setUserName("G贪....");
 		user.setEmail("9421867@qq.com");
-		user.setPhone("18037454080");
-		user.setId("2");
+		user.setPhone("1821680");
 		userDao.updateUser(user);
 	
 		
-	}*/
+	} 
 	
 	/**
 	 * 删除用户

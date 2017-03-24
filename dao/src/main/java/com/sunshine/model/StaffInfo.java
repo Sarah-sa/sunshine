@@ -79,7 +79,7 @@ public class StaffInfo {
 	@Override
 	public String toString() {
 		return "StaffInfo [uid=" + uid + ", gender=" + gender + ", address=" + address + ", tel=" + tel + ", photo="
-				+ photo + ", nickName=" + nickname + ", birthday=" + birthday + ", status=" + status + "]";
+				+ photo + ", nickname=" + nickname + ", birthday=" + birthday + ", status=" + status + "]";
 	}
 	
 	

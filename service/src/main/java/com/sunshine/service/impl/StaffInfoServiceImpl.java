@@ -33,8 +33,8 @@ public class StaffInfoServiceImpl implements StaffInfoService{
 	 * 修改座席信息 
 	 */
 	@Override
-	public int updateStaff(String id,StaffInfo si) {
-		return sid.updateStaff(si);
+	public int updateStaff(StaffInfo sf) {
+		return sid.updateStaff(sf);
 	}
 	/**
 	 * 删除座席信息
