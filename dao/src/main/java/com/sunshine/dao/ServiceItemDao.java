@@ -11,6 +11,7 @@ import com.sunshine.model.ServiceItem;
  *
  */
 public interface ServiceItemDao {
+	
 	/**
 	 * 根据id获取服务条目
 	 * @param id 服务项目的id

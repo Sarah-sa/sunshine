@@ -3,6 +3,7 @@ package com.sunshine.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.Page;
 import com.sunshine.criteria.CriteriaOrder;
 import com.sunshine.model.Order;
 
@@ -47,14 +48,14 @@ public interface OrderDao {
 	 * @param uid 用户id
 	 * @return
 	 */
-	List<Order> listUnFinishedOrderByUser(String uid);
+	List<Map<String, Object>> listUnFinishedOrderByUser(String uid);
 	
 	/**
 	 * 列出所有指定用户所下已完成的订单
 	 * @param uid 用户id
 	 * @return
 	 */
-	List<Order> listFinishedOrderByUser(String uid);
+	List<Map<String, Object>> listFinishedOrderByUser(String uid);
 	
 	/**
 	 * @deprecated 此方法不推荐使用，因为sql 不支持对两条联合的查询结果分别进行排序
@@ -63,21 +64,21 @@ public interface OrderDao {
 	 * @return
 	 */
 	@Deprecated
-	List<Order> listOrderByUser(String uid);
+	List<Map<String, Object>> listOrderByUser(String uid);
 	
 	/**
 	 * 列出所有指定服务商所接到的未完成的订单
 	 * @param serverId 服务商 id
 	 * @return
 	 */
-	List<Order> listUnFinishedOrderByServer(String serverId);
+	List<Map<String, Object>> listUnFinishedOrderByServer(String serverId);
 	
 	/**
 	 * 列出所有指定服务商所接到的已完成的订单
 	 * @param serverId 服务商 id
 	 * @return
 	 */
-	List<Order> listFinishedOrderByServer(String serverId);
+	List<Map<String, Object>> listFinishedOrderByServer(String serverId);
 	
 	/**
 	 * @deprecated 此方法不推荐使用，因为 sql 语句不支持 对联合的两条sql查询分别排序
@@ -86,11 +87,33 @@ public interface OrderDao {
 	 * @return
 	 */
 	@Deprecated
-	List<Order> listOrderByServer(String serverId);
+	List<Map<String, Object>> listOrderByServer(String serverId);
 	/**
 	 * 对订单进行模糊查询
 	 * @param criteriaOrder 模糊查询类
 	 * @return 符合条件的订单
 	 */
-	List<Map<String, String>> listOrderByCriteria(CriteriaOrder criteriaOrder);
+	List<Map<String, Object>> listOrderByCriteria(CriteriaOrder criteriaOrder);
+	
+	/**
+	 * 根据服务项目获取未完成的订单
+	 * @param itemId
+	 * @return
+	 */
+	List<Order> listUnHandledOrderByItem(String itemId);
+	
+	/**
+	 * 获取订单详情
+	 * @param id 订单 id
+	 * @return 订单详情
+	 */
+	Map<String, Object> getOrderDetail(String id);
+	
+	/**
+	 * 获取所有已接单未完成的订单
+	 * @param id
+	 * @return
+	 */
+	Page<Map<String, Object>> listAcceptOrderSummaryByServer(String id);
+	
 }

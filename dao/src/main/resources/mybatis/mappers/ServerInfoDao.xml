@@ -6,6 +6,7 @@
 	
 	<resultMap type="com.sunshine.model.ServerInfo" id="serverInfo" autoMapping="true">
 		<id column="u_id" property="uid"/>
+		<result property="status" typeHandler="com.sunshine.util.EnumConveter" column="status"/>
 		<result column="mgr_name" property="mgrName"/>
 		<result column="mgr_idcard" property="mgrIdcard"/>
 		<result column="mgr_gender" property="mgrGender"/>
@@ -17,7 +18,7 @@
 	
 	<!-- 根据 id 查询 服务商信息 -->
 	<select id="getServerInfo" parameterType="string" resultMap="serverInfo">
-		SELECT <include refid="fields" /> FROM t_server_info WHRERE u_id = #{id}
+		SELECT <include refid="fields" /> FROM t_server_info WHERE u_id = #{id}
 	</select>
 	
 	<!-- 插入一条服务商信息 -->
@@ -42,4 +43,9 @@
 	<delete id="removeServerInfo" parameterType="string">
 		DELETE FROM t_server_info WHERE u_id = #{id}
 	</delete>
+	
+	<!-- 根据供应商审核状态获取供应商 -->
+	<select id="listServersByStatus" parameterType="string" resultMap="serverInfo">
+		SELECT <include refid="fields" /> FROM t_server_info WHERE status = #{status}
+	</select>
 </mapper>

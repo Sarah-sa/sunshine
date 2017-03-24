@@ -1,6 +1,7 @@
 package com.sunshine.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,12 @@ public class ComplainServiceImpl implements ComplainService {
 	public int removeComplain(String id) {
 
 		return cdao.removeComplain(id);
+	}
+
+	@Override
+	public List listComplainRelations(Map map) {
+		
+		return cdao.listComplainRelations(map);
 	}
 
 }

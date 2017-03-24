@@ -23,7 +23,7 @@
      <li>栏目导航 </li>
    		<tr class="active" v-for="(item,index) in result">
   <li class="active"><a href="" @click="showEvent(item.id)">{{item.name}}</a></li>  
-        </tr>
+        </tr> 
     </ul>
     	 
 </div> 

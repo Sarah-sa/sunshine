@@ -18,13 +18,13 @@ public class TipsServiceImpl implements TipsService{
 	@Override
 	public List<Tips> getTipsList(String tips_ctgy_id) {
 		// TODO Auto-generated method stub
-		return td.getTipsList(tips_ctgy_id) ;
+		return null;//td.getTipsList(tips_ctgy_id) ;
 	}
 
 	@Override
 	public List<Tips> getLikeTips(String Titlename) {
 		// TODO Auto-generated method stub
-		return td.getLikeTips(Titlename);
+		return null;//td.getLikeTips(Titlename);
 	}
 	
 

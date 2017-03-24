@@ -1,6 +1,8 @@
 package com.sunshine.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.sunshine.model.Complain;
 
 /**
@@ -48,4 +50,15 @@ public interface ComplainDao {
 	 *@return 数据库中受影响的行数
 	 */
 	int removeComplain(String id);
+	
+	/**
+	 *描述：根据查询条件map获得投诉表相关联的的投诉人、被投诉商家、处理人员等的相关字段信息
+	 *@author 王一贺 2017-03-17
+	 *@param map 封装查询条件<br/>可用的key值有--<b>id:</b>投诉的编号;<b>orderId:</b>被投诉的订单编号;
+	 *<b>username:</b>投诉人的姓名;<b>status:</b>投诉已处理？1:0;
+	 *<b>shopname:</b>被投诉的商家名称;<b>staffId:</b>处理该投诉的坐席人员编号;
+	 *<b>startTime:</b>查询该时间点之后的投诉;<b>endTime:</b>查询该时间段之前的投诉;
+	 *@return 满足查询条件的投诉信息集合
+	 */
+	List listComplainRelations(Map map);
 }

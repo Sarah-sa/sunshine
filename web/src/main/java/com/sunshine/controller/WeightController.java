@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.tools.example.debug.expr.ParseException;
+
 import com.sunshine.model.Weight;
 import com.sunshine.service.WeightService;
+
+import freemarker.core.ParseException;
 
 	/**
 	 * 
@@ -38,7 +40,7 @@ public class WeightController {
 	}
   	
 	@RequestMapping("/getweight")
-	public ModelAndView listWeight(Date sdate, Date edate, HttpServletRequest req) throws ParseException{
+	public ModelAndView listWeight(Date sdate, Date edate, HttpServletRequest req){
 		List<Weight> weight=weightService.getWeight(sdate, edate);
 		Map<String,Object> dat = new HashMap<String,Object>(); 
 		dat.put("Weight",weight);

@@ -45,4 +45,5 @@ public interface StaffInfoDao {
 	 * @return 对应的坐席人员信息
 	 */
 	StaffInfo getStaffInfo(String staffId);
+ 
 }

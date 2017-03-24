@@ -36,8 +36,8 @@ public class TipsTest {
 	 SqlSession sqlSession=sqlSessionFactory.openSession();
 	
 	 TipsDao tsd=sqlSession.getMapper(TipsDao.class);
-	 List list=tsd.getTipsList("1");
-	 System.out.println(list);
+	 //List list=tsd.getTipsList("1");
+	 //System.out.println(list);
 	 }
 	 
 	 @Test
@@ -50,8 +50,8 @@ public class TipsTest {
 	 SqlSession sqlSession=sqlSessionFactory.openSession();
 	
 	 TipsDao tsd=sqlSession.getMapper(TipsDao.class);
-	 List list=tsd.getLikeTips("健康");
-	 System.out.println(list);
+	 //List list=tsd.getLikeTips("健康");
+	 //System.out.println(list);
 	
 	 }
 	

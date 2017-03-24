@@ -18,18 +18,21 @@
 
 	<!--更新老人用户信息 -->
 	<update id="updateElderUser" parameterType="com.sunshine.model.ElderUser">
-		update t_elder_User set
-		elder_id=#{elderid},
-		user_id=#{userid},
+		update t_elder_user set
+		elder_id=#{elder_id},
+		user_id=#{user_id},
 		relation=#{relation}
 		where id=#{id}
 	</update>
 
-	<!--根据主键获取老人用户对象 -->
+	<!--根据主键获取单个老人用户对象 -->
 	<select id="getElderUser" parameterType="string" resultType="com.sunshine.model.ElderUser">
 		select * from t_elder_user where id=#{id}
 	</select>
-
+    <!-- 根据主键获取所有老人用户对象 -->
+    <!-- <select id="listElderUser" resultMap="ElderUserMap">
+    select * from t_elder_user
+    </select> -->
 	<!--获取所有和指定用户有关联的老人 -->
 	<select id="listAllRelatedElder" parameterType="string"
 		resultType="map">
@@ -37,6 +40,6 @@
 		YEAR(NOW())-YEAR(birthday) AS age
 		FROM t_elder_user AS r INNER JOIN t_elder AS e ON e.id = r.elder_id
 		WHERE e.id in
-		(SELECT teu.elder_id from t_elder_user as teu where user_id = '2')
+		(SELECT teu.elder_id from t_elder_user as teu where user_id = #{user_id})
 	</select>
 </mapper>

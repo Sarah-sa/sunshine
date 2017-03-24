@@ -29,7 +29,7 @@ public class ServerInfo {
 	private String certificates;
 	// 店面描述
 	private String description;
-	private String status;
+	private ServerStatus status;
 
 	public String getUid() {
 		return uid;
@@ -111,11 +111,11 @@ public class ServerInfo {
 		this.description = description;
 	}
 
-	public String getStatus() {
+	public ServerStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(ServerStatus status) {
 		this.status = status;
 	}
 

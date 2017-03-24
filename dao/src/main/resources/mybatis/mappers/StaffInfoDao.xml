@@ -56,11 +56,10 @@
 	select status from t_staff_info
 	</select>
 	
-	 <!-- 根据坐席人员 id 获取坐席人员信息 -->
+    <!-- 根据坐席人员 id 获取坐席人员信息 -->
 	<select id="getStaffInfo" parameterType="string" resultType="com.sunshine.model.StaffInfo">
 		SELECT u_id as uid, nickname, birthday, gender, address, tel, photo, status
 		FROM t_staff_info WHERE u_id = #{id}
 	</select>
-	
-	
+ 
 </mapper>

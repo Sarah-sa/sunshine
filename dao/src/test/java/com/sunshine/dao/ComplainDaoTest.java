@@ -1,7 +1,9 @@
 package com.sunshine.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -108,5 +110,56 @@ public class ComplainDaoTest extends InitTestCase{
 	@Test
 	public void deleTest(){
 		getDao().removeComplain("e96df2b0-c85d-4d44-8b56-ccb218c8a8cb");
+	}
+	
+	/**
+	 *描述：数据库中要添加测试数据，产生一些主键
+	 *@author 王一贺 2017-03-17
+	 */
+	@Test
+	public void createUUID(){
+		for(int i=0;i<15;i++){
+			System.out.println(UUIDUtil.genericUUID());
+		}
+	}
+	
+	/**
+	 *描述：数据库中要添加测试数据，订单编号（系统当前时间的毫秒数）
+	 *@author 王一贺 2017-03-17
+	 */
+	@Test
+	public void createOrderCode(){
+		
+		for(int i=0;i<15;i++){
+			System.out.println(System.currentTimeMillis()+i);
+		}
+	}
+	
+	/**
+	 *描述：测试投诉-订单-用户-商家-坐席5表联合、多条件查询的方法
+	 *@author 王一贺 2017-03-17
+	 *结果：ok!需注意mp.put("status","1")中的"1"要以字符串形式，不能用int类型。
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void criteriaQuery(){
+		Map mp = new HashMap();
+		//mp.put("status", "1");//此处的“1”要以字符串的形式传参，否则无效
+		//mp.put("username", "贪恋");
+		//mp.put("shopname", "果果果水果店");
+		//mp.put("startTime", "2017-03-08 16:54:21");
+		//mp.put("endTime", "2017-03-09 14:54:21");
+		//mp.put("id", "08337c42-289e-41b0-b1a5-257f0ccd7a27");
+		mp.put("staffId", "9055b309-5e74-4ae8-a951-dc1615d4c820");
+		List<Map<String,Object>> list = getDao().listComplainRelations(mp);
+		for (Map<String, Object> map : list) {
+			for(Map.Entry<String, Object> m : map.entrySet()){
+				System.out.println("---"+m.getKey()+"::::");
+				System.out.println(m.getValue());
+				
+			}
+			//System.out.println(map.get("content"));
+		}
+		
 	}
 }

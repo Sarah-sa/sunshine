@@ -17,6 +17,8 @@ public class Module implements Comparable<Module> {
 	private String pid;
 	//菜单图标url
 	private String icon;
+	
+	private String url;
 	public String getId() {
 		return id;
 	}
@@ -41,11 +43,16 @@ public class Module implements Comparable<Module> {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	@Override
 	public String toString() {
-		return "Module [id=" + id + ", name=" + name + ", pid=" + pid + ", icon=" + icon + "]";
+		return "Module [id=" + id + ", name=" + name + ", pid=" + pid + ", icon=" + icon + ", url=" + url + "]";
 	}
-	
 	@Override
 	public int compareTo(Module module) {
 		if (module == null)

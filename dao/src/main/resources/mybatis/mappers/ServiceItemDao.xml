@@ -67,7 +67,7 @@
 	<!-- 列出所有指定项目下的可用的服务项目 -->
 	<select id="listAvailableItemByCgy" parameterType="string" resultType="map">
 		SELECT <include refid="labelWithAlias" />
-		WHERE si.srv_ctgy_id = #{cgyId} AND si.status = b'0'
+		WHERE si.srv_ctgy_id = #{cgyId} AND si.status = b'1'
 		ORDER BY name ASC
 	</select>
 </mapper>

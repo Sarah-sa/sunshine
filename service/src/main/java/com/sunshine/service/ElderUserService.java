@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sunshine.model.ElderUser;
+import com.sunshine.model.VisitRecord;
 
 /**
  * 老人用户业务层
@@ -60,6 +61,12 @@ public interface ElderUserService {
 	 * 
 	 */
 	List<Map<String, Object>> listAllRelatedElder(String uid);
+
+	/**
+	 * 获得所有的老人用户信息
+	 * @return 老人用户的list集合
+	 */
+	List<ElderUser> listElderUser();
 
 	
 

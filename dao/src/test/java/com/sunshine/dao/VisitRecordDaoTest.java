@@ -2,8 +2,13 @@ package com.sunshine.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,8 +17,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+
 import com.github.pagehelper.PageHelper;
-import com.sunshine.dao.VisitRecordDao;
 import com.sunshine.model.VisitRecord;
 import com.sunshine.util.UUIDUtil;
 
@@ -111,5 +116,34 @@ public class VisitRecordDaoTest {
 			log.info(v);			
 		};
 		
+	}
+	/**
+	 *描述：对视图v_visit_elder_staff的查询测试
+	 *@author 王一贺 2017-03-10
+	 * @throws ParseException
+	 * 结果：测试成功 
+	 */
+	@Test
+	public void viewTest() throws ParseException{
+		VisitRecordDao vrd = session.getMapper(VisitRecordDao.class);
+		//格式化时间
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");	
+		//设置查询限制条件
+		Map<String,Object> map0 = new HashMap<String,Object>();
+		map0.put("startTime", sdf.format(new Date()));
+		map0.put("endTime", "2017-03-13 17:08:03");
+		map0.put("id", "1f0fd5fc-1057-4cce-9dc2-169bcf5b69a6");
+		map0.put("status", 1);
+		map0.put("name", "王大爷");
+		//分页
+		PageHelper.startPage(1, 8);
+		List<Map<String,Object>> listMap = vrd.listVisitElderStaff(map0);
+		for(Map<String,Object> map : listMap){
+			for(Map.Entry<String, Object> m : map.entrySet()){
+//				log.info(m.getKey());
+//				log.info(m.getValue());
+				System.out.print(m.getValue()+"^^^");
+			}
+		}
 	}
 }
