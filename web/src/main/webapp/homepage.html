@@ -110,7 +110,7 @@
             <a href=''>新增老人</a>
             <a href=''>亲属关系</a>
             <a href=''>基本健康信息</a>
-            <a href='/hobbys/hobbyes'>特长爱好</a>
+            <a href='#' id="/hobbys/hobbyes">特长爱好</a>
             <a href=''>未审核人老人</a>
             <a href=''>批量导入</a>
             <a href=''>老人列表</a>
@@ -137,18 +137,16 @@
 						</ul>
 			</div>
 			<div class="main">
-				<iframe id="content"></iframe>
+				<iframe id='contentframe' scrolling="no" style="width: 100%;height: 100%"></iframe>
 			</div>
 		</div>
 </div>
 <div class="bottom"></div>
 <div id="footer"><p>郑州爱家有限公司</p></div>
 <script>
+	navList(12);
 	$('#nav_dot a').on('click', function() {
-		type:'post',
-		url:'/WEB-INF/views/ftl/head.ftl',
-		data:'',
-		
+		$('#contentframe').attr('src', $(this).attr('id'));
 	})
 </script>
 </body>

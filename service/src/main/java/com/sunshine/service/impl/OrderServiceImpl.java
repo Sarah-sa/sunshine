@@ -16,6 +16,7 @@ import com.sunshine.model.Order;
 import com.sunshine.model.ServCategory;
 import com.sunshine.model.User;
 import com.sunshine.service.OrderService;
+import com.sunshine.util.UUIDUtil;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -92,5 +93,18 @@ public class OrderServiceImpl implements OrderService {
 		PageHelper.startPage(pageIndex, pageSize);
 		Page<Map<String, Object>> page = orderDao.listAcceptOrderSummaryByServer(getPrincipal().getId());
 		return page;
+	}
+
+	@Override
+	public boolean addOrder(Order order) {
+		if(order.getId() == null)
+			order.setId(UUIDUtil.genericUUID());
+		return orderDao.saveOrder(order) > 0;
+	}
+
+	@Override
+	public boolean updateOrder(Order order) {
+		
+		return orderDao.updateOrder(order) > 0;
 	}
 }

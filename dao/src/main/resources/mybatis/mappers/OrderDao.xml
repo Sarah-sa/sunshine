@@ -12,7 +12,7 @@
 	
 	<sql id="mulFields">
 		o.code as NO, o.cost as cost, o.quantity as quantity, o.item_id as itemId, 
-		i.itemName as itemName, o.createtime as createTime FROM t_order AS o left join t_service_item as i 
+		i.name as itemName, o.createtime as createTime FROM t_order AS o left join t_service_item as i  on o.item_id = i.id
 	</sql>
 	
 	<resultMap type="com.sunshine.model.Order" id="order" autoMapping="true">
