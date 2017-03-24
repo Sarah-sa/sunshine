@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sunshine.model.Elder;
 import com.sunshine.model.ElderUser;
@@ -93,5 +94,19 @@ public class ElderController {
     public List<Elder> listAllElders(String id) throws Exception{
     	List<Elder> list=elderService.listAllElders();
     	return list;
+    }
+   /**
+    * 新增老人
+    * @param elder
+    * @return
+    */
+    @RequestMapping("/addElder")
+    public ModelAndView addElderes(Elder elder){
+//    	elder.setId(UUIDUtil.genericUUID());
+//    	elder.setName("张三");
+//    	elder.setGender("0");
+    	int i =elderService.saveElder(elder);
+		return new ModelAndView("/WEB-INF/views/ftl/hobby/addOldUser",null);
+    	
     }
 } 
