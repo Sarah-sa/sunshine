@@ -14,6 +14,7 @@ import com.sunshine.dao.ServerInfoDao;
 import com.sunshine.dao.ServiceItemDao;
 import com.sunshine.model.ServCategory;
 import com.sunshine.model.ServerInfo;
+import com.sunshine.model.ServerStatus;
 import com.sunshine.model.ServiceItem;
 import com.sunshine.model.User;
 import com.sunshine.service.ServerService;
@@ -48,7 +49,7 @@ public class ServerServiceImpl implements ServerService {
 	public PageInfo<ServerInfo> listAllUnVerifiedServerByPage(int pageIndex, int pageSize) {
 		PageHelper.startPage(pageIndex, pageSize, true);
 		
-		PageInfo<ServerInfo> page = new PageInfo<>(infoDao.listServersByStatus(ServerInfo.ServerStatus.ToBeVerified.toString()));
+		PageInfo<ServerInfo> page = new PageInfo<>(infoDao.listServersByStatus(ServerStatus.ToBeVerified.toString()));
 		return page;
 	}
 
