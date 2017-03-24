@@ -127,7 +127,7 @@
   </ul>
 		</div>
 		<div class="m-right">
-			<div class="right-nav">
+			<!-- <div class="right-nav">
 					<ul>
 							<li><img src="images/home.png"></li>
 								<li style="margin-left:25px;">您当前的位置：</li>
@@ -135,19 +135,23 @@
 								<li>></li>
 								<li><a href="#">最新公告</a></li>
 						</ul>
-			</div>
+			</div> -->
 			<div class="main">
+
 				<iframe id='contentframe' scrolling="no" style="width: 100%;height: 100%"></iframe>
+
 			</div>
 		</div>
 </div>
 <div class="bottom"></div>
 <div id="footer"><p>郑州爱家有限公司</p></div>
 <script>
+
 	navList(12);
 	$('#nav_dot a').on('click', function() {
 		$('#contentframe').attr('src', $(this).attr('id'));
 	})
+
 </script>
 </body>
 </html>

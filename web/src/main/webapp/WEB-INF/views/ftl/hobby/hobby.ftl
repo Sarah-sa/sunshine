@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="//res.layui.com/layui/build/css/layui.css"  media="all">
- <#include "/WEB-INF/views/ftl/head.ftl">
+
  
 </head>
 <body>
 <form class="sui-form">
-<#include "/oldhead.html">
+
 	 <div style="background:#f0f0f0; color:black" class="side_cen">
 	 <table class="sui-table table-zebra">
 		
@@ -64,7 +64,7 @@
 	 </table>
  		  </div>
  		  </form>
-	<#include "/oldfoot.html">
+	
 </body>
 <script src="/js/theOld.js">  
 
