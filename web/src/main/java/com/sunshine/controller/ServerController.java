@@ -48,6 +48,24 @@ public class ServerController {
 		return "/WEB-INF/views/ftl/server/itemlist";
 	}
 	
+	@RequestMapping("/orderlist")
+	public String orderList() {
+		return "/WEB-INF/views/ftl/server/orderlist";
+	}
+	
+	@RequestMapping("/neworder")
+	public String newOrder() {
+		return "/WEB-INF/views/ftl/server/neworder";
+	}
+	@RequestMapping("/handledorder")
+	public String handledOrder() {
+		return "/WEB-INF/views/ftl/server/handledorder";
+	}
+	@RequestMapping("/allorder")
+	public String allOrder() {
+		return "/WEB-INF/views/ftl/server/allorder";
+	}
+	
 	@RequestMapping("myitemlist")
 	@ResponseBody
 	public Result<List<Map<String, Object>>> listItemOfCurrentServer() {

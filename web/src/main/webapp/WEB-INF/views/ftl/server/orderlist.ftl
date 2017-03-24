@@ -10,7 +10,31 @@
 <script type='text/javascript' src='/js/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='/js/config.js' charset='utf-8'></script>
 <script type='text/javascript' src='/js/vue.js' charset='utf-8'></script>
-
+<style type="text/css">
+	body>div.content>div.content-block{
+		position: relative;
+		border: 1px red solid;
+		top: 0px;
+		bottom: 0px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		/* height: 100%; */
+	}
+	div.content-block div.content-block {
+		position: relative;
+		border: 1px red solid;
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+	}
+	iframe {
+		position: absolute;
+		bottom: 0px;
+		
+		width: 100%;
+		height: 100%;
+	}
+</style>
 </head>
 <body>
 	<header class="bar bar-nav">
@@ -26,17 +50,17 @@
     <div class="tabs">
       <div id="tab1" class="tab active">
         <div class="content-block">
-          <iframe src="allOrder.html"></iframe>
+          <iframe scrolling="no" src="/server/allorder"></iframe>
         </div>
       </div>
       <div id="tab2" class="tab">
         <div class="content-block">
-          <iframe src="neworder.html"></iframe>
+          <iframe scrolling="no" src="/server/neworder"></iframe>
         </div>
       </div>
       <div id="tab3" class="tab">
         <div class="content-block">
-          <iframe scr="handledorder.html"></iframe>
+          <iframe scrolling="no" scr="/server/handledorder"></iframe>
         </div>
       </div>
     </div>
